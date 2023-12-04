@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply !bg-background;
+    font-family: "Readex Pro", sans-serif;
+  }
+}
+
+@layer components {
+  .asidebar::-webkit-scrollbar {
+    @apply w-0;
+  }
+
+  .nav__link {
+    @apply flex items-center gap-x-3 px-[2.15rem] py-[0.25rem] hover:scale-[];
+  }
+
+  .active_link {
+    @apply text-white !fill-transparent stroke-white bg-primary-default rounded-br-[1.875rem] rounded-tr-[1.875rem];
+  }
+}
