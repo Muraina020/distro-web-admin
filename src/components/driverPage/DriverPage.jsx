@@ -35,27 +35,29 @@ const DriverPage = () => {
     // Add displayStatus and backgroundColor properties to each item in the sampleData
     const initialData = sampleData.map((item) => ({
       ...item,
-      displayStatus: item.status,
-      backgroundColor: "#46B04C", // Default background color for ACTIVE
+      displayStatus: "online", // Set all items to have "online" text
+      backgroundColor: "#46B04C", // Set the background color accordingly
     }));
-
+  
     setData(initialData);
-  }, []); // Run this effect only once when the component mounts
+  }, []); // 
 
   const [activeHeader, setActiveHeader] = useState("ACTIVE");
   
-    const handleHeaderClick = (header) => {
-      setActiveHeader(header);
-
+  const handleHeaderClick = (header) => {
+    setActiveHeader(header);
+  
     // Modify data based on the clicked header
     let modifiedData = sampleData.map((item) => {
-      if ((header === "INACTIVE" || header === "UNIFIED") && item.status !== "online") {
+      if (header === "ACTIVE") {
+        return { ...item, displayStatus: "online", backgroundColor: "#46B04C" };
+      } else if ((header === "INACTIVE" || header === "UNIFIED") && item.status !== "online") {
         return { ...item, displayStatus: "offline", backgroundColor: "#F9BF42" };
       } else {
         return { ...item, displayStatus: item.status, backgroundColor: "#46B04C" };
       }
     });
-
+  
     setData(modifiedData);
   };
 
@@ -132,7 +134,7 @@ const DriverPage = () => {
         </Thead>
         <Tbody>
           {data.map((item, index) => (
-            <Tr  key={index} borderBottom="2px solid lightgray" style={{ color: '#696969' }}  onClick={() => handleRowClick(item.status)}>
+            <Tr  key={index} borderBottom="2px solid lightgray" style={{ color: '#696969', cursor: 'pointer' }}  onClick={() => handleRowClick(item.status)}>
               <Td>{item.id}</Td>
               <Td>{item.name}</Td>
               <Td>{item.email}</Td>

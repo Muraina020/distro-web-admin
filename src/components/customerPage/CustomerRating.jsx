@@ -16,9 +16,17 @@ import {
 import { FaArrowLeft } from 'react-icons/fa';
 import { StarIcon } from '@chakra-ui/icons';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 
 const CustomerRating = () => {
+  
+    const navigate = useNavigate();
+    const handleOrder = () => {
+        // Add logic to handle the "Order" click (if needed)
+        // Once the logic is executed, navigate to the "rating" page
+        navigate('/customeracc');
+      };
   return (
    
         <div style={{ position: 'relative' }}>
@@ -46,9 +54,9 @@ const CustomerRating = () => {
             </Tr>
 
 
-            <Tr borderBottom="2px solid lightgray">
-              <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C' }}> Details</Td>
-              <Td> Order</Td>
+            <Tr borderBottom="2px solid lightgray" cursor='pointer'>
+              <Td onClick={handleOrder}> Details</Td>
+              <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C', textAlign: "center" }}> Order</Td>
             </Tr>
 
             <Tr>

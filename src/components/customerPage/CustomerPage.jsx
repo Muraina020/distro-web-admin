@@ -52,7 +52,7 @@ const CustomerPage = () => {
           </Thead>
           <Tbody>
             {data.map((item, index) => (
-              <Tr key={index} borderBottom="2px solid lightgray" color='#696969' onClick={handleOrder}>
+              <Tr key={index} borderBottom="2px solid lightgray" cursor='pointer' color='#696969' onClick={handleOrder}>
                 <Td>{item.id}</Td>
                 <Td>{item.name}</Td>
                 <Td>{item.email}</Td>

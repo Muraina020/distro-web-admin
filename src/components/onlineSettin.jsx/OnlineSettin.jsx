@@ -82,7 +82,7 @@ const OnlineSettin = () => {
           >
             Details
           </Td>
-          <Td onClick={handleOrder}> Order</Td>
+          <Td onClick={ handleOrder}> Order</Td>
           </Flex>
         </Tr>
 

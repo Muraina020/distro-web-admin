@@ -33,6 +33,7 @@ const Ratingpage = () => {
       // Once the driver is successfully added, navigate to the success page
       navigate('/rated');
     };
+   
     const handleRating = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
@@ -78,9 +79,9 @@ const Ratingpage = () => {
             </Tr>
 
 
-            <Tr borderBottom="2px solid lightgray">
-              <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C' }}> Details</Td>
-              <Td> Order</Td>
+            <Tr borderBottom="2px solid lightgray" cursor='pointer'>
+              <Td onClick={ handleRating}> Details</Td>
+              <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C',  textAlign: "center" }}> Order</Td>
             </Tr>
 
             <Tr>
@@ -104,7 +105,7 @@ const Ratingpage = () => {
               </Td>
             </Tr>
             
-            <Tr onClick={handleRating}>
+            <Tr onClick={handleRating} cursor='pointer'>
               <Td style={{ borderBottom: '1px solid lightgray', fontWeight: "600", color: "black" }}>
                 DL-5679-435EX
               </Td>
@@ -140,7 +141,7 @@ const Ratingpage = () => {
                 N5,600
               </Td>
             </Tr>
-            <Tr onClick={handleAddDriver}>
+            <Tr onClick={handleAddDriver} cursor='pointer'>
               <Td style={{ borderBottom: '1px solid lightgray',  fontWeight: "600", color: "black" }}>
                 DL-5679-435EX
               </Td>

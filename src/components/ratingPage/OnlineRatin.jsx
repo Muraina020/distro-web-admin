@@ -80,8 +80,8 @@ const OnlineRatin = () => {
 
 
         <Tr borderBottom="2px solid lightgray">
-          <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C' }}> Details</Td>
-          <Td> Order</Td>
+          <Td > Details</Td>
+          <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C',  textAlign: "center" }}> Order</Td>
         </Tr>
 
         <Tr>
