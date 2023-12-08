@@ -7,11 +7,11 @@ const ChatPeople = () => {
   const pathName = useLocation().pathname;
 
   return (
-    <aside className="bg-white  w-[25%] sticky  top-[100rem] pb-7 pt-12  rounded-[0.625rem]">
+    <aside className="bg-white  md:w-[25%] w-full sticky  top-[100rem] pb-7 md:pt-12  pt-3 rounded-[0.625rem] ">
       <div className="flex items-center border-b">
         <Link
           to={"/chat"}
-          className={`w-full relative py-2 text-[1.125rem] text-center text-graylight ${
+          className={`w-full relative py-2 xl:text-[1.125rem] text-base text-center text-graylight ${
             pathName === "/chat" ? "text-primary-default" : null
           }`}
         >
@@ -22,7 +22,7 @@ const ChatPeople = () => {
         </Link>
         <Link
           to={"/chat/customer"}
-          className={`w-full relative py-2 text-[1.125rem] text-center text-graylight ${
+          className={`w-full relative py-2 xl:text-[1.125rem] text-base text-center text-graylight ${
             pathName === "/chat/customer" ? "text-primary-default" : null
           }`}
         >

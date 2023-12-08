@@ -19,13 +19,13 @@ const OrderSharedLayout = () => {
             <NavLink
               to={navtext.path}
               key={i}
-              className={`relative uppercase  py-2 text-[1.5625rem] leading-[2.08444rem] ${
+              className={`relative uppercase  py-2 lg:text-[1.2625rem] text-[.9rem] leading-[2.08444rem] ${
                 isActive ? "text-primary-default" : " text-graylight"
               }`}
             >
               {navtext.text}
               {isActive && (
-                <span className="absolute w-full h-[0.145rem] bg-primary-default left-0 top-full" />
+                <span className="absolute w-full h-[2px] bg-primary-default left-0 top-full" />
               )}
             </NavLink>
           );

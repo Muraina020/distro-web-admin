@@ -295,7 +295,7 @@ const navLinks = [
 
 const ChatSideBar = () => {
   return (
-    <aside className="fixed top-[6rem] w-[6rem] bg-background h-screen">
+    <aside className="fixed top-[6rem] w-[6rem] xl:block hidden bg-background h-screen">
       <ul className="flex flex-col items-center">
         {navLinks.map((link, i) => (
           <li key={i}>

@@ -6,24 +6,27 @@ const SharedLayout = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   return (
-    <Wrapper>
-      <nav className="border-b">
+    <Wrapper className={"sm:bg-white  bg-transparent"}>
+      <nav className="border-b lg:block hidden">
         <ul className="flex ">
           <li className="relative">
             <NavLink
               to={"/profile"}
-              className={`flex items-center uppercase    text-[1.5625rem] px-9 pt-3 w-full gap-x-3 ${
+              className={`flex items-center uppercase   lg:text-[1.2625rem] text-[.9rem] px-9 pt-3 w-full gap-x-3 ${
                 currentPath === "/profile"
                   ? "text-primary-default fill-graylight"
                   : "text-graylight"
               }`}
             >
               <svg
-                className={
-                  currentPath === "/profile"
-                    ? "fill-primary-default"
-                    : "fill-graylight"
-                }
+                className={`
+                lg:w-[23px] w-[18px]
+                 ${
+                   currentPath === "/profile"
+                     ? "fill-primary-default"
+                     : "fill-graylight"
+                 }
+                `}
                 xmlns="http://www.w3.org/2000/svg"
                 width="33"
                 height="31"
@@ -41,18 +44,18 @@ const SharedLayout = () => {
           <li className="relative">
             <NavLink
               to={"/profile/setting"}
-              className={`flex items-center uppercase  text-[1.5625rem] px-9 pt-3 w-full gap-x-3 ${
+              className={`flex items-center uppercase lg:text-[1.2625rem] text-[.9rem] px-9 pt-3 w-full gap-x-3 ${
                 currentPath === "/profile/setting"
                   ? "text-primary-default fill-graylight"
                   : "text-graylight"
               }`}
             >
               <svg
-                className={
+                className={`lg:w-[23px] w-[18px] ${
                   currentPath === "/profile/setting"
                     ? "fill-primary-default"
                     : "fill-graylight"
-                }
+                }`}
                 xmlns="http://www.w3.org/2000/svg"
                 width="35"
                 height="35"

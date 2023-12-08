@@ -4,7 +4,7 @@ const LoginActivities = () => {
       <div className="">
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
-            <h2 className="text-primary-black text-[1.3125rem]">
+            <h2 className="text-primary-black md:text-[1.3125rem] text-base">
               {" "}
               Login Access History
             </h2>
@@ -28,7 +28,7 @@ const LoginActivities = () => {
         </div>
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
-            <h2 className="text-primary-black text-[1.3125rem]">
+            <h2 className="text-primary-black md:text-[1.3125rem] text-base">
               {" "}
               Session Management
             </h2>

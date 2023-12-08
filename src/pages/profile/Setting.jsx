@@ -6,6 +6,7 @@ import {
   LoginActivities,
   Help,
 } from "../../components";
+import SettingsMobiles from "./SettingsMobiles";
 
 const settingNav = [
   "Notification",
@@ -27,31 +28,34 @@ const Setting = () => {
   };
 
   return (
-    <div className="mt-5 flex">
-      <div className="w-[19rem]">
-        <ul className="space-y-4">
-          {settingNav.map((text) => {
-            return (
-              <li key={text}>
-                <button
-                  onClick={() => setCurrentSetting(text)}
-                  className={`text-[1.3125rem] text-start w-full py-4 px-7 ${
-                    currentSetting === text
-                      ? "text-primary-default"
-                      : "text-primary-black"
-                  }`}
-                >
-                  {text}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+    <>
+      <div className="mt-5 sm:flex hidden">
+        <div className="w-[19rem]">
+          <ul className="space-y-4">
+            {settingNav.map((text) => {
+              return (
+                <li key={text}>
+                  <button
+                    onClick={() => setCurrentSetting(text)}
+                    className={`md:text-[1.3125rem] text-base text-start w-full py-4 px-7 ${
+                      currentSetting === text
+                        ? "text-primary-default"
+                        : "text-primary-black"
+                    }`}
+                  >
+                    {text}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="bg-[#ECF3F9] h-full w-full rounded-[0.1875rem]">
+          {currentSetting && settings[currentSetting]}
+        </div>
       </div>
-      <div className="bg-[#ECF3F9] w-full rounded-[0.1875rem]">
-        {currentSetting && settings[currentSetting]}
-      </div>
-    </div>
+      <SettingsMobiles />
+    </>
   );
 };
 export default Setting;

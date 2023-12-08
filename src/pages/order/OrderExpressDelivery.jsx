@@ -71,7 +71,7 @@ const OrderExpressDelivery = () => {
                   color: selectedTextTable === text && color[selectedTextTable],
                 }}
                 onClick={() => setSelectedTextTable(text)}
-                className={`uppercase  text-[1.125rem] w-full py-3   text-graylight`}
+                className={`uppercase  lg:text-[1rem] sm:text-[.9rem] text-[0.5875rem] w-full py-3   text-graylight`}
               >
                 {text}
               </button>

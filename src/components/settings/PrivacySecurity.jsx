@@ -4,7 +4,7 @@ const PrivacySecurity = () => {
       <div className="">
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
-            <h2 className="text-primary-black text-[1.3125rem]">
+            <h2 className="text-primary-black text-base md:text-[1.3125rem]">
               {" "}
               Blocked Customer
             </h2>
@@ -28,7 +28,7 @@ const PrivacySecurity = () => {
         </div>
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
-            <h2 className="text-primary-black text-[1.3125rem]">
+            <h2 className="text-primary-black text-base md:text-[1.3125rem]">
               {" "}
               Blocked Driver
             </h2>
@@ -52,7 +52,7 @@ const PrivacySecurity = () => {
         </div>
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
-            <h2 className="text-primary-black text-[1.3125rem]">
+            <h2 className="text-primary-black text-base md:text-[1.3125rem]">
               {" "}
               Deactivate Account
             </h2>
@@ -76,7 +76,7 @@ const PrivacySecurity = () => {
         </div>
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
-            <h2 className="text-primary-black text-[1.3125rem]">
+            <h2 className="text-primary-black text-base md:text-[1.3125rem]">
               {" "}
               Privacy Policy{" "}
             </h2>

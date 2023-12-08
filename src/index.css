@@ -23,4 +23,8 @@
   .active_link {
     @apply text-white !fill-transparent stroke-white bg-primary-default rounded-br-[1.875rem] rounded-tr-[1.875rem];
   }
+
+  .sidebar-icon {
+    width: 30px;
+  }
 }

@@ -4,7 +4,7 @@ const CustomerChats = () => {
   return (
     <div>
       <div className="flex gap-x-4 items-center border-b px-4 pb-1">
-        <div className="w-[4.375rem] h-[4.375rem] rounded-full">
+        <div className="xl:w-[4.375rem] md:w-[3rem] w-[2rem] xl:h-[4.375rem] md:h-[3rem] h-[2rem] rounded-full">
           <img
             src="https://img.freepik.com/premium-photo/smiling-young-african-man-looking-camera-standing-home-headshot-portrait_562687-3051.jpg?size=626&ext=jpg&ga=GA1.1.1239515754.1699101641&semt=sph"
             alt=""
@@ -12,15 +12,15 @@ const CustomerChats = () => {
           />
         </div>
         <div>
-          <h1 className="text-[1.875rem] leading-[1.32213rem]  text-primary-black font-semibold">
+          <h1 className="xl:text-[1.875rem] md:text-[1.1rem] text-base leading-[1.32213rem]  text-primary-black font-semibold">
             Leslie Alexander
           </h1>
-          <h6 className="text-primary-default text-[1.1875rem] font-medium">
+          <h6 className="text-primary-default xl:text-[1.1875rem] text-sm font-medium">
             Active
           </h6>
         </div>
       </div>
-      <div className="divider">Fri, Jul 28</div>
+      <div className="divider xl:text-base text-sm">Fri, Jul 28</div>
       <div className="">
         <h4 className="text-center text-[0.875rem] text-primary-black">
           I’m having issues with my account
@@ -31,7 +31,7 @@ const CustomerChats = () => {
             {CusChatMsg.map((chat, i) => {
               return (
                 <div key={i} className=" flex items-start gap-x-2">
-                  <div className="w-[3.125rem] h-[3.125rem]">
+                  <div className="xl:w-[3.125rem] flex-shrink-0 w-[1.9rem] xl:h-[3.125rem] h-[1.9rem]">
                     <img
                       src={chat.img}
                       alt=""
@@ -40,14 +40,14 @@ const CustomerChats = () => {
                   </div>
 
                   <div className="w-[37.8125rem]">
-                    <h1 className="text-primary-black text-[1.375rem] font-semibold">
+                    <h1 className="text-primary-black xl:text-[1.375rem] text-base font-semibold">
                       {chat.name}
-                      <span className="text-[0.875rem] text-graylight ml-1.5">
+                      <span className="xl:text-[0.875rem] text-xs text-graylight ml-1.5">
                         {chat.time}
                       </span>
                     </h1>
 
-                    <p className="mt-1 text-primary-black text-[ 1.125rem] leading-[1.875rem]">
+                    <p className="mt-1 text-primary-black xl:text-[1.125rem] text-sm leading-[1.875rem]">
                       {chat.msg}
                     </p>
                   </div>
@@ -60,7 +60,7 @@ const CustomerChats = () => {
             Jane Cooper ended the chat
           </p>
 
-          <div className="mt-12 w-[52.1875rem] rounded-[1.25rem]  bg-background py-2 px-3">
+          <div className="mt-12 w-[85%] rounded-[1.25rem]  bg-background py-2 px-3">
             <span className="text-graylight text-[1.125rem]">
               Write a message
               <div className=" flex items-center">

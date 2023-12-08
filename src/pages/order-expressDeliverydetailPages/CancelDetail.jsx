@@ -1,16 +1,10 @@
-import { Link } from "react-router-dom";
-import { GoArrowLeft } from "react-icons/go";
 import { TableDetailInfo, Wrapper } from "../../components";
+import ArrowBack from "../../components/ui/ArrowBack";
 
 const CancelDetail = () => {
   return (
     <Wrapper>
-      <Link
-        to={"/orderTracking"}
-        className="rounded-box inline-block p-2 hover:bg-gray-50  ml-6  mt-5"
-      >
-        <GoArrowLeft className="text-3xl" />
-      </Link>
+      <ArrowBack link={"/orderTracking"} />
 
       <TableDetailInfo status={"cancel"} />
     </Wrapper>

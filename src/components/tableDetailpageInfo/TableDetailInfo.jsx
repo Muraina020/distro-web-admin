@@ -12,8 +12,8 @@ const TableDetailInfo = ({ status }) => {
 
   return (
     <div>
-      <div className="flex gap-4 px-7 border-b py-4">
-        <span className="bg-[#05988740] rounded-[0.89606rem] w-[4.44938rem] h-[4.44938rem] grid place-items-center">
+      <div className="flex gap-4 lg:px-7 px-2 border-b py-4">
+        <span className="bg-[#05988740] rounded-[0.89606rem] w-[4.44938rem] h-[4.44938rem]  place-items-center lg:grid hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="39"
@@ -38,71 +38,99 @@ const TableDetailInfo = ({ status }) => {
           </svg>
         </span>
         <div className="">
-          <h5 className="text-[1.5625rem]">DL-5679-435EX</h5>
-          <p className="mt-1 text-graylight text-[1.25rem]">
+          <h5 className="lg:text-[1.5625rem] text-[1.1rem]">DL-5679-435EX</h5>
+          <p className="mt-1 text-graylight lg:text-[1.25rem] text-[1rem]">
             Mon Jun 2 2023 12:38:37{" "}
           </p>
         </div>
         <div className="ms-auto">
-          <h5 className="text-[1.5625rem] font-semibold leading-[-0.05875rem]">
+          <h5 className="lg:text-[1.5625rem] text-[1.1rem] font-semibold leading-[-0.05875rem]">
             N5,600
           </h5>
-          <span className="inline-block rounded-[0.40475rem] text-[1.48144rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
+          <span className="inline-block rounded-[0.40475rem] lg:text-[1.48144rem] text-[1rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
             Paid
           </span>
         </div>
       </div>
 
-      <ul className="grid grid-cols-2 items-center  px-8 flex-wrap gap-x-[5rem] gap-y-8 mt-5">
-        <li className="py-3 px-2 border-b w-full flex items-center ">
-          <span className=" text-[1.125rem] basis-[63%]">Customer ID</span>
-          <span className=" text-[1.125rem] text-graylight">DCID-234</span>
+      <ul className="grid grid-cols-2 items-center  lg:px-8 px-2 flex-wrap lg:gap-x-[5rem] gap-x-[1rem] gap-y-8 mt-5">
+        <li className="py-3 px-2 border-b w-full flex gap-x-1 items-center ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-[63%]">
+            Customer ID
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+            DCID-234
+          </span>
         </li>
-        <li className="py-3 px-2 border-b w-full flex items-center ">
-          <span className=" text-[1.125rem] basis-3/4">Customer Name</span>
-          <span className=" text-[1.125rem] text-graylight">Bankuli Kofi</span>
+        <li className="py-3 px-2 border-b w-full flex gap-x-1 items-center ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-3/4">
+            Customer Name
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+            Bankuli Kofi
+          </span>
         </li>
-        <li className="py-3 px-2 border-b w-full flex items-center ">
-          <span className=" text-[1.125rem] basis-[63%] ">Customer Phone</span>
-          <span className=" text-[1.125rem] text-graylight">080123456789</span>
+        <li className="py-3 px-2 border-b w-full gap-x-1 flex items-center ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-[63%] ">
+            Customer Phone
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+            080123456789
+          </span>
         </li>
-        <li className="py-3 px-2 border-b w-full flex items-center ">
-          <span className=" text-[1.125rem] basis-3/4 ">Distance</span>
-          <span className=" text-[1.125rem] text-graylight">50km</span>
+        <li className="py-3 px-2 border-b w-full flex gap-x-1 items-center ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-3/4 ">
+            Distance
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+            50km
+          </span>
         </li>
-        <li className="py-3 px-2 border-b w-full  flex  items-center ">
-          <span className=" text-[1.125rem] basis-[63%]">Package Type</span>
-          <span className=" text-[1.125rem] text-graylight">Food items</span>
+        <li className="py-3 px-2 border-b w-full gap-x-1 flex  items-center ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-[63%]">
+            Package Type
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+            Food items
+          </span>
         </li>
-        <li className="py-3 px-2 border-b w-full flex items-center ">
-          <span className=" text-[1.125rem] basis-3/4">Status</span>
+        <li className="py-3 px-2 border-b w-full gap-x-1 flex items-center ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-3/4">
+            Status
+          </span>
           <span
             style={{ color: formattedColor }}
-            className=" text-[1.125rem] capitalize text-graylight"
+            className=" lg:text-[1.125rem] text-[.9rem] capitalize text-graylight"
           >
             {status}
           </span>
         </li>
       </ul>
-      <ul className="mt-8 px-8 space-y-8">
-        <li className="py-3 px-2 border-b  w-full flex items-center ">
-          <span className="basis-[28%]	 text-[1.125rem] ">
+
+      <ul className="mt-8 lg:px-8 px-2 space-y-8">
+        <li className="py-3 px-2 border-b gap-x-1  w-full flex items-center ">
+          <span className="basis-[28%]	 lg:text-[1.125rem] text-[.9rem] ">
             Special Instruction
           </span>
-          <span className=" text-[1.125rem]  text-graylight">
+          <span className=" lg:text-[1.125rem] text-[.9rem]  text-graylight">
             Breakable items, be careful when carrying it and when dropping it,
             it’s vey{" "}
           </span>
         </li>
-        <li className="py-3 px-2 border-b w-full flex items-center  ">
-          <span className=" text-[1.125rem] basis-[28%] ">Pickup</span>
-          <span className=" text-[1.125rem] text-graylight">
+        <li className="py-3 px-2 border-b w-full flex gap-x-1 items-center  ">
+          <span className=" lg:text-[1.125rem] text-[.9rem] basis-[28%] ">
+            Pickup
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
             36 Adeola Adeleye Street, Ilupeju, Lagos
           </span>
         </li>
-        <li className="py-3 px-2 border-b w-full flex  items-center ">
-          <span className="basis-[28%] text-[1.125rem] ">Destination </span>
-          <span className=" text-[1.125rem] text-graylight ">
+
+        <li className="py-3 px-2 border-b w-full flex gap-x-1  items-center ">
+          <span className="basis-[28%] lg:text-[1.125rem] text-[.9rem] ">
+            Destination{" "}
+          </span>
+          <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight ">
             23 Ikorodu-Ososun Rd, ilupeju, Lagos
           </span>
         </li>
