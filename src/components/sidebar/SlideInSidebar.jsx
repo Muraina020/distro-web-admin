@@ -203,7 +203,7 @@ const SlideInSidebar = () => {
           <h2 className="text-base font-normal px-5"> Customer Management</h2>
           <li>
             <Link
-              to={""}
+              to={"/orderTracking"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -261,7 +261,7 @@ const SlideInSidebar = () => {
 
           <li>
             <Link
-              to={""}
+              to={"/expressOrderHistory"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -306,7 +306,7 @@ const SlideInSidebar = () => {
           </li>
           <li>
             <Link
-              to={""}
+              to={"/scheduleOrderHistory"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
