@@ -38,6 +38,8 @@ import Activate from "./pages/onlinesetting/Activate";
 import Offline from "./pages/onlinesetting/Offline";
 import OfflineR from "./pages/rating/OfflineR";
 import ActiveR from "./pages/rating/ActiveR";
+import CustomerAccount from "./pages/customer/CustomerAccount";
+import CustomerRatin from "./pages/customer/CustomerRatin";
 
 const router = createBrowserRouter([
   {
@@ -81,7 +83,7 @@ const router = createBrowserRouter([
         element: <Offline/>,
       },
       {
-        path: "/activate",
+        path: "/unverify",
         element: <Activate/>,
       },
       {
@@ -107,6 +109,14 @@ const router = createBrowserRouter([
       {
         path: "/customer",
         element: <CustomerTable/>,
+      },
+      {
+        path: "/customeracc",
+        element: <CustomerAccount/>,
+      },
+      {
+        path: "/customrating",
+        element: <CustomerRatin/>,
       },
       {
         path: "orderTracking",

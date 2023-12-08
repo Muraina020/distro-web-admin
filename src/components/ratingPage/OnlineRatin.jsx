@@ -65,7 +65,7 @@ const OnlineRatin = () => {
             <div
               style={{
                 display: "inline-block",
-                background: "#46B04C",
+                background: "#F9BF42",
                 color: "white",
                 padding: "5px",
                 borderRadius: "8px",

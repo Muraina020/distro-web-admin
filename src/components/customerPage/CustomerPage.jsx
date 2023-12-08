@@ -10,6 +10,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const sampleData = [
   { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "online" },
@@ -28,6 +29,14 @@ const sampleData = [
 const CustomerPage = () => {
   const [data, setData] = useState(sampleData);
 
+  const navigate = useNavigate();
+
+  const handleOrder = () => {
+    // Add logic to handle the "Order" click (if needed)
+    // Once the logic is executed, navigate to the "rating" page
+    navigate('/customeracc');
+  };
+
   return (
     <div>
       <TableContainer bg="white" fontSize="18px" paddingBottom="30px">
@@ -43,7 +52,7 @@ const CustomerPage = () => {
           </Thead>
           <Tbody>
             {data.map((item, index) => (
-              <Tr key={index} borderBottom="2px solid lightgray" color='#696969'>
+              <Tr key={index} borderBottom="2px solid lightgray" color='#696969' onClick={handleOrder}>
                 <Td>{item.id}</Td>
                 <Td>{item.name}</Td>
                 <Td>{item.email}</Td>

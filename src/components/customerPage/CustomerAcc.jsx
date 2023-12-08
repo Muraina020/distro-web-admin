@@ -13,18 +13,18 @@ import {
     Button,
   } from '@chakra-ui/react';
   import { FaChevronLeft, FaChevronRight, FaArrowLeft } from 'react-icons/fa';
-  import avatar1 from "../../assets/img/avatar1.png";
+  import man from "../../assets/img/man.png";
 import { useNavigate } from 'react-router-dom';
 
-const OfflineSettin = () => {
+const CustomerAcc = () => {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handleOrder = () => {
-    // Add logic to handle the "Order" click (if needed)
-    // Once the logic is executed, navigate to the "rating" page
-    navigate('/offlinerating');
-  };
+    const handleOrder = () => {
+      // Add logic to handle the "Order" click (if needed)
+      // Once the logic is executed, navigate to the "rating" page
+      navigate('/customrating');
+    };
   return (
     <div style={{ position: 'relative' }}>
     {/* Arrow icon positioned at the top right corner */}
@@ -56,21 +56,8 @@ const OfflineSettin = () => {
               marginTop="40px"
               marginBottom="15px"
             >
-              <Avatar size="lg" name="John Doe" src={avatar1} />
+              <Avatar size="lg" name="John Doe" src={man} />
               <Box mt="2">DDID-247</Box>
-              <Td>
-                <div
-                  style={{
-                    display: "inline-block",
-                    backgroundColor: "#F9BF42",
-                    color: "white",
-                    padding: "5px",
-                    borderRadius: "8px",
-                  }}
-                >
-                  online
-                </div>
-              </Td>
             </Flex>
           </Td>
         </Tr>
@@ -94,8 +81,8 @@ const OfflineSettin = () => {
             <Td fontSize="md">David Balogun</Td>
           </Flex>
           <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md"><b>Gender</b></Td>
-            <Td fontSize="md">Male</Td>
+            <Td fontSize="md"><b>Username</b></Td>
+            <Td fontSize="md">Balogun</Td>
           </Flex>
     </Flex>
       <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
@@ -112,66 +99,33 @@ const OfflineSettin = () => {
       <Flex justifyContent="" gap='120px' width="100%" marginLeft='100px'>
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md"><b>Adress</b></Td>
-            <Td fontSize="md">No 1, David street  </Td>
+            <Td fontSize="md"><b>Mast Active</b></Td>
+            <Td fontSize="md">i5 minutes</Td>
           </Flex>
           <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md" marginTop=''><b>State</b></Td>
-            <Td fontSize="md" color="">Lagos</Td>
+            <Td fontSize="md" marginTop=''><b>Date Joined</b></Td>
+            <Td fontSize="md" color="">4/7/2021</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='100px' width="100%" marginLeft='100px'>
-       
-          <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md"><b>Next of Kin name </b></Td>
-            <Td fontSize="md">Bello Saka</Td>
-          </Flex>
-          <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md" marginTop=''><b>Phone</b></Td>
-            <Td fontSize="md" color="">08012345678</Td>
-          </Flex>
-    </Flex>
-      <Flex justifyContent="" gap='210px' width="100%" marginLeft='100px'>
-       
-          <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md"><b>Vehicle</b></Td>
-            <Td fontSize="md">Truck</Td>
-          </Flex>
-          <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md" marginTop=''><b>Vehicle</b></Td>
-            <Td fontSize="md" color="">KSF-234U-ER</Td>
-          </Flex>
-    </Flex>
-      <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
-       
-          <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md"><b>License</b></Td>
-            <Td fontSize="md">08012345678</Td>
-          </Flex>
-          <Flex alignItems="" borderBottom="1px solid lightgray">
-            <Td fontSize="md" marginTop=''><b>Rating</b></Td>
-            <Td fontSize="md" color="">4.5</Td>
-          </Flex>
-    </Flex>
-    
+      
     </Tr>
         </Tbody>
       </Table>
       <Flex justifyContent="space-between" alignItems="center" marginTop="70px" direction="column">
     {/* Two buttons side by side */}
     <Flex>
-      <Button colorScheme="#00A69C" bg='#00A69C' marginRight="4">Edit</Button>
-      <Button colorScheme="white" color='#00A69C' border='2px solid #00A69C'>Message</Button>
+      <Button colorScheme="white" color='#00A69C' border='2px solid #00A69C' marginTop='3px'>Message</Button>
+      <Button size="lg" colorScheme="red" marginLeft='10px'>
+      Deactivate
+    </Button>
     </Flex>
 
     {/* Larger button below them */}
-    <Button size="lg" colorScheme="red" marginTop="5">
-      Deactivate
-    </Button>
+    
   </Flex>
     </TableContainer>
   </div>
   )
 }
 
-export default OfflineSettin
+export default CustomerAcc

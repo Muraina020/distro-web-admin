@@ -10,6 +10,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const sampleData = [
   { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "offline" },
@@ -56,6 +57,19 @@ const DriverPage = () => {
     });
 
     setData(modifiedData);
+  };
+
+  const navigate = useNavigate();
+
+  const handleRowClick = (status) => {
+    if (activeHeader === "ACTIVE") {
+      navigate('/online');
+    } else if (activeHeader === "INACTIVE") {
+      navigate('/offline');
+    } else if (activeHeader === "UNIFIED") {
+      navigate('/unverify');
+    }
+    // Add more conditions if needed for other header statuses
   };
   return (
     <div>
@@ -118,7 +132,7 @@ const DriverPage = () => {
         </Thead>
         <Tbody>
           {data.map((item, index) => (
-            <Tr  key={index} borderBottom="2px solid lightgray" style={{ color: '#696969' }} >
+            <Tr  key={index} borderBottom="2px solid lightgray" style={{ color: '#696969' }}  onClick={() => handleRowClick(item.status)}>
               <Td>{item.id}</Td>
               <Td>{item.name}</Td>
               <Td>{item.email}</Td>

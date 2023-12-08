@@ -14,8 +14,17 @@ import {
   } from '@chakra-ui/react';
   import { FaChevronLeft, FaChevronRight, FaArrowLeft } from 'react-icons/fa';
   import avatar1 from "../../assets/img/avatar1.png";
+import { useNavigate } from 'react-router-dom';
 
 const OnlineSettin = () => {
+
+  const navigate = useNavigate();
+
+  const handleOrder = () => {
+    // Add logic to handle the "Order" click (if needed)
+    // Once the logic is executed, navigate to the "rating" page
+    navigate('/rating');
+  };
   return (
     <div style={{ position: 'relative' }}>
     {/* Arrow icon positioned at the top right corner */}
@@ -67,13 +76,13 @@ const OnlineSettin = () => {
         </Tr>
 
         <Tr borderBottom="2px solid lightgray">
-            <Flex gap='70px' width="100%" marginLeft='80px'>
+            <Flex gap='70px' width="100%" marginLeft='80px' cursor='pointer'>
           <Td
             style={{ borderBottom: "2px solid #00A69C", color: "#00A69C" }}
           >
             Details
           </Td>
-          <Td> Order</Td>
+          <Td onClick={handleOrder}> Order</Td>
           </Flex>
         </Tr>
 
