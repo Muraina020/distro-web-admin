@@ -1,0 +1,39 @@
+.success{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    background-color: white;
+    padding: 80px 100px;
+}
+.success-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.success-cont >img{
+    width: 200px;
+    height: 200px;
+}
+.success-cont >p{
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+}
+.success >button{
+    background-color: #00A69C;
+    width: 340px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: center;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    font-size: 18px;
+    
+}

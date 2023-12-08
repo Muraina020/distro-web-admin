@@ -1,6 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/distro-logo.png";
 import Container from "../ui/Container";
+import React, { useState } from 'react';
 import {
   Popover,
   PopoverTrigger,
@@ -8,8 +9,24 @@ import {
   PopoverHeader,
   PopoverBody,
 } from "@chakra-ui/react";
+import Ratingpage from "../ratingPage/Ratingpage";
 
 const Header = () => {
+  const [isPageVisible, setIsPageVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    // Check if the page is currently visible
+    if (isPageVisible) {
+      // If visible, hide the page
+      setIsPageVisible(false);
+    } else {
+      // If not visible, show the page
+      setIsPageVisible(true);
+      // You can also navigate to a different page here if needed
+      navigate('/rating');
+    }
+  };
   const location = useLocation();
   const showFilterIcon = [
     "/expressOrderHistory",
@@ -126,6 +143,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
+            <Link to={"/profile"}>
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -148,10 +166,10 @@ const Header = () => {
                   />
                 </svg>
               </button>
+              </Link>
             </li>
             <li>
-              <Link to={"/profile"}>
-                <button>
+                <button onClick={handleButtonClick}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="35"
@@ -167,7 +185,6 @@ const Header = () => {
                     />
                   </svg>
                 </button>
-              </Link>
             </li>
           </ul>
         </div>
