@@ -49,6 +49,7 @@ const SlideInSidebar = () => {
 
           <li>
             <Link
+              onClick={closeSidebar}
               to={""}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
@@ -77,6 +78,7 @@ const SlideInSidebar = () => {
           </li>
           <li>
             <Link
+              onClick={closeSidebar}
               to={""}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
@@ -105,6 +107,7 @@ const SlideInSidebar = () => {
           <h2 className="text-base font-normal px-5">Driver Management</h2>
           <li>
             <Link
+              onClick={closeSidebar}
               to={""}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
@@ -169,6 +172,7 @@ const SlideInSidebar = () => {
           </li>
           <li>
             <Link
+              onClick={closeSidebar}
               to={""}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
@@ -203,6 +207,7 @@ const SlideInSidebar = () => {
           <h2 className="text-base font-normal px-5"> Customer Management</h2>
           <li>
             <Link
+              onClick={closeSidebar}
               to={"/orderTracking"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
@@ -232,7 +237,8 @@ const SlideInSidebar = () => {
           <h2 className="text-base font-normal px-5">Order Management</h2>
           <li>
             <Link
-              to={""}
+              onClick={closeSidebar}
+              to={"/orderTracking"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -261,6 +267,7 @@ const SlideInSidebar = () => {
 
           <li>
             <Link
+              onClick={closeSidebar}
               to={"/expressOrderHistory"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
@@ -306,6 +313,7 @@ const SlideInSidebar = () => {
           </li>
           <li>
             <Link
+              onClick={closeSidebar}
               to={"/scheduleOrderHistory"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
