@@ -20,6 +20,11 @@ const CustomerAcc = () => {
 
     const navigate = useNavigate();
 
+    const handleGoBack = () => {
+      // Navigate to the previous page
+      navigate(-1);
+    };
+
     const handleOrder = () => {
       // Add logic to handle the "Order" click (if needed)
       // Once the logic is executed, navigate to the "rating" page
@@ -30,6 +35,7 @@ const CustomerAcc = () => {
     {/* Arrow icon positioned at the top right corner */}
     <IconButton
     icon={<FaArrowLeft />}
+    onClick={handleGoBack}
     style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white' }}
   />
 

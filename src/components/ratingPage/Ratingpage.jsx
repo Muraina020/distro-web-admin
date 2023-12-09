@@ -19,14 +19,13 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
 const Ratingpage = () => {
-    const [isPageVisible, setIsPageVisible] = useState(true);
+  
+const navigate = useNavigate();
 
-    const handleArrowClick = () => {
-      // Set the page visibility to false
-      setIsPageVisible(false);
-    };
-
-    const navigate = useNavigate();
+const handleGoBack = () => {
+  // Navigate to the previous page
+  navigate(-1);
+};
 
     const handleAddDriver = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
@@ -37,17 +36,17 @@ const Ratingpage = () => {
     const handleRating = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
-      navigate('/unrated');
+      navigate('/online');
     };
   return (
-   <>
-        {isPageVisible && (
+  
+      
         <div style={{ position: 'relative' }}>
           {/* Arrow icon positioned at the top right corner */}
           <IconButton
             icon={<FaArrowLeft />}
+            onClick={handleGoBack}
             style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white' }}
-            onClick={handleArrowClick} // Handle arrow click
           />
       <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
         <Table variant="simple" size="md" paddingBottom="50px" color='gray'>
@@ -343,8 +342,6 @@ const Ratingpage = () => {
       </Flex>
       </TableContainer>
       </div>
-      )}
-    </>
   );
 }
 export default Ratingpage

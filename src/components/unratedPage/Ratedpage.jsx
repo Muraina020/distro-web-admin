@@ -15,15 +15,24 @@ import { StarIcon } from '@chakra-ui/icons';
 import { FaArrowLeft } from 'react-icons/fa';
 import cube from "../../assets/img/cube.png";
 import man from "../../assets/img/man.png";
+import { useNavigate } from 'react-router-dom';
 
 const Ratedpage = () => {
+
+  const navigate = useNavigate();
+
+  const handleGoBacks = () => {
+    // Navigate to the previous page
+    navigate(-1);
+  };
   return (
     <div style={{ position: 'relative' }}>
     {/* Arrow icon positioned at the top right corner */}
     <IconButton
-      icon={<FaArrowLeft />}
-      style={{ position: 'absolute', top: 5, left: 5, backgroundColor: 'white', color: 'gray'}}
-    />
+        icon={<FaArrowLeft />}
+        onClick={handleGoBacks}
+        style={{ position: 'absolute', top: 5, left: 5, backgroundColor: 'white', color: 'gray'}}
+      />
 
     <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
       <Table variant="simple" size="lg" paddingBottom="50px">

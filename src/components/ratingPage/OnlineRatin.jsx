@@ -20,14 +20,12 @@ import { useNavigate } from 'react-router-dom';
 
 const OnlineRatin = () => {
 
-    const [isPageVisible, setIsPageVisible] = useState(true);
+   const navigate = useNavigate();
 
-    const handleArrowClick = () => {
-      // Set the page visibility to false
-      setIsPageVisible(false);
-    };
-
-    const navigate = useNavigate();
+   const handleGoBack = () => {
+    // Navigate to the previous page
+    navigate(-1);
+  };
 
     const handleAddDriver = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
@@ -40,14 +38,13 @@ const OnlineRatin = () => {
       navigate('/unrated');
     };
   return (
-    <>
-    {isPageVisible && (
     <div style={{ position: 'relative' }}>
       {/* Arrow icon positioned at the top right corner */}
       <IconButton
         icon={<FaArrowLeft />}
+        onClick={ handleGoBack}
         style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white' }}
-        onClick={handleArrowClick} // Handle arrow click
+       
       />
   <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
     <Table variant="simple" size="md" paddingBottom="50px" color='gray'>
@@ -343,8 +340,6 @@ const OnlineRatin = () => {
   </Flex>
   </TableContainer>
   </div>
-  )}
-</>
   )
 }
 
