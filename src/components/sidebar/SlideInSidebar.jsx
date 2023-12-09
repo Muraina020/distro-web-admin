@@ -79,7 +79,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={""}
+              to={"/profile/setting"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg

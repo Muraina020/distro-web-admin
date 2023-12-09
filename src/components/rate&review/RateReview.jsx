@@ -1,13 +1,13 @@
 const RateReview = () => {
   return (
     <div>
-      <h1 className="text-[1.5625rem] px-8 font-medium border-b pb-2">
+      <h1 className="lg:text-[1.5625rem] text-lg px-8 font-medium border-b pb-2">
         Rating and Review
       </h1>
 
-      <div className="mt-8 px-[2.5rem]">
+      <div className="mt-8 md:px-[2.5rem] px-2">
         <div className=" flex items-center gap-x-5">
-          <div className="w-[6.25rem] h-[6.25rem] rounded-full">
+          <div className="lg:w-[6.25rem] lg:h-[6.25rem] w-[5rem] h-[5rem] max-[420px]:hidden flex-shrink-0 rounded-full">
             <img
               src="https://img.freepik.com/free-photo/portrait-african-american-man_23-2149072179.jpg?size=626&ext=jpg&ga=GA1.1.1239515754.1699101641&semt=sph"
               alt="man"
@@ -15,14 +15,17 @@ const RateReview = () => {
             />
           </div>
           <div>
-            <h5 className="text-[1.5625rem] font-medium">DCID-234</h5>
-            <p className="text-graylight text-[1.25rem]">
+            <h5 className="lg:text-[1.5625rem] text-base font-medium">
+              DCID-234
+            </h5>
+            <p className="text-graylight lg:text-[1.25rem] text-base">
               Mon Jun 2 2023 12:38:37{" "}
             </p>
           </div>
 
           <div className="flex items-center ms-auto">
             <svg
+              className="lg:w-[30px] w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="29"
@@ -37,6 +40,7 @@ const RateReview = () => {
               />
             </svg>
             <svg
+              className="lg:w-[30px] w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="29"
@@ -51,6 +55,7 @@ const RateReview = () => {
               />
             </svg>
             <svg
+              className="lg:w-[30px] w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="29"
@@ -65,6 +70,7 @@ const RateReview = () => {
               />
             </svg>
             <svg
+              className="lg:w-[30px] w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="30"
               height="29"
@@ -79,6 +85,7 @@ const RateReview = () => {
               />
             </svg>
             <svg
+              className="lg:w-[30px] w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="29"
               height="29"
@@ -93,11 +100,11 @@ const RateReview = () => {
             </svg>
           </div>
         </div>
-        <p className=" mt-[1.8rem] text-[1.125rem] text-graylight leading-[150%] border-b">
+        <p className=" mt-[1.8rem] lg:text-[1.125rem] text-sm text-graylight leading-[150%] border-b">
           Horem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
           vulputate libero et velit interdum, ac aliq io mattis.
         </p>
-        <p className="mt-3 text-[1.125rem] text-graylight leading-[150%] ">
+        <p className="mt-3 lg:text-[1.125rem] text-sm text-graylight leading-[150%] ">
           io mattis. Class aptent taciti sociosqu ad litora torquent per conubia
           nostra, per inceptos himenaeos.
         </p>

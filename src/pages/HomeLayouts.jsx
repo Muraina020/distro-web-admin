@@ -7,7 +7,7 @@ const HomeLayouts = () => {
     <>
       <Container>
         <Header />
-        <div className="xl:pr-8 lg:px-0  pb-8">
+        <div className="xl:pr-8 lg:px-0  px-3 pb-8">
           <Sidebar />
           <SlideInSidebar />
           <main className="xl:ml-[25rem] lg:ml-[20rem]">

@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { ChatPeople, ChatSideBar, Container, Header } from "../../components";
+import SlideInSidebar from "../../components/sidebar/SlideInSidebar";
 
 const ChatLayout = () => {
   return (
@@ -7,6 +8,7 @@ const ChatLayout = () => {
       <Header />
       <Container>
         <ChatSideBar />
+        <SlideInSidebar />
         <main className="xl:ml-[6rem] min-h-[85vh] pb-5 xl:px-0 px-3">
           <div className="flex w-full md:flex-row flex-col items-start gap-x-4">
             <ChatPeople />
