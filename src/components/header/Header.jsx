@@ -144,7 +144,7 @@ const Header = () => {
             </li>
 
             <li>
-              <button onClick={handleButtonClick}>
+              <button>
                 <svg
                   className="lg:w-[30px] lg:h-[30px] w-[20px] h-[20px]"
                   xmlns="http://www.w3.org/2000/svg"
