@@ -35,7 +35,18 @@ const AddDriverPage = () => {
       <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
         <Table variant="simple" size="lg" paddingBottom="50px">
           <Tbody>
-            <Tr>
+          <style>
+        {`
+          @media screen and (max-width: 600px) {
+            .respond-td {
+              width: 100%; 
+              font-size: 13px;
+              
+            }
+          }
+        `}
+      </style>
+            <Tr  className='respond-td'>
               <Flex
                 direction="row"
                 alignItems="center"
@@ -44,6 +55,7 @@ const AddDriverPage = () => {
                 marginBottom="15px"
               >
                 <Th
+                className='respond-td'
                   style={{
                     borderBottom: section === 'account' ? "2px solid teal" : "2px solid gray",
                     color: section === 'account' ? "teal" : "gray",
@@ -54,6 +66,7 @@ const AddDriverPage = () => {
                   Account information
                 </Th>
                 <Th
+                 className='respond-td'
                   style={{
                     borderBottom: section === 'personal' ? "2px solid teal" : "2px solid gray",
                     color: section === 'personal' ? "teal" : "gray",
@@ -64,6 +77,7 @@ const AddDriverPage = () => {
                   Personal information
                 </Th>
                 <Th
+                 className='respond-td'
                   style={{
                     borderBottom: section === 'upload' ? "2px solid teal" : "2px solid gray",
                     color: section === 'upload' ? "teal" : "gray",
@@ -138,9 +152,27 @@ const AddDriverPage = () => {
             {section === 'personal' && (
               <Tr >
                 {/* ... (your personal information form fields) */}
+                <style>
+        {`
+          @media screen and (max-width: 600px) {
+            /* Adjust styles for small screens here */
+            .responsive-input {
+              width: 200px;
+            }
+            .responsive-button {
+              width: 300px; /* Set the width to 100% for small screens */
+              margin-left: 180px;
+               /* Reset margin-left for small screens */
+            }
+            .input-data{
+              margin-right: 150px
+            }
+          }
+        `}
+      </style>
                
           <Tr justifyContent="center" alignItems="center">
-            <Td>
+            <Td className='input-data'>
               <Flex
                 direction="row"
                 alignItems="center"
@@ -150,6 +182,7 @@ const AddDriverPage = () => {
                 marginLeft='120px'
               >
                 <Input
+                 className="responsive-input"
                   placeholder="Firstname"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -160,6 +193,7 @@ const AddDriverPage = () => {
                   cursor="pointer"
                 />
                 <Input
+                 className="responsive-input"
                   placeholder="Lastname"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -183,6 +217,7 @@ const AddDriverPage = () => {
                 marginLeft='120px'
               >
                 <Input
+                 className="responsive-input"
                   placeholder="Select Gender"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -199,6 +234,7 @@ const AddDriverPage = () => {
                   marginLeft="-40px" // Adjusted marginLeft
                 />
                 <Input
+                 className="responsive-input"
                   placeholder="Marital Status"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -229,6 +265,7 @@ const AddDriverPage = () => {
                 marginLeft='120px'
               >
                 <Input
+                 className="responsive-input"
                   placeholder="Phone Number"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -239,6 +276,7 @@ const AddDriverPage = () => {
                   cursor="pointer"
                 />
                 <Input
+                 className="responsive-input"
                   placeholder="Email"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -262,6 +300,7 @@ const AddDriverPage = () => {
                 marginLeft='120px'
               >
                 <Input
+                 className="responsive-input"
                   placeholder="Address"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -272,6 +311,7 @@ const AddDriverPage = () => {
                   cursor="pointer"
                 />
                 <Input
+                 className="responsive-input"
                   placeholder="State"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -295,6 +335,7 @@ const AddDriverPage = () => {
                 marginLeft='120px'
               >
                 <Input
+                 className="responsive-input"
                   placeholder="Next of kin Firstname"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -305,6 +346,7 @@ const AddDriverPage = () => {
                   cursor="pointer"
                 />
                 <Input
+                 className="responsive-input"
                   placeholder="Next of kin Lastname"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -328,6 +370,7 @@ const AddDriverPage = () => {
                 marginLeft='120px'
               >
                 <Input
+                 className="responsive-input"
                   placeholder="Next of kin  phone number"
                   border="2px solid gray"
                   borderRadius="4px"
@@ -341,15 +384,16 @@ const AddDriverPage = () => {
             </Td>
           </Tr>
           <Button
-            width="340px"
-            height="40px"
-            marginTop="20px"
-            colorScheme="teal"
-            color="white"
-            onClick={handleContinue}
-            cursor="pointer"
-            marginLeft="350px"
-          >
+        className="responsive-button"
+        width="340px"
+        height="40px"
+        marginTop="20px"
+        colorScheme="teal"
+        color="white"
+        onClick={handleContinue}
+        cursor="pointer"
+        marginLeft="350px"
+      >
             {showPersonalInfo ? "Continue" : "Continue"}
           </Button>
 

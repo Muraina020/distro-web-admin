@@ -54,14 +54,15 @@ const ActiveSettin = () => {
         </Tr>
 
         <Tr>
-          <Td colSpan={6} textAlign="center">
-            <Flex
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-              marginTop="40px"
-              marginBottom="15px"
-            >
+        <Td colSpan={4} textAlign="center">
+                <Flex
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  marginTop="40px"
+                  marginBottom="15px"
+                  marginLeft="100px"
+                >
               <Avatar size="lg" name="John Doe" src={avatar1} />
               <Box mt="2">DDID-247</Box>
               <Td>
@@ -93,7 +94,19 @@ const ActiveSettin = () => {
         </Tr>
 
   <Tr width=''>
-      <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
+  <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Name </b></Td>
@@ -104,7 +117,19 @@ const ActiveSettin = () => {
             <Td fontSize="md">Male</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
         
         <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Phone</b></Td>
@@ -115,7 +140,19 @@ const ActiveSettin = () => {
             <Td fontSize="md">davidb@gmail.com</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='120px' width="100%" marginLeft='100px'>
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Adress</b></Td>
@@ -126,7 +163,19 @@ const ActiveSettin = () => {
             <Td fontSize="md" color="">Lagos</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='100px' width="100%" marginLeft='100px'>
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Next of Kin name </b></Td>
@@ -137,7 +186,19 @@ const ActiveSettin = () => {
             <Td fontSize="md" color="">08012345678</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='210px' width="100%" marginLeft='100px'>
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Vehicle</b></Td>
@@ -148,7 +209,19 @@ const ActiveSettin = () => {
             <Td fontSize="md" color="">KSF-234U-ER</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>License</b></Td>

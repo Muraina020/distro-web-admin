@@ -3,21 +3,22 @@
     height: 100%;
     margin: 0 30px 0 30px;
     display: flex;
+    gap: 0px;
 }
 .left{
     background-color: #00A69C;
-    flex: 1;
+    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .left >img{
     width: 90%;
-    height: 90%;
+    height: auto;
     margin-left: 150px;
 }
 .right{
-    flex: 1;
+  width: 50%;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -91,4 +92,38 @@
     color: white;
     border: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .contain {
+        background-image: url('../../assets/img/bgapp.png'); /* Corrected image path */
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0 30px 0 0px;
+    }
+    /* .left{
+        background-color: #00A69C;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+    .left >img{
+        display: none;
+    }
+    .right{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        background-color: white;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 0px;
+        background-color: white;
+    }
 }

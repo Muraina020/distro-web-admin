@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./rate.css"
 import avatar1 from "../../assets/img/avatar1.png";
 import {
   Table,
@@ -32,6 +33,11 @@ const ActivateRatin = () => {
       // Once the driver is successfully added, navigate to the success page
       navigate('/rated');
     };
+    const  handleDetails = () => {
+      // Add logic to handle adding driver (validate fields, upload image, etc.)
+      // Once the driver is successfully added, navigate to the success page
+      navigate('/unverify');
+    };
     const handleRating = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
@@ -54,8 +60,8 @@ const ActivateRatin = () => {
           <Td>Security</Td>
         </Tr>
         <Tr>
-          <Td colSpan={6} style={{ textAlign: 'center' }}>
-            <Flex direction="column" alignItems="center" justifyContent="center" marginTop='25px'>
+        <Td colSpan={5} style={{ textAlign: 'center' }}>
+                <Flex direction="column" alignItems="center" justifyContent="center" marginTop='25px' marginLeft='120px'>
               <Avatar size="lg" name="John Doe" src={avatar1} />
               <Box mt="2">DDID-247</Box>
               <Td>
@@ -77,7 +83,7 @@ const ActivateRatin = () => {
 
 
         <Tr borderBottom="2px solid lightgray">
-          <Td> Details</Td>
+          <Td onClick={ handleDetails} cursor='pointer'> Details</Td>
           <Td style={{ borderBottom: '2px solid #00A69C', color: '#00A69C', textAlign: "center" }}> Order</Td>
         </Tr>
 
@@ -91,7 +97,7 @@ const ActivateRatin = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
             CUSTOMER ID
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray' }}>
+          <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
             RATINGS
           </Td>
           <Td style={{ borderBottom: '1px solid lightgray' }}>
@@ -118,7 +124,7 @@ const ActivateRatin = () => {
       <Td style={{ borderBottom: '1px solid lightgray' }}>
             DCIC-247
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
+          <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}  className='star'>
             ---
           </Td>
           <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
@@ -152,7 +158,7 @@ const ActivateRatin = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
             DCIC-247
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray' }}>
+          <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
             <Flex>
               {[1, 2, 3, 4].map((index) => (
                 <StarIcon key={index} color="#00A69C" />
@@ -191,7 +197,7 @@ const ActivateRatin = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
             DCIC-247
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray' }}>
+          <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
             <Flex>
               {[1, 2, 3, 4].map((index) => (
                 <StarIcon key={index} color="#00A69C" />
@@ -231,7 +237,7 @@ const ActivateRatin = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
             DCIC-247
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
+          <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}  className='star'>
             ---
           </Td>
           <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
@@ -266,7 +272,7 @@ const ActivateRatin = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
             DCIC-247
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
+          <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}  className='star'>
             ---
           </Td>
           <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
@@ -301,7 +307,7 @@ const ActivateRatin = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
             DCIC-247
           </Td>
-          <Td style={{ borderBottom: '1px solid lightgray' }}>
+          <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
             <Flex>
               {[1, 2, 3, 4].map((index) => (
                 <StarIcon key={index} color="#00A69C" />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./customer.css"
 import man from "../../assets/img/man.png";
 import {
   Table,
@@ -50,8 +51,8 @@ const CustomerRating = () => {
               <Td>Security</Td>
             </Tr>
             <Tr>
-              <Td colSpan={6} style={{ textAlign: 'center' }}>
-                <Flex direction="column" alignItems="center" justifyContent="center" marginTop='25px'>
+            <Td colSpan={5} style={{ textAlign: 'center' }}>
+                <Flex direction="column" alignItems="center" justifyContent="center" marginTop='25px' marginLeft='120px'>
                   <Avatar size="lg" name="John Doe" src={man} />
                   <Box mt="2">DDID-247</Box>
                 
@@ -75,7 +76,7 @@ const CustomerRating = () => {
               <Td style={{ borderBottom: '1px solid lightgray' }}>
                 CUSTOMER ID
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray' }}>
+              <Td style={{ borderBottom: '1px solid lightgray' }} className='star'>
                 RATINGS
               </Td>
               <Td style={{ borderBottom: '1px solid lightgray' }}>
@@ -102,7 +103,7 @@ const CustomerRating = () => {
           <Td style={{ borderBottom: '1px solid lightgray' }}>
                 DCIC-247
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
+              <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}  className='star'>
                 ---
               </Td>
               <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
@@ -136,7 +137,7 @@ const CustomerRating = () => {
               <Td style={{ borderBottom: '1px solid lightgray' }}>
                 DCIC-247
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray' }}>
+              <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
                 <Flex>
                   {[1, 2, 3, 4].map((index) => (
                     <StarIcon key={index} color="#00A69C" />
@@ -175,7 +176,7 @@ const CustomerRating = () => {
               <Td style={{ borderBottom: '1px solid lightgray' }}>
                 DCIC-247
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray' }}>
+              <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
                 <Flex>
                   {[1, 2, 3, 4].map((index) => (
                     <StarIcon key={index} color="#00A69C" />
@@ -215,7 +216,7 @@ const CustomerRating = () => {
               <Td style={{ borderBottom: '1px solid lightgray' }}>
                 DCIC-247
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
+              <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}  className='star'>
                 ---
               </Td>
               <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
@@ -250,7 +251,7 @@ const CustomerRating = () => {
               <Td style={{ borderBottom: '1px solid lightgray' }}>
                 DCIC-247
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
+              <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}  className='star'>
                 ---
               </Td>
               <Td style={{ borderBottom: '1px solid lightgray', textAlign:"center" }}>
@@ -285,7 +286,7 @@ const CustomerRating = () => {
               <Td style={{ borderBottom: '1px solid lightgray' }}>
                 DCIC-247
               </Td>
-              <Td style={{ borderBottom: '1px solid lightgray' }}>
+              <Td style={{ borderBottom: '1px solid lightgray' }}  className='star'>
                 <Flex>
                   {[1, 2, 3, 4].map((index) => (
                     <StarIcon key={index} color="#00A69C" />

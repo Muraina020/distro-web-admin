@@ -10,12 +10,15 @@ import {
   Flex,
   Avatar,
   IconButton,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { FaArrowLeft } from 'react-icons/fa';
 import cube from "../../assets/img/cube.png";
 import { useNavigate } from 'react-router-dom';
 
 const UnratedPage = () => {
+  const mobileTrWidth = useBreakpointValue({ base: '400px', md: '100%' });
+  const mobileWidth = useBreakpointValue({ base: '400px', md: '100%' });
 
   const navigate = useNavigate();
 
@@ -24,7 +27,7 @@ const UnratedPage = () => {
     navigate(-1);
   };
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', overflowX: 'auto', maxWidth: '100%' }}>
     {/* Arrow icon positioned at the top right corner */}
     <IconButton
         icon={<FaArrowLeft />}
@@ -32,10 +35,11 @@ const UnratedPage = () => {
         style={{ position: 'absolute', top: 5, left: 5, backgroundColor: 'white', color: 'gray'}}
       />
 
-    <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
-      <Table variant="simple" size="lg" paddingBottom="50px">
+<TableContainer bg="white" fontSize="18px" paddingBottom="50px" overflowX="auto">
+            <Table variant="simple" size="lg" paddingBottom="50px"  width={mobileWidth} maxWidth={{ base: '400px', md: '100%' }}>
+
         <Tbody>
-        <Tr borderBottom="2px solid lightgray">
+        <Tr borderBottom="2px solid lightgray" width={mobileTrWidth}>
         <Td>
           <Flex  alignItems="center">
           <Avatar size="lg" name="John Doe" src={cube} />
@@ -53,8 +57,20 @@ const UnratedPage = () => {
           </td>
       </Tr>
 
-      <Tr>
-        <Flex justifyContent="space-between" width="" marginLeft='50px'>
+      <Tr >
+      <Flex
+                justifyContent=""
+                gap="250px"
+                width="0%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
          
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer ID</b></Td>
@@ -65,7 +81,20 @@ const UnratedPage = () => {
               <Td fontSize="md">Bankuli Kofi</Td>
             </Flex>
       </Flex>
-        <Flex justifyContent="space-between" width="" marginLeft='50px'>
+
+      <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
           
           <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer Phone</b></Td>
@@ -76,8 +105,20 @@ const UnratedPage = () => {
               <Td fontSize="md">50km</Td>
             </Flex>
       </Flex>
-        <Flex justifyContent="space-between" width="" marginLeft='50px'>
-         
+       
+      <Flex
+                justifyContent=""
+                gap="250px"
+                width="100%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Package Type</b></Td>
               <Td fontSize="md">Food items</Td>
@@ -90,19 +131,58 @@ const UnratedPage = () => {
       </Tr>
        
        <Tr >
-       <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
+       <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="0px"
+                borderBottom="1px solid lightgray"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
               <Td fontSize="md"><b>Special Instruction</b></Td>
-              <Td fontSize="md">Breakable items, be careful when carrying it and when dropping it, it’s vey </Td>
+              <Td fontSize="md">Breakable items, be careful when carrying it  </Td>
             </Flex>
        </Tr>
        <Tr>
-       <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
+       <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="0px"
+                borderBottom="1px solid lightgray"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
               <Td fontSize="md"><b>Pickup</b></Td>
               <Td fontSize="md">36 Adeola Adeleye Street, Ilupeju, Lagos</Td>
             </Flex>
        </Tr>
        <Tr>
-       <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
+       <Flex
+                justifyContent=""
+                gap="250px"
+                width="100%"
+                marginLeft="0px"
+                borderBottom="1px solid lightgray"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
               <Td fontSize="md"><b>Destination </b></Td>
               <Td fontSize="md">23 Ikorodu-Ososun Rd, ilupeju, Lagos</Td>
             </Flex>

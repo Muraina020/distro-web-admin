@@ -84,13 +84,15 @@ const DashboardPage = () => {
         <div className='date'>
           <div className='dating'>
         <img src={date1} alt="" />
+        <div className='sm'>
         <span className='code'>DL-5679-435EX</span>
         <span className='dated'>Mon Jun 2 2023 12:38:37</span>
+        </div>
         </div>
         <span className='prize'>N5,600</span>
        </div>
         <div className='name'>
-          <div className='dating'>
+          <div className='datings'>
         <span className='assigned'>Costomer Name: <span className='bankuli'>Bankuli Kofi</span></span>
         <span className='assigned'>Assigned Driver: <span className='bankuli'>John Jonson</span></span>
         </div>
@@ -103,13 +105,15 @@ const DashboardPage = () => {
         <div className='date'>
           <div className='dating'>
         <img src={date2} alt="" />
+        <div className='sm'>
         <span className='code'>DL-5679-435EX</span>
-        <span className='two-dated'>Mon Jun 2 2023 12:38:37</span>
+        <span className='dated'>Mon Jun 2 2023 12:38:37</span>
+        </div>
         </div>
         <span className='prize'>N5,600</span>
        </div>
         <div className='name'>
-          <div className='dating'>
+          <div className='datings'>
         <span className='assigned'>Costomer Name: <span className='bankuli'>Bankuli Kofi</span></span>
         <span className='assigned'>Assigned Driver: <span className='bankuli'>John Jonson</span></span>
         </div>
@@ -122,13 +126,15 @@ const DashboardPage = () => {
         <div className='date'>
           <div className='dating'>
         <img src={date3} alt="" />
+        <div className='sm'>
         <span className='code'>DL-5679-435EX</span>
         <span className='dated'>Mon Jun 2 2023 12:38:37</span>
+        </div>
         </div>
         <span className='prize'>N5,600</span>
        </div>
         <div className='name'>
-          <div className='dating'>
+          <div className='datings'>
         <span className='assigned'>Costomer Name: <span className='bankuli'>Bankuli Kofi</span></span>
         <span className='assigned'>Assigned Driver: <span className='bankuli'>John Jonson</span></span>
         </div>
@@ -141,13 +147,15 @@ const DashboardPage = () => {
         <div className='date'>
           <div className='dating'>
         <img src={date4} alt="" />
+        <div className='sm'>
         <span className='code'>DL-5679-435EX</span>
         <span className='dated'>Mon Jun 2 2023 12:38:37</span>
+        </div>
         </div>
         <span className='prize'>N5,600</span>
        </div>
         <div className='name'>
-          <div className='dating'>
+          <div className='datings'>
         <span className='assigned'>Costomer Name: <span className='bankuli'>Bankuli Kofi</span></span>
         <span className='assigned'>Assigned Driver: <span className='bankuli'>John Jonson</span></span>
         </div>
@@ -160,13 +168,15 @@ const DashboardPage = () => {
         <div className='date'>
           <div className='dating'>
         <img src={date5} alt="" />
+        <div className='sm'>
         <span className='code'>DL-5679-435EX</span>
-        <span className='five-dated'>Mon Jun 2 2023 12:38:37</span>
+        <span className='dated'>Mon Jun 2 2023 12:38:37</span>
+        </div>
         </div>
         <span className='prize'>N5,600</span>
        </div>
         <div className='name'>
-          <div className='dating'>
+          <div className='datings'>
         <span className='assigned'>Costomer Name: <span className='bankuli'>Bankuli Kofi</span></span>
         <span className='assigned'>Assigned Driver: <span className='bankuli'>John Jonson</span></span>
         </div>

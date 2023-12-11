@@ -11,6 +11,7 @@ import {
     Box,
     IconButton,
     Button,
+    useBreakpointValue,
   } from '@chakra-ui/react';
   import { FaChevronLeft, FaChevronRight, FaArrowLeft } from 'react-icons/fa';
   import man from "../../assets/img/man.png";
@@ -31,6 +32,9 @@ const CustomerAcc = () => {
       navigate('/customrating');
     };
   return (
+
+   
+
     <div style={{ position: 'relative' }}>
     {/* Arrow icon positioned at the top right corner */}
     <IconButton
@@ -54,14 +58,15 @@ const CustomerAcc = () => {
         </Tr>
 
         <Tr>
-          <Td colSpan={6} textAlign="center">
-            <Flex
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-              marginTop="40px"
-              marginBottom="15px"
-            >
+          <Td colSpan={5} textAlign="center">
+          <Flex
+                  direction="column"
+                  alignItems="center"
+                  justifyContent="center"
+                  marginTop="40px"
+                  marginBottom="15px"
+                  marginLeft="100px"
+                >
               <Avatar size="lg" name="John Doe" src={man} />
               <Box mt="2">DDID-247</Box>
             </Flex>
@@ -80,7 +85,19 @@ const CustomerAcc = () => {
         </Tr>
 
   <Tr width=''>
-      <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
+  <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Name </b></Td>
@@ -91,7 +108,20 @@ const CustomerAcc = () => {
             <Td fontSize="md">Balogun</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='150px' width="100%" marginLeft='100px'>
+
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
         
         <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Phone</b></Td>
@@ -102,7 +132,19 @@ const CustomerAcc = () => {
             <Td fontSize="md">davidb@gmail.com</Td>
           </Flex>
     </Flex>
-      <Flex justifyContent="" gap='120px' width="100%" marginLeft='100px'>
+    <Flex
+                justifyContent=""
+                gap="150px"
+                width="100%"
+                marginLeft="100px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
        
           <Flex alignItems="" borderBottom="1px solid lightgray">
             <Td fontSize="md"><b>Mast Active</b></Td>

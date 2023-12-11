@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./customer.css"
 import {
   Table,
   Thead,
@@ -39,13 +40,13 @@ const CustomerPage = () => {
 
   return (
     <div>
-      <TableContainer bg="white" fontSize="18px" paddingBottom="30px">
+      <TableContainer bg="white" className="table-container-mobile" fontSize="18px" paddingBottom="30px">
         <Table variant="simple" size="lg" paddingBottom="50px">
           <Thead>
             <Tr borderBottom="2px solid lightgray">
               <Th>DRIVER ID</Th>
               <Th>NAME</Th>
-              <Th>EMAIL</Th>
+              <Th className="email-head">EMAIL</Th>
               <Th isNumeric>PHONE NUMBER</Th>
               <Th>CURRENT ORDERS</Th>
             </Tr>
@@ -55,7 +56,7 @@ const CustomerPage = () => {
               <Tr key={index} borderBottom="2px solid lightgray" cursor='pointer' color='#696969' onClick={handleOrder}>
                 <Td>{item.id}</Td>
                 <Td>{item.name}</Td>
-                <Td>{item.email}</Td>
+                <Td className="email-column">{item.email}</Td>
                 <Td isNumeric>{item.phone}</Td>
                 <Td>
                   <div

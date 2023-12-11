@@ -28,6 +28,28 @@ const UploadPage = () => {
     <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
       <Table variant="simple" size="lg" paddingBottom="50px">
         <Tbody>
+        <style>
+        {`
+          @media screen and (max-width: 600px) {
+            /* Adjust styles for small screens here */
+            .responsive-input {
+              width: 200px;
+            }
+            .responsive-button {
+              width: 300px; /* Set the width to 100% for small screens */
+              margin-left: 180px;
+               /* Reset margin-left for small screens */
+            }
+            .upload{
+              margin-left: 220px
+            }
+            .upload-text{
+              margin-left: 220px
+            }
+
+          }
+        `}
+      </style>
         <Tr>
             <Td>
               <Flex
@@ -36,16 +58,18 @@ const UploadPage = () => {
                 justifyContent="center"
                 marginTop="10px" // Adjusted marginTop
                 marginBottom="15px"
+                marginLeft='120px'
               >
                 <Input
-                  placeholder="Select Vehicle Type"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 15px 0 0px"
-                  cursor='pointer'
+                   className="responsive-input"
+                   placeholder="Firstname"
+                   border="2px solid gray"
+                   borderRadius="4px"
+                   p="2"
+                   width="330px"
+                   height="40px"
+                   margin="0 10px 0 0"
+                   cursor="pointer"
                 />
                 <ChevronDownIcon
                   boxSize={6}
@@ -54,6 +78,7 @@ const UploadPage = () => {
                   marginLeft="-40px" // Adjusted marginLeft
                 />
                 <Input
+                 className="responsive-input"
                   placeholder="Vehicle Plate Number "
                   border="2px solid gray"
                   borderRadius="4px"
@@ -69,38 +94,42 @@ const UploadPage = () => {
 
           <Tr>
             <Td>
-              <Flex
+            <Flex
                 direction="row"
                 alignItems="center"
                 justifyContent="center"
                 marginTop="10px" // Adjusted marginTop
                 marginBottom="15px"
+                marginLeft='120px'
               >
                 <Input
-                  placeholder="License  Number"
+                 className="responsive-input"
+                  placeholder="Vehicle Plate Number "
                   border="2px solid gray"
                   borderRadius="4px"
                   p="2"
                   width="330px"
                   height="40px"
-                  margin="0 0 0 10px"
+                  margin="0 0 0 0px"
                   cursor='pointer'
+                  marginRight='5px'
                 />
-                <Input
-                  placeholder="Nipost"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 0 0 20px"
-                  cursor='pointer'
+                 <Input
+                   className="responsive-input"
+                   placeholder="Firstname"
+                   border="2px solid gray"
+                   borderRadius="4px"
+                   p="2"
+                   width="330px"
+                   height="40px"
+                   margin="0 10px 0 0"
+                   cursor="pointer"
                 />
                 <ChevronDownIcon
                   boxSize={6}
                   color="gray.500"
                   cursor="pointer"
-                  marginLeft="-28px" // Adjusted marginLeft
+                  marginLeft="-40px" // Adjusted marginLeft
                 />
               </Flex>
             </Td>
@@ -116,6 +145,7 @@ const UploadPage = () => {
                 marginBottom="15px"
               >
                 <div
+                className='upload'
                   style={{
                     width: '120px',
                     height: '120px',
@@ -134,7 +164,7 @@ const UploadPage = () => {
                 
                   />
                 </div>
-                <Text color="#00A69C" fontSize="lg" marginTop='10px'>
+                <Text color="#00A69C" fontSize="lg" marginTop='10px' className='upload-text'>
                   UPLOAD DRIVER'S PICTURE
                 </Text>
               </Flex>

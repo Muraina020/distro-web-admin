@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./driverPage.css"
 import {
   Table,
   Thead,
@@ -75,8 +76,8 @@ const DriverPage = () => {
   };
   return (
     <div>
-    <TableContainer bg="white" fontSize="18px" paddingBottom="30px">
-      <Table variant="simple" size="lg" paddingBottom="50px">
+    <TableContainer className="table-container-mobile" bg="white" fontSize="18px" paddingBottom="30px">
+      <Table variant="simple" size="md" paddingBottom="50px">
         <Thead>
         <Tr
   borderBottom="2px solid lightgray"
@@ -107,7 +108,7 @@ const DriverPage = () => {
       cursor: "pointer",
     }}
   >
-    INACTIVE DRIVERS
+    INACTIVE
   </Th>
   <Th
     onClick={() => handleHeaderClick("UNIFIED")}
@@ -118,7 +119,7 @@ const DriverPage = () => {
       cursor: "pointer",
     }}
   >
-    UNVERIFIED DRIVERS
+    UNVERIFIED
   </Th>
 </Tr>
 
@@ -127,7 +128,7 @@ const DriverPage = () => {
           <Tr borderBottom="2px solid lightgray">
             <Th>DRIVER ID</Th>
             <Th>NAME</Th>
-            <Th>EMAIL</Th>
+            <Th className="email-head">EMAIL</Th>
             <Th isNumeric>PHONE NUMBER</Th>
             <Th>STATUS</Th>
           </Tr>
@@ -135,9 +136,9 @@ const DriverPage = () => {
         <Tbody>
           {data.map((item, index) => (
             <Tr  key={index} borderBottom="2px solid lightgray" style={{ color: '#696969', cursor: 'pointer' }}  onClick={() => handleRowClick(item.status)}>
-              <Td>{item.id}</Td>
-              <Td>{item.name}</Td>
-              <Td>{item.email}</Td>
+              <Td >{item.id}</Td>
+              <Td >{item.name}</Td>
+              <Td className="email-column">{item.email}</Td>
               <Td isNumeric>{item.phone}</Td>
               <Td>
                 <div

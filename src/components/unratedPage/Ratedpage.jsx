@@ -56,7 +56,19 @@ const Ratedpage = () => {
       </Tr>
 
       <Tr>
-        <Flex justifyContent="space-between" width="" marginLeft='50px'>
+        <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
          
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer ID</b></Td>
@@ -67,7 +79,20 @@ const Ratedpage = () => {
               <Td fontSize="md">Bankuli Kofi</Td>
             </Flex>
       </Flex>
-        <Flex justifyContent="space-between" width="" marginLeft='50px'>
+
+      <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
           
           <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer Phone</b></Td>
@@ -78,7 +103,20 @@ const Ratedpage = () => {
               <Td fontSize="md">50km</Td>
             </Flex>
       </Flex>
-        <Flex justifyContent="space-between" width="" marginLeft='50px'>
+
+      <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
          
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Package Type</b></Td>
@@ -92,19 +130,55 @@ const Ratedpage = () => {
       </Tr>
        
        <Tr >
-       <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
+       <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
               <Td fontSize="md"><b>Special Instruction</b></Td>
-              <Td fontSize="md">Breakable items, be careful when carrying it and when dropping it, it’s vey </Td>
+              <Td fontSize="md">Breakable items, be careful when carrying it </Td>
             </Flex>
        </Tr>
        <Tr>
-       <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
+       <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
               <Td fontSize="md"><b>Pickup</b></Td>
               <Td fontSize="md">36 Adeola Adeleye Street, Ilupeju, Lagos</Td>
             </Flex>
        </Tr>
        <Tr>
-       <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
+       <Flex
+                justifyContent=""
+                gap="200px"
+                width="300%"
+                marginLeft="0px"
+                css={`
+                  @media (max-width: 768px) {
+                    gap: 0px;
+                    width: ;
+                    margin-left: 0px;
+                  }
+                `}
+              >
               <Td fontSize="md"><b>Destination </b></Td>
               <Td fontSize="md">23 Ikorodu-Ososun Rd, ilupeju, Lagos</Td>
             </Flex>
@@ -133,7 +207,7 @@ const Ratedpage = () => {
       <Tr >
        <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
               <Td fontSize="md"><b>Special Instruction</b></Td>
-              <Td fontSize="md">Breakable items, be careful when carrying it and when dropping it, it’s vey </Td>
+              <Td fontSize="md">Breakable items, be careful when carrying it </Td>
             </Flex>
        </Tr>
       </Table>
