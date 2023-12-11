@@ -51,73 +51,70 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomeLayouts />,
     children: [
-      // {
-      //   index: true,
-      //   element: <div>Home</div>,
-      // },
       {
+        index: true,
         path: "/",
-        element: <Dashboard/>,
+        element: <Dashboard />,
       },
       {
         path: "/driver",
-        element: <Driver/>,
+        element: <Driver />,
       },
       {
         path: "/addDriver",
-        element: <AddDriver/>,
+        element: <AddDriver />,
       },
       {
         path: "/add",
-        element: <AddDriver/>,
+        element: <AddDriver />,
       },
       {
         path: "/success",
-        element: <Success/>,
+        element: <Success />,
       },
       {
         path: "/online",
-        element: <OnlineSetting/>,
+        element: <OnlineSetting />,
       },
       {
         path: "/offline",
-        element: <Offline/>,
+        element: <Offline />,
       },
       {
         path: "/unverify",
-        element: <Activate/>,
+        element: <Activate />,
       },
       {
         path: "/rating",
-        element: <Rating/>,
+        element: <Rating />,
       },
       {
         path: "/offlinerating",
-        element: <OfflineR/>,
+        element: <OfflineR />,
       },
       {
         path: "/activerating",
-        element: <ActiveR/>,
+        element: <ActiveR />,
       },
       {
         path: "/unrated",
-        element: <Unrated/>,
+        element: <Unrated />,
       },
       {
         path: "/rated",
-        element: <Rated/>,
+        element: <Rated />,
       },
       {
         path: "/customer",
-        element: <CustomerTable/>,
+        element: <CustomerTable />,
       },
       {
         path: "/customeracc",
-        element: <CustomerAccount/>,
+        element: <CustomerAccount />,
       },
       {
         path: "/customrating",
-        element: <CustomerRatin/>,
+        element: <CustomerRatin />,
       },
       {
         path: "orderTracking",
