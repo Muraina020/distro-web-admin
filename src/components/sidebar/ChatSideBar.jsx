@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const navLinks = [
   {
-    path: "",
+    path: "/",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ const navLinks = [
   },
 
   {
-    path: "",
+    path: "/addDriver",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@ const navLinks = [
     ),
   },
   {
-    path: "",
+    path: "/drivers",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ const navLinks = [
     ),
   },
   {
-    path: "",
+    path: "/customer",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@ const navLinks = [
     ),
   },
   {
-    path: "",
+    path: "/orderTracking",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ const navLinks = [
   },
 
   {
-    path: "",
+    path: "/expressOrderHistory",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +248,7 @@ const navLinks = [
   },
 
   {
-    path: "",
+    path: "/scheduleOrderHistory",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +295,7 @@ const navLinks = [
 
 const ChatSideBar = () => {
   return (
-    <aside className="fixed top-[6rem] w-[6rem] bg-background h-screen">
+    <aside className="fixed top-[6rem] w-[6rem] xl:block hidden bg-background h-screen">
       <ul className="flex flex-col items-center">
         {navLinks.map((link, i) => (
           <li key={i}>

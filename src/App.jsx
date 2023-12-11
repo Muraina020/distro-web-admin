@@ -23,6 +23,7 @@ import {
   ScheduleOnTheWayDetail,
   ScheduleDeliveredDetail,
   SchedulePendingDetail,
+  ChatMobileDrivers,
 } from "./pages";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Driver from "./pages/driver/Driver";
@@ -216,6 +217,10 @@ const router = createBrowserRouter([
         element: <CustomerChats />,
       },
     ],
+  },
+  {
+    path: "/chat/drivers/:id",
+    element: <ChatMobileDrivers />,
   },
 ]);
 

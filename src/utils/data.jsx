@@ -239,7 +239,7 @@ export const expreesOrderHistory = [
   },
 ];
 
-export const drivers = [
+export const activedrivers = [
   {
     driver_id: "DCIC-247",
     name: "David Balogun",
@@ -281,6 +281,50 @@ export const drivers = [
     name: "David Balogun",
     daily_assign: "7",
     status: "online",
+  },
+];
+export const inactivedrivers = [
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "1",
+    status: "offline",
+  },
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "2",
+    status: "offline",
+  },
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "3",
+    status: "offline",
+  },
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "4",
+    status: "offline",
+  },
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "5",
+    status: "offline",
+  },
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "6",
+    status: "offline",
+  },
+  {
+    driver_id: "DCIC-247",
+    name: "David Balogun",
+    daily_assign: "7",
+    status: "offline",
   },
 ];
 

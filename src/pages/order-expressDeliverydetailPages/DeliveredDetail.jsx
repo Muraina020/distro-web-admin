@@ -1,17 +1,10 @@
-import { Link } from "react-router-dom";
-import { GoArrowLeft } from "react-icons/go";
 import { RateReview, TableDetailInfo, Wrapper } from "../../components";
+import ArrowBack from "../../components/ui/ArrowBack";
 
 const DeliveredDetail = () => {
   return (
     <Wrapper>
-      <Link
-        to={"/orderTracking"}
-        className="rounded-box inline-block p-2 hover:bg-gray-50  ml-6  mt-5"
-      >
-        <GoArrowLeft className="text-3xl" />
-      </Link>
-
+      <ArrowBack link={"/orderTracking"} />
       <TableDetailInfo status={"delivered"} />
 
       {/* <div className="grid grid-cols-2 items-center   gap-x-[5rem] gap-y-8 mt-5">
