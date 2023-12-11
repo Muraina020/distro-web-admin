@@ -26,7 +26,7 @@ const ChatMobileDrivers = () => {
 
       <hr className="mt-5" />
 
-      <div className="px-4">
+      <div className="px-4 h-full">
         <p className="text-sm text-graylight mt-2 text-center">
           My account isn’t loading my order status
         </p>
@@ -105,6 +105,13 @@ const ChatMobileDrivers = () => {
             />
           </figure>
         </article>
+      </div>
+      <div className="mt-3 px-3 py-3">
+        <input
+          type="text"
+          className="p-2 w-full rounded-lg outline-none border"
+          placeholder="Message"
+        />
       </div>
     </div>
   );
