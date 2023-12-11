@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import SidebarNavLink from "../SIdebarNavLink";
+import SidebarNavLink from "../SidebarLNavLink";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -45,7 +45,6 @@ const Sidebar = () => {
           text={"Dashboard"}
           path={"/"}
         />
-
         <li className="flex items-center  gap-x-1 mt-[2.5rem] leading-[-0.02719rem] relative  text-sm  text-graylight">
           <span className="w-[2.8125rem]  -ml-3  top-1/2 left-0   -translate-y-1/2 h-[0.0625rem] inline-block bg-graylight"></span>
           Driver Management
@@ -239,13 +238,11 @@ const Sidebar = () => {
           text={"Add Driver"}
           path={"/AddDriver"}
         />
-
         <li className="flex items-center  gap-x-1 mt-[2.5rem] leading-[-0.02719rem] relative  text-sm  text-graylight">
           <span className="w-[2.8125rem]  -ml-3  top-1/2 left-0   -translate-y-1/2 h-[0.0625rem] inline-block bg-graylight"></span>
           Customer Management
           <span className="xl:w-[8.9375rem] w-[6rem]   top-1/2 right-0   -translate-y-1/2 h-[0.0625rem] inline-block bg-graylight"></span>
         </li>
-
         <SidebarNavLink
           activeIcon={
             <svg
@@ -385,7 +382,6 @@ const Sidebar = () => {
           path={"/orderTracking"}
           text={"Order Tracking"}
         />
-
         <SidebarNavLink
           activeIcon={
             <svg
@@ -473,7 +469,6 @@ const Sidebar = () => {
           path={"/expressOrderHistory"}
           text={"Express Order History"}
         />
-
         <SidebarNavLink
           activeIcon={
             <svg

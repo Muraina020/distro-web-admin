@@ -25,15 +25,99 @@ import {
   SchedulePendingDetail,
   ChatMobileDrivers,
 } from "./pages";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Driver from "./pages/driver/Driver";
+import AddDriver from "./pages/addDriver/AddDriver";
+import Login from "./pages/login/Login";
+import Success from "./pages/success/Success";
+import CustomerTable from "./pages/customer/CustomerTable";
+import OnlineSetting from "./pages/onlinesetting/OnlineSetting";
+import Rating from "./pages/rating/Rating";
+import Unrated from "./pages/unrated/Unrated";
+import Rated from "./pages/unrated/Rated";
+import Activate from "./pages/onlinesetting/Activate";
+import Offline from "./pages/onlinesetting/Offline";
+import OfflineR from "./pages/rating/OfflineR";
+import ActiveR from "./pages/rating/ActiveR";
+import CustomerAccount from "./pages/customer/CustomerAccount";
+import CustomerRatin from "./pages/customer/CustomerRatin";
 
 const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "/",
     element: <HomeLayouts />,
     children: [
+      // {
+      //   index: true,
+      //   element: <div>Home</div>,
+      // },
       {
-        index: true,
-        element: <div>Home</div>,
+        path: "/",
+        element: <Dashboard/>,
+      },
+      {
+        path: "/driver",
+        element: <Driver/>,
+      },
+      {
+        path: "/addDriver",
+        element: <AddDriver/>,
+      },
+      {
+        path: "/add",
+        element: <AddDriver/>,
+      },
+      {
+        path: "/success",
+        element: <Success/>,
+      },
+      {
+        path: "/online",
+        element: <OnlineSetting/>,
+      },
+      {
+        path: "/offline",
+        element: <Offline/>,
+      },
+      {
+        path: "/unverify",
+        element: <Activate/>,
+      },
+      {
+        path: "/rating",
+        element: <Rating/>,
+      },
+      {
+        path: "/offlinerating",
+        element: <OfflineR/>,
+      },
+      {
+        path: "/activerating",
+        element: <ActiveR/>,
+      },
+      {
+        path: "/unrated",
+        element: <Unrated/>,
+      },
+      {
+        path: "/rated",
+        element: <Rated/>,
+      },
+      {
+        path: "/customer",
+        element: <CustomerTable/>,
+      },
+      {
+        path: "/customeracc",
+        element: <CustomerAccount/>,
+      },
+      {
+        path: "/customrating",
+        element: <CustomerRatin/>,
       },
       {
         path: "orderTracking",
