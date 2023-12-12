@@ -440,29 +440,35 @@
        top: 95px;
        font-size: 18px;
       }
-
-      @media screen and (max-width: 767px) {
-       
-        .bodi{
-          flex: 2;
+      @media screen and (max-width: 678px) {
+        .bodi {
           display: flex;
           flex-direction: column;
-          gap: 20px;
-          width: 300px;
-          background-color:  #EFF6FF;
-          margin: 10px 0 0 0px;
-         }
-         .distro >h3{
-          font-size: 25px;
-          font-weight: 600;
-          margin-bottom: 13px;
-          width: 400px;
+          gap: 10px;
+          width: 90%;
+          margin-left: 0px;
+        }
+      
+        .distro, .recent, .cards {
+          width: 100%; /* Set child elements or container width to 100% */
         }
         .recent >h3{
           font-size: 25px;
           font-weight: 600;
           margin-top: 30px;
           margin-bottom: 15px;
+        }
+        .distro >h3{
+          width: 200px;
+          font-size: 20px;
+          font-weight: 600;
+          margin-top: 30px;
+          margin-bottom: 15px;
+        }
+        .distro >p{
+          width: 200px;
+          font-size: 14px;
+          
         }
          .cards {
           display: grid;
@@ -473,7 +479,7 @@
          .card{
           display: flex;
           justify-content: space-between;
-          background-color: white;
+          /* background-color: white; */
           padding: 5px;
           border-radius: 10px;
           width: 168px;
