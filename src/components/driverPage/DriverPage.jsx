@@ -77,7 +77,7 @@ const DriverPage = () => {
   return (
     <div>
     <TableContainer className="table-container-mobile" bg="white" fontSize="18px" paddingBottom="30px">
-      <Table variant="simple" size="md" paddingBottom="50px">
+      <Table variant="simple" size="lg" paddingBottom="50px">
         <Thead>
         <Tr
   borderBottom="2px solid lightgray"

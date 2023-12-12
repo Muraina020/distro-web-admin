@@ -61,7 +61,7 @@ const UnratedPage = () => {
       <Flex
                 justifyContent=""
                 gap="250px"
-                width="0%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -85,7 +85,7 @@ const UnratedPage = () => {
       <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -109,7 +109,7 @@ const UnratedPage = () => {
       <Flex
                 justifyContent=""
                 gap="250px"
-                width="100%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -134,7 +134,7 @@ const UnratedPage = () => {
        <Flex
                 justifyContent=""
                 gap="150px"
-                width="100%"
+                width="300px"
                 marginLeft="0px"
                 borderBottom="1px solid lightgray"
                 css={`
@@ -153,7 +153,7 @@ const UnratedPage = () => {
        <Flex
                 justifyContent=""
                 gap="150px"
-                width="100%"
+                width="300px"
                 marginLeft="0px"
                 borderBottom="1px solid lightgray"
                 css={`
@@ -172,7 +172,7 @@ const UnratedPage = () => {
        <Flex
                 justifyContent=""
                 gap="250px"
-                width="100%"
+                width="300px"
                 marginLeft="0px"
                 borderBottom="1px solid lightgray"
                 css={`

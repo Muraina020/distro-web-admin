@@ -59,7 +59,7 @@ const Ratedpage = () => {
         <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -83,7 +83,7 @@ const Ratedpage = () => {
       <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -107,7 +107,7 @@ const Ratedpage = () => {
       <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -133,7 +133,7 @@ const Ratedpage = () => {
        <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -151,7 +151,7 @@ const Ratedpage = () => {
        <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
@@ -169,7 +169,7 @@ const Ratedpage = () => {
        <Flex
                 justifyContent=""
                 gap="200px"
-                width="300%"
+                width="300px"
                 marginLeft="0px"
                 css={`
                   @media (max-width: 768px) {
