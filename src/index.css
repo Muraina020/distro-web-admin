@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply !bg-background;
+    @apply !bg-background h-full min-h-screen;
     font-family: "Readex Pro", sans-serif;
   }
 }

@@ -108,7 +108,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={""}
+              to={"/driver"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -173,7 +173,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={""}
+              to={"/addDriver"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -208,7 +208,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/orderTracking"}
+              to={"/customer"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg

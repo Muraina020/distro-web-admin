@@ -40,9 +40,11 @@ const Header = () => {
               </svg>
             </button>
 
-            <div className=" lg:w-[9.70575rem] lg:h-[3.28713rem] w-[4rem]  ">
-              <img src={logo} alt="distor logo" className="h-full w-full" />
-            </div>
+            <Link to={"/"}>
+              <div className=" lg:w-[9.70575rem] lg:h-[3.28713rem] w-[4rem]  ">
+                <img src={logo} alt="distor logo" className="h-full w-full" />
+              </div>
+            </Link>
           </div>
 
           <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3">
