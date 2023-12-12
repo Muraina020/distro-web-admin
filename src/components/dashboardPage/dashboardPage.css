@@ -9,7 +9,7 @@
       }
       .dif{
         display: flex;
-        gap: 600px;
+        justify-content: space-between;
       }
       .harm{
         margin-right: 80px;
@@ -458,6 +458,10 @@
           margin-top: 30px;
           margin-bottom: 15px;
         }
+    
+      .harm >img{
+       display: none;
+      }
         .distro >h3{
           width: 200px;
           font-size: 20px;
