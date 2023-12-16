@@ -40,7 +40,7 @@ const Header = () => {
               </svg>
             </button>
 
-            <Link to={"/"}>
+            <Link to={"/dashboard"}>
               <div className=" lg:w-[9.70575rem] lg:h-[3.28713rem] w-[4rem]  ">
                 <img src={logo} alt="distor logo" className="h-full w-full" />
               </div>
@@ -123,7 +123,7 @@ const Header = () => {
             </li>
 
             <li className="lg:block hidden">
-              <Link to={"/profile/setting"}>
+              <Link to={"/dashboard/setting"}>
                 <button>
                   <svg
                     className="lg:w-[30px] lg:h-[30px] w-[20px] h-[20px]"
@@ -146,7 +146,7 @@ const Header = () => {
             </li>
 
             <li>
-              <Link to={"/profile"}>
+              <Link to={"/dashboard/profile"}>
                 <button>
                   <svg
                     className="lg:w-[30px] lg:h-[30px] w-[20px] h-[20px]"

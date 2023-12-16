@@ -1,13 +1,13 @@
 const CheckBox = ({ id, isDefaultChecked }) => {
   return (
-    <label className="relative w-[0.97113rem] h-[0.97113rem]">
+    <label className="relative w-[1rem] h-[1rem]">
       <input
         type="checkbox"
         id={id}
         className="appearance-none peer"
         defaultChecked={isDefaultChecked}
       />
-      <span className="border border-[#D0D5DD] inline-block rounded-[0.29131rem]  peer-checked:hidden  w-[0.97113rem] h-[0.97113rem] 0.29131rem" />
+      <span className="border border-[#D0D5DD] inline-block rounded-full  peer-checked:hidden  w-[1rem] h-[1rem] 0.29131rem" />
       <svg
         className=" scale-0 peer-checked:block peer-checked:scale-100 transition-all duration-300  absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 "
         xmlns="http://www.w3.org/2000/svg"

@@ -10,7 +10,6 @@ import {
   ExpressOrderHistory,
   ScheduleOrderHistory,
   Profile,
-  SharedLayout,
   Setting,
   OrderExpressDelivery,
   OrderSharedLayout,
@@ -24,6 +23,7 @@ import {
   ScheduleDeliveredDetail,
   SchedulePendingDetail,
   ChatMobileDrivers,
+  Error,
 } from "./pages";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Driver from "./pages/driver/Driver";
@@ -42,82 +42,88 @@ import ActiveR from "./pages/rating/ActiveR";
 import CustomerAccount from "./pages/customer/CustomerAccount";
 import CustomerRatin from "./pages/customer/CustomerRatin";
 
+// loaders
+import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
+import { loader as scheduleHistoryLoader } from "./pages/ScheduleOrderHistory";
+
+// actions
+
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <Login />,
   },
   {
-    path: "/",
+    path: "/dashboard",
     element: <HomeLayouts />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
-        path: "/",
         element: <Dashboard />,
       },
       {
-        path: "/driver",
+        path: "/dashboard/driver",
         element: <Driver />,
       },
       {
-        path: "/addDriver",
+        path: "/dashboard/addDriver",
         element: <AddDriver />,
       },
       {
-        path: "/add",
+        path: "dashboard/add",
         element: <AddDriver />,
       },
       {
-        path: "/success",
+        path: "dashboard/success",
         element: <Success />,
       },
       {
-        path: "/online",
+        path: "dashboard/online",
         element: <OnlineSetting />,
       },
       {
-        path: "/offline",
+        path: "dashboard/offline",
         element: <Offline />,
       },
       {
-        path: "/unverify",
+        path: "dashboard/unverify",
         element: <Activate />,
       },
       {
-        path: "/rating",
+        path: "dashboard/rating",
         element: <Rating />,
       },
       {
-        path: "/offlinerating",
+        path: "dashboard/offlinerating",
         element: <OfflineR />,
       },
       {
-        path: "/activerating",
+        path: "dashboard/activerating",
         element: <ActiveR />,
       },
       {
-        path: "/unrated",
+        path: "dashboard/unrated",
         element: <Unrated />,
       },
       {
-        path: "/rated",
+        path: "dashboard/rated",
         element: <Rated />,
       },
       {
-        path: "/customer",
+        path: "/dashboard/customer",
         element: <CustomerTable />,
       },
       {
-        path: "/customeracc",
+        path: "dashboard/customeracc",
         element: <CustomerAccount />,
       },
       {
-        path: "/customrating",
+        path: "dashboard/customrating",
         element: <CustomerRatin />,
       },
       {
-        path: "orderTracking",
+        path: "/dashboard/orderTracking",
         element: <OrderSharedLayout />,
         children: [
           {
@@ -179,24 +185,22 @@ const router = createBrowserRouter([
       {
         path: "expressOrderHistory",
         element: <ExpressOrderHistory />,
+        errorElement: <Error />,
+        loader: expressHistroyLoader,
       },
       {
         path: "scheduleOrderHistory",
         element: <ScheduleOrderHistory />,
+        errorElement: <Error />,
+        loader: scheduleHistoryLoader,
       },
       {
-        path: "profile",
-        element: <SharedLayout />,
-        children: [
-          {
-            index: true,
-            element: <Profile />,
-          },
-          {
-            path: "setting",
-            element: <Setting />,
-          },
-        ],
+        path: "/dashboard/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/dashboard/setting",
+        element: <Setting />,
       },
     ],
   },
