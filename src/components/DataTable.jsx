@@ -4,6 +4,7 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import DataTablePagination from "./ui/DataTablePagination";
 
@@ -12,12 +13,13 @@ const DataTable = ({ data, columns }) => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (
     <div className="pb-5 ">
       <div className="overflow-x-auto">
-        <table className="table table-xs">
+        <table className="table table-lg">
           <thead>
             {table.getHeaderGroups().map((headerGroup, i) => (
               <tr key={headerGroup.id}>
@@ -61,7 +63,7 @@ const DataTable = ({ data, columns }) => {
         </table>
       </div>
       <div className=" flex justify-center mt-7">
-        <DataTablePagination />
+        <DataTablePagination table={table} />
       </div>
     </div>
   );

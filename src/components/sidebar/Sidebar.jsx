@@ -43,7 +43,7 @@ const Sidebar = () => {
             </svg>
           }
           text={"Dashboard"}
-          path={"/"}
+          path={"/dashboard"}
         />
         <li className="flex items-center  gap-x-1 mt-[2.5rem] leading-[-0.02719rem] relative  text-sm  text-graylight">
           <span className="w-[2.8125rem]  -ml-3  top-1/2 left-0   -translate-y-1/2 h-[0.0625rem] inline-block bg-graylight"></span>
@@ -168,7 +168,7 @@ const Sidebar = () => {
             </svg>
           }
           text={"Driver"}
-          path={"/driver"}
+          path={"/dashboard/driver"}
         />
 
         <SidebarNavLink
@@ -236,7 +236,7 @@ const Sidebar = () => {
             </svg>
           }
           text={"Add Driver"}
-          path={"/AddDriver"}
+          path={"/dashboard/AddDriver"}
         />
         <li className="flex items-center  gap-x-1 mt-[2.5rem] leading-[-0.02719rem] relative  text-sm  text-graylight">
           <span className="w-[2.8125rem]  -ml-3  top-1/2 left-0   -translate-y-1/2 h-[0.0625rem] inline-block bg-graylight"></span>
@@ -297,7 +297,7 @@ const Sidebar = () => {
             </svg>
           }
           text={"Customer"}
-          path={"/customer"}
+          path={"/dashboard/customer"}
         />
 
         <li className="flex items-center  gap-x-1 mt-[2.5rem] leading-[-0.02719rem] relative  text-sm  text-graylight">
@@ -379,7 +379,7 @@ const Sidebar = () => {
               </defs>
             </svg>
           }
-          path={"/orderTracking"}
+          path={"/dashboard/orderTracking"}
           text={"Order Tracking"}
         />
         <SidebarNavLink
@@ -466,7 +466,7 @@ const Sidebar = () => {
               </defs>
             </svg>
           }
-          path={"/expressOrderHistory"}
+          path={"/dashboard/expressOrderHistory"}
           text={"Express Order History"}
         />
         <SidebarNavLink
@@ -540,7 +540,7 @@ const Sidebar = () => {
             </svg>
           }
           text={"Schedule Order History"}
-          path={"/scheduleOrderHistory"}
+          path={"/dashboard/scheduleOrderHistory"}
         />
       </ul>
     </aside>
