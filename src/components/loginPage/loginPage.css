@@ -77,10 +77,17 @@
 .box >input{
     width: 20px;
     height: 20px;
+   
+}
+.box >span{
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
 }
 .forgot{
     color: #00A69C;
     cursor: pointer;
+    font-weight: 600;
 }
 .login{
     width: 330px;

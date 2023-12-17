@@ -1,10 +1,18 @@
 import React from 'react'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import rectangle from "../../assets/img/rectangle.png";
+import { Link, useNavigate } from 'react-router-dom';
 import "./loginPage.css"
 
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+
+    const handleHome = () => {
+        // Add logic to handle the "Order" click (if needed)
+        // Once the logic is executed, navigate to the "rating" page
+        navigate("/dashboard");
+      };
   return (
     <div className='contain'>
     <div className='left'>
@@ -27,9 +35,9 @@ const LoginPage = () => {
                 <input type="checkbox" />
                 <span>Remember me</span>
             </div>
-         <span className='forgot'>Forgot Password?</span>
+        <Link to="/reset"><span className='forgot'>Forgot Password?</span></Link>
         </div>
-        <button className='login'>Login</button>
+        <button className='login' onClick={handleHome}>Login</button>
     </div>
 </div>
   )
