@@ -12,7 +12,7 @@ const ExpressPendingDrivers = () => {
 
   return (
     <Wrapper>
-      <ArrowBack link={"/orderTracking"} />
+      <ArrowBack link={"/dashboard/orderTracking"} />
       <nav className="text-center grid grid-cols-2 border-b border-graylight/90">
         {miniNavlink.map((navtext) => {
           const isActive = active === navtext;

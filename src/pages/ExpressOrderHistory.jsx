@@ -16,7 +16,6 @@ export const loader = async () => {
 const ExpressOrderHistory = () => {
   const { content } = useLoaderData();
 
-  console.log(content);
   return (
     <Wrapper>
       <DataTable columns={expressOrderHistoryColumn} data={content} />
