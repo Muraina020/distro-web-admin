@@ -41,11 +41,16 @@ import OfflineR from "./pages/rating/OfflineR";
 import ActiveR from "./pages/rating/ActiveR";
 import CustomerAccount from "./pages/customer/CustomerAccount";
 import CustomerRatin from "./pages/customer/CustomerRatin";
+import ResetPassword from "./pages/resetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <Login />,
+  },
+  {
+    path: "reset",
+    element: <ResetPassword />,
   },
   {
     path: "/",
@@ -53,7 +58,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "/",
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
