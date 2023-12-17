@@ -48,7 +48,7 @@ const DataTable = ({ data, columns }) => {
                   return (
                     <td
                       key={cell.id}
-                      className="lg:text-[1rem] text-[.8rem] py-4 "
+                      className="lg:text-[1rem]  text-[.8rem] py-4 "
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
