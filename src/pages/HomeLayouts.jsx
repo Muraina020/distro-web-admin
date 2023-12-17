@@ -1,8 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import { Container, Header, Sidebar } from "../components";
 import SlideInSidebar from "../components/sidebar/SlideInSidebar";
+import Loading from "../components/ui/Loading";
 
 const HomeLayouts = () => {
+  const navigation = useNavigation();
+  const isPageLoading = navigation.state === "loading";
   return (
     <>
       <Container>
@@ -11,7 +14,7 @@ const HomeLayouts = () => {
           <Sidebar />
           <SlideInSidebar />
           <main className="xl:ml-[25rem] lg:ml-[20rem]">
-            <Outlet />
+            {isPageLoading ? <Loading /> : <Outlet />}
           </main>
         </div>
       </Container>

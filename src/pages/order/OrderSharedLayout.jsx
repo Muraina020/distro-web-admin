@@ -2,8 +2,8 @@ import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { Wrapper } from "../../components";
 
 const miniNavlink = [
-  { text: "Express Delivery", path: "/orderTracking" },
-  { text: "Schedule Delivery", path: "/orderTracking/schedule" },
+  { text: "Express Delivery", path: "/dashboard/orderTracking" },
+  { text: "Schedule Delivery", path: "/dashboard/orderTracking/schedule" },
 ];
 
 const OrderSharedLayout = () => {
