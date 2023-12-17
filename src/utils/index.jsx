@@ -5,7 +5,7 @@ day.extend(advancedFormat);
 
 const BASEURL = "https://apps-1.lampnets.com/distro";
 const accessToken =
-  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDI2NTcxODIsImV4cCI6MTcwMjc0MzU4Mn0.Rfw3JkaISwV6f-Lrd_ZGlUEWstY9z9wwO0XLXhyJZViksVfqWw06xTqtZrSF8PgO";
+  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDI4MDQ5OTYsImV4cCI6MTcwMjg5MTM5Nn0.JZeFCZugEtcdCD6FwY5TJLz3j4naliCNjkb-uFX24V2kLTRp12-Lje7WGZYVy8ol";
 
 export const customFetch = axios.create({
   baseURL: BASEURL,
