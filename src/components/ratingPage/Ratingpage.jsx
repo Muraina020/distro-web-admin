@@ -31,18 +31,18 @@ const handleGoBack = () => {
     const handleAddDriver = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
-      navigate('/rated');
+      navigate('/dashboard/rated');
     };
     const  handleDetails = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
-      navigate('/online');
+      navigate('/dashboard/online');
     };
    
     const handleRating = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
-      navigate('/unrated');
+      navigate('/dashboard/unrated');
     };
   return (
   

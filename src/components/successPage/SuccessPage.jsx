@@ -10,7 +10,7 @@ const SuccessPage = () => {
     const handleAddDriver = () => {
       // Add logic to handle adding driver (validate fields, upload image, etc.)
       // Once the driver is successfully added, navigate to the success page
-      navigate('/add');
+      navigate('/dashboard/addDriver');
     };
   return (
     <div className='success'>

@@ -55,6 +55,10 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "reset",
+    element: <ResetPassword/>,
+  },
+  {
     path: "/dashboard",
     element: <HomeLayouts />,
     errorElement: <Error />,
@@ -71,44 +75,47 @@ const router = createBrowserRouter([
         path: "/dashboard/addDriver",
         element: <AddDriver />,
       },
+      // {
+      //   path: "dashboard/add",
+      //   element: <AddDriver />,
+      // },
+     
+      
       {
-        path: "dashboard/add",
-        element: <AddDriver />,
-      },
-      {
-        path: "dashboard/success",
+        path: "/dashboard/success",
         element: <Success />,
       },
       {
-        path: "dashboard/online",
+        path: "/dashboard/online",
         element: <OnlineSetting />,
       },
       {
-        path: "dashboard/offline",
+        path: "/dashboard/offline",
         element: <Offline />,
       },
       {
-        path: "dashboard/unverify",
+        path: "/dashboard/unverify",
         element: <Activate />,
       },
+     
       {
-        path: "dashboard/rating",
+        path: "/dashboard/rating",
         element: <Rating />,
       },
       {
-        path: "dashboard/offlinerating",
+        path: "/dashboard/offlinerating",
         element: <OfflineR />,
       },
       {
-        path: "dashboard/activerating",
+        path: "/dashboard/activerating",
         element: <ActiveR />,
       },
       {
-        path: "dashboard/unrated",
+        path: "/dashboard/unrated",
         element: <Unrated />,
       },
       {
-        path: "dashboard/rated",
+        path: "/dashboard/rated",
         element: <Rated />,
       },
       {
@@ -116,11 +123,11 @@ const router = createBrowserRouter([
         element: <CustomerTable />,
       },
       {
-        path: "dashboard/customeracc",
+        path: "/dashboard/customeracc",
         element: <CustomerAccount />,
       },
       {
-        path: "dashboard/customrating",
+        path: "/dashboard/customrating",
         element: <CustomerRatin />,
       },
       {

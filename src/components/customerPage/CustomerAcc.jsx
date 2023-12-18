@@ -29,7 +29,7 @@ const CustomerAcc = () => {
     const handleOrder = () => {
       // Add logic to handle the "Order" click (if needed)
       // Once the logic is executed, navigate to the "rating" page
-      navigate('/customrating');
+      navigate('/dashboard/customrating');
     };
   return (
 
