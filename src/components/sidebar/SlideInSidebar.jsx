@@ -79,7 +79,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/profile/setting"}
+              to={"/dashboard/setting"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -108,7 +108,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/driver"}
+              to={"/dashboard/driver"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -173,7 +173,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/addDriver"}
+              to={"/dashboard/addDriver"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -208,7 +208,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/customer"}
+              to={"/dashboard/customer"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -238,7 +238,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/orderTracking"}
+              to={"/dashboard/orderTracking"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -268,7 +268,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/expressOrderHistory"}
+              to={"/dashboard/expressOrderHistory"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg
@@ -314,7 +314,7 @@ const SlideInSidebar = () => {
           <li>
             <Link
               onClick={closeSidebar}
-              to={"/scheduleOrderHistory"}
+              to={"/dashbaord/scheduleOrderHistory"}
               className="text-sm flex items-center gap-x-2 px-5 py-1"
             >
               <svg

@@ -1,34 +1,41 @@
+import { formatPrice, formateDate } from "../../utils";
+
 export const expressOrderHistoryColumn = [
   {
-    accessorKey: "order_id",
+    accessorKey: "shipmentId",
     header: "Order ID",
-    cell: (props) => <p>{props.getValue()}</p>,
+
+    cell: (props) => <p>{props.getValue() ? props.getValue() : "N/A"}</p>,
   },
   {
-    accessorKey: "order_date",
+    accessorKey: "date",
     header: <p className="">ORDER DATE</p>,
     cell: (props) => {
-      const date = props.getValue().toLocaleTimeString();
+      const date = props.getValue();
       return (
-        <p className="w-[9.8125rem] leading-[2.08444rem] text-graylight text-center">
-          Mon Jun 2 2023 {date}
+        <p className="w-[9.8125rem] leading-[1.5rem] text-graylight text-center">
+          {formateDate(date)}
         </p>
       );
     },
   },
   {
-    accessorKey: "customer_id",
+    accessorKey: "customerId",
     header: "Customer ID",
     cell: (props) => <p className="text-graylight">{props.getValue()}</p>,
   },
   {
-    accessorKey: "driver_id",
+    accessorKey: "driverId",
     header: "Driver ID",
     cell: (props) => <p className="text-graylight">{props.getValue()}</p>,
   },
   {
-    accessorKey: "amount",
+    accessorKey: "price",
     header: "Amount",
-    cell: (props) => <p className="text-graylight">N{props.getValue()}</p>,
+    cell: (props) => {
+      const amount = parseFloat(props.getValue());
+
+      return <p className="text-graylight">{formatPrice(amount)}</p>;
+    },
   },
 ];

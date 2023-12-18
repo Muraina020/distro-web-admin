@@ -16,6 +16,10 @@
     @apply w-0;
   }
 
+  .asidebar {
+    scrollbar-width: none;
+  }
+
   .nav__link {
     @apply flex items-center gap-x-3 px-[2.15rem] py-[0.25rem] hover:scale-[];
   }

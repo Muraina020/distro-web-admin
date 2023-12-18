@@ -26,7 +26,7 @@ const OnlineSetting = () => {
   const handleOrder = () => {
     // Add logic to handle the "Order" click (if needed)
     // Once the logic is executed, navigate to the "rating" page
-    navigate("/rating");
+    navigate("/dashboard/rating");
   };
 
   const mobileWidth = useBreakpointValue({ base: "300px", md: "100%" });

@@ -66,14 +66,14 @@ const DriverPage = () => {
 
   const handleRowClick = (status) => {
     if (activeHeader === "ACTIVE") {
-      navigate('/online');
+      navigate('/dashboard/online');
     } else if (activeHeader === "INACTIVE") {
-      navigate('/offline');
+      navigate('/dashboard/offline');
     } else if (activeHeader === "UNIFIED") {
-      navigate('/unverify');
+      navigate('/dashboard/unverify');
     }
-    // Add more conditions if needed for other header statuses
   };
+  
   return (
     <div>
     <TableContainer className="table-container-mobile" bg="white" fontSize="18px" paddingBottom="30px">
