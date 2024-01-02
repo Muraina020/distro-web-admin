@@ -17,7 +17,7 @@ const orderDetails = () => {
     <Wrapper>
       <ArrowBack link={"/orderTracking"} />
 
-      <TableDetailInfo status={"cancel"} />
+      <TableDetailInfo data={data} />
     </Wrapper>
   );
 };
