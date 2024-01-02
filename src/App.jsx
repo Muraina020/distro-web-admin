@@ -1,12 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
-  CancelDetail,
-  DeliveredDetail,
   ExpressPendingDrivers,
   HomeLayouts,
-  PendingDetail,
-  OnTheWayDetail,
-  PickedUpDetails,
   ExpressOrderHistory,
   ScheduleOrderHistory,
   Profile,
@@ -17,13 +12,9 @@ import {
   ChatLayout,
   DriverChats,
   CustomerChats,
-  ScheduleCancelDetail,
-  SchedulePickedUpDetail,
-  ScheduleOnTheWayDetail,
-  ScheduleDeliveredDetail,
-  SchedulePendingDetail,
   ChatMobileDrivers,
   Error,
+  OrderDetails,
 } from "./pages";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Driver from "./pages/driver/Driver";
@@ -45,6 +36,7 @@ import CustomerRatin from "./pages/customer/CustomerRatin";
 // loaders
 import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
 import { loader as scheduleHistoryLoader } from "./pages/ScheduleOrderHistory";
+import { loader as orderDetailsLoader } from "./pages/order-expressDeliverydetailPages/Details";
 
 // actions
 
@@ -136,47 +128,11 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // express Single details  Pages
+      //  Single details  Pages
       {
-        path: "orderTracking/expressOrderPending/:id",
-        element: <PendingDetail />,
-      },
-      {
-        path: "orderTracking/expressCanceled/:id",
-        element: <CancelDetail />,
-      },
-      {
-        path: "orderTracking/expressOrderDelivered/:id",
-        element: <DeliveredDetail />,
-      },
-      {
-        path: "orderTracking/expressOrderOnTheWay/:id",
-        element: <OnTheWayDetail />,
-      },
-      {
-        path: "orderTracking/expressOrderPickedUp/:id",
-        element: <PickedUpDetails />,
-      },
-      // Schedule Single details  Pages
-      {
-        path: "orderTracking/schedule/orderPending/:id",
-        element: <SchedulePendingDetail />,
-      },
-      {
-        path: "orderTracking/schedule/orderCanceled/:id",
-        element: <ScheduleCancelDetail />,
-      },
-      {
-        path: "orderTracking/schedule/OrderDelivered/:id",
-        element: <ScheduleDeliveredDetail />,
-      },
-      {
-        path: "orderTracking/schedule/OrderOnTheWay/:id",
-        element: <ScheduleOnTheWayDetail />,
-      },
-      {
-        path: "orderTracking/schedule/OrderPickedUp/:id",
-        element: <SchedulePickedUpDetail />,
+        path: "/dashboard/orderTracking/:id",
+        element: <OrderDetails />,
+        loader: orderDetailsLoader,
       },
       {
         path: "exprees_order pending_asign-drivers",

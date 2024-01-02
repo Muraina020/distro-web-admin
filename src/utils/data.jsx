@@ -2,12 +2,11 @@ import logo from "../assets/img/circleLogo.png";
 
 export const orderStatusNavText = [
   "Pending",
-  "picked UP",
-  "On The way",
+  "Picked up",
+  "On the way",
   "Delivered",
   "Canceled",
 ];
-
 export const expreesPendingTableData = [
   {
     order_id: "DL-5M679-435EX",

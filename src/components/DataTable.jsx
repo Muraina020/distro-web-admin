@@ -37,28 +37,40 @@ const DataTable = ({ data, columns }) => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="hover:bg-gray-50 transition duration-300"
-              >
-                {row.getVisibleCells().map((cell) => {
-                  const id = cell.getContext().row.original.order_id;
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="hover:bg-gray-50 transition duration-300"
+                >
+                  {row.getVisibleCells().map((cell) => {
+                    const id = cell.getContext().row.original.order_id;
 
-                  return (
-                    <td
-                      key={cell.id}
-                      className="lg:text-[1rem]  text-[.8rem] py-4 "
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  );
-                })}
+                    return (
+                      <td
+                        key={cell.id}
+                        className="lg:text-[1rem]  text-[.8rem] py-4 "
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="text-base text-center text-gray-700"
+                >
+                  {" "}
+                  No results.
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
