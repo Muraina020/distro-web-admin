@@ -24,10 +24,10 @@ const RecentOrders = () => {
   if (loading) {
     return (
       <div className="space-y-5">
-        <SkeletonLoader className="w-[75%] h-28 " />
-        <SkeletonLoader className="w-[75%] h-28 " />
-        <SkeletonLoader className="w-[75%] h-28 " />
-        <SkeletonLoader className="w-[75%] h-28 " />
+        <SkeletonLoader className="w-[75%] h-28 rounded-lg " />
+        <SkeletonLoader className="w-[75%] h-28 rounded-lg " />
+        <SkeletonLoader className="w-[75%] h-28 rounded-lg " />
+        <SkeletonLoader className="w-[75%] h-28 rounded-lg " />
       </div>
     );
   }
