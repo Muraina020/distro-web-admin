@@ -28,7 +28,7 @@ const ActiveSettin = () => {
   const handleOrder = () => {
     // Add logic to handle the "Order" click (if needed)
     // Once the logic is executed, navigate to the "rating" page
-    navigate('/activerating');
+    navigate('/dashboard/activerating');
   };
   return (
     <div style={{ position: 'relative' }}>

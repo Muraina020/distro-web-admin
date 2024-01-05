@@ -27,7 +27,7 @@ const OfflineSettin = () => {
   const handleOrder = () => {
     // Add logic to handle the "Order" click (if needed)
     // Once the logic is executed, navigate to the "rating" page
-    navigate("/offlinerating");
+    navigate("/dashboard/offlinerating");
   };
   return (
     <div style={{ position: "relative" }}>
