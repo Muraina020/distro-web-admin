@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  expreesCancelTableData,
-  expreesPendingTableData,
-  orderStatusNavText,
-} from "../../utils/data";
+import { orderStatusNavText } from "../../utils/data";
 import { DataTable } from "../../components";
 
 import { customFetch } from "../../utils";

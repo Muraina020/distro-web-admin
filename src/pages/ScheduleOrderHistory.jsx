@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { DataTable, Wrapper } from "../components";
 import { expressOrderHistoryColumn } from "../components/tableColumns/expressOrderHistoryColumn";
-import { expreesCancelTableData } from "../utils/data";
 import { customFetch } from "../utils";
 
 export const loader = async () => {

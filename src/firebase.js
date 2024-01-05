@@ -1,16 +1,5 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAVGuSMrGPqyOPzeME5cKbAjCE-1myKkwU",
-//   authDomain: "distro-web-app.firebaseapp.com",
-//   projectId: "distro-web-app",
-//   storageBucket: "distro-web-app.appspot.com",
-//   messagingSenderId: "374112052673",
-//   appId: "1:374112052673:web:b2d909bbe5d66f1c687b40",
-//   measurementId: "G-YFKRWLQTE6",
-// };
 
 const firebaseConfig = {
   apiKey: "AIzaSyD9O0aZA9DFJHQBYH5M1ks1XwzJwoP172A",

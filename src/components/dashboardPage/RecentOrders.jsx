@@ -12,6 +12,7 @@ import {
   UsePendingRecentOrder,
   UsePickedUpRecentOrder,
 } from "../../hooks/UseHooks";
+import SkeletonLoader from "../ui/SkeletonLoader";
 
 const RecentOrders = () => {
   const { data: pendingRecent, loading, error } = UsePendingRecentOrder();
@@ -22,8 +23,11 @@ const RecentOrders = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[30vh] grid place-items-center">
-        <span className="loading loading-dots bg-primary-default text-primary-default loading-lg"></span>
+      <div className="space-y-5">
+        <SkeletonLoader className="w-[75%] h-28 " />
+        <SkeletonLoader className="w-[75%] h-28 " />
+        <SkeletonLoader className="w-[75%] h-28 " />
+        <SkeletonLoader className="w-[75%] h-28 " />
       </div>
     );
   }

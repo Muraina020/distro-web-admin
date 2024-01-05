@@ -1,11 +1,17 @@
 import axios from "axios";
+import clsx from "clsx";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import { twMerge } from "tailwind-merge";
 day.extend(advancedFormat);
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
 
 const BASEURL = "https://apps-1.lampnets.com/distro";
 const accessToken =
-  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQxOTc0NzQsImV4cCI6MTcwNDI4Mzg3NH0.8cPhEMWzHueLIc0lfc2tTb86ZsISu2Yl7wXg_mBNhhUDpo-ce9Q1JKl-gcGYUFP5";
+  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0NjQ3MTYsImV4cCI6MTcwNDU1MTExNn0.XdlLjNcXOoifJmjkR7ogYNgr3weT5IUaNPzWLUAXeYzceygiwdrvhh_bLmpT9pax";
 
 export const customFetch = axios.create({
   baseURL: BASEURL,

@@ -32,6 +32,7 @@ import OfflineR from "./pages/rating/OfflineR";
 import ActiveR from "./pages/rating/ActiveR";
 import CustomerAccount from "./pages/customer/CustomerAccount";
 import CustomerRatin from "./pages/customer/CustomerRatin";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // loaders
 import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
@@ -182,7 +183,19 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 60 * 10,
+      },
+    },
+  });
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 }
 
 export default App;
