@@ -152,7 +152,6 @@ const AddDriverPage = () => {
 
             {section === 'personal' && (
               <Tr >
-                {/* ... (your personal information form fields) */}
                 <style>
         {`
           @media screen and (max-width: 600px) {

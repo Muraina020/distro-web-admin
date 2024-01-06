@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./rate.css";
 import avatar1 from "../../assets/img/avatar1.png";
 import {
@@ -18,33 +17,58 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { StarIcon } from '@chakra-ui/icons';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { customFetch } from "../../utils";
+import React, { useState, useEffect } from "react";
 
 const OnlineRatin = () => {
+  const [selectedRating, setSelectedRating] = useState(0);
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const response = await customFetch.get(
+          "/pickuporders/info/109",
+          // {
+          //   email: "driver001@gmail.com"
+          // },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0Mzc3NzYsImV4cCI6MTcwNDUyNDE3Nn0.YoTfMLvmyRPG3qn1yWaj-syCEARw9RlGytN4ZSw_N40I0Q_btTdOYWl61VAu31mY`,
+            }
+          }
+        );
+  
+       
+        setData(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching drivers:", error);
+        // Handle the error as needed
+      }
+    };
+  
+  
+    fetchDrivers();
+  }, []);
+  console.log(data)
 
   const handleGoBack = () => {
-    // Navigate to the previous page
     navigate(-1);
   };
 
   const handleAddDriver = () => {
-    // Add logic to handle adding driver (validate fields, upload image, etc.)
-    // Once the driver is successfully added, navigate to the success page
     navigate("/dashboard/rated");
   };
   const handleDetails = () => {
-    // Add logic to handle adding driver (validate fields, upload image, etc.)
-    // Once the driver is successfully added, navigate to the success page
     navigate("/dashboard/offline");
   };
   const handleRating = () => {
-    // Add logic to handle adding driver (validate fields, upload image, etc.)
-    // Once the driver is successfully added, navigate to the success page
     navigate("/dashboard/unrated");
   };
   return (
     <div style={{ position: "relative" }}>
-      {/* Arrow icon positioned at the top right corner */}
       <IconButton
         icon={<FaArrowLeft />}
         onClick={handleGoBack}
@@ -81,7 +105,7 @@ const OnlineRatin = () => {
                   marginLeft="120px"
                 >
                   <Avatar size="lg" name="John Doe" src={avatar1} />
-                  <Box mt="2">DDID-247</Box>
+                  <Box mt="2">{data?.id}</Box>
                   <Td>
                     <div
                       style={{
@@ -119,7 +143,7 @@ const OnlineRatin = () => {
             <Tr>
               <Td style={{ borderBottom: "1px solid lightgray" }}>ORDER ID</Td>
               <Td style={{ borderBottom: "1px solid lightgray" }}>
-                ORDER RATE
+                ORDER DATE
               </Td>
               <Td style={{ borderBottom: "1px solid lightgray" }}>
                 CUSTOMER ID
@@ -136,37 +160,28 @@ const OnlineRatin = () => {
               <Td style={{ borderBottom: "1px solid lightgray" }}>AMOUNT</Td>
             </Tr>
 
-            <Tr onClick={handleRating} cursor="pointer">
+            <Tr  cursor="pointer">
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
                   fontWeight: "600",
                   color: "black",
+                  cursor:"pointer",
                 }}
+                onClick={handleRating}
               >
-                DL-5679-435EX
+               {data?.shipmentId}
               </Td>
 
               <Td
                 style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
               >
                 <div style={{ marginTop: "5px" }}>
-                  Mon Jun 2 2023
-                  <br />
-                  <span
-                    style={{
-                      marginTop: "10px",
-                      display: "inline-block",
-                      textAlign: "center",
-                      marginLeft: "15px",
-                    }}
-                  >
-                    12:38:37
-                  </span>
+                  {data?.date}
                 </div>
               </Td>
 
-              <Td style={{ borderBottom: "1px solid lightgray" }}>DCIC-247</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.customerId}</Td>
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
@@ -174,7 +189,7 @@ const OnlineRatin = () => {
                 }}
                 className="star"
               >
-                ---
+                {data?.ratings ? data.ratings : "----"}
               </Td>
               <Td
                 style={{
@@ -191,161 +206,142 @@ const OnlineRatin = () => {
                     borderRadius: "8px",
                   }}
                 >
-                  Pending
+                  {data?.shipmentStatus}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>N5,600</Td>
-            </Tr>
-            <Tr onClick={handleAddDriver}>
-              <Td
-                style={{
-                  borderBottom: "1px solid lightgray",
-                  fontWeight: "600",
-                  color: "black",
-                }}
-              >
-                DL-5679-435EX
-              </Td>
-              <Td
-                style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
-              >
-                <div style={{ marginTop: "5px" }}>
-                  Mon Jun 2 2023
-                  <br />
-                  <span
-                    style={{
-                      marginTop: "10px",
-                      display: "inline-block",
-                      textAlign: "center",
-                      marginLeft: "15px",
-                    }}
-                  >
-                    12:38:37
-                  </span>
-                </div>
-              </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>DCIC-247</Td>
-              <Td
-                style={{ borderBottom: "1px solid lightgray" }}
-                className="star"
-              >
-                <Flex>
-                  {[1, 2, 3, 4].map((index) => (
-                    <StarIcon key={index} color="#00A69C" />
-                  ))}
-                  <StarIcon key={5} color="lightgray" />
-                </Flex>
-              </Td>
-              <Td
-                style={{
-                  borderBottom: "1px solid lightgray",
-                  textAlign: "center",
-                }}
-              >
-                <div
-                  style={{
-                    display: "inline-block",
-                    background: "", // Change the background color to blue
-                    color: "#2593F0",
-                    padding: "5px",
-                    borderRadius: "8px",
-                  }}
-                >
-                  Delivered
-                </div>
-              </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>N5,600</Td>
-            </Tr>
-            <Tr onClick={handleAddDriver} cursor="pointer">
-              <Td
-                style={{
-                  borderBottom: "1px solid lightgray",
-                  fontWeight: "600",
-                  color: "black",
-                }}
-              >
-                DL-5679-435EX
-              </Td>
-              <Td
-                style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
-              >
-                <div style={{ marginTop: "5px" }}>
-                  Mon Jun 2 2023
-                  <br />
-                  <span
-                    style={{
-                      marginTop: "10px",
-                      display: "inline-block",
-                      textAlign: "center",
-                      marginLeft: "15px",
-                    }}
-                  >
-                    12:38:37
-                  </span>
-                </div>
-              </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>DCIC-247</Td>
-              <Td
-                style={{ borderBottom: "1px solid lightgray" }}
-                className="star"
-              >
-                <Flex>
-                  {[1, 2, 3, 4].map((index) => (
-                    <StarIcon key={index} color="#00A69C" />
-                  ))}
-                  <StarIcon key={5} color="lightgray" />
-                </Flex>
-              </Td>
-              <Td
-                style={{
-                  borderBottom: "1px solid lightgray",
-                  textAlign: "center",
-                }}
-              >
-                <div
-                  style={{
-                    display: "inline-block",
-                    background: "", // Change the background color to blue
-                    color: "#2593F0",
-                    padding: "5px",
-                    borderRadius: "8px",
-                  }}
-                >
-                  Delivered
-                </div>
-              </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>N5,600</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.price}</Td>
             </Tr>
 
-            <Tr onClick={handleRating} cursor="pointer">
+            <Tr >
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
                   fontWeight: "600",
                   color: "black",
+                  cursor:"pointer",
                 }}
+                onClick={handleRating}
               >
-                DL-5679-435EX
+               {data?.shipmentId}
               </Td>
               <Td
                 style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
               >
                 <div style={{ marginTop: "5px" }}>
-                  Mon Jun 2 2023
-                  <br />
-                  <span
-                    style={{
-                      marginTop: "10px",
-                      display: "inline-block",
-                      textAlign: "center",
-                      marginLeft: "15px",
-                    }}
-                  >
-                    12:38:37
-                  </span>
+                  {data?.date}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>DCIC-247</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.customerId}</Td>
+              <Td
+          style={{ borderBottom: "1px solid lightgray" }}
+          className="star"
+        >
+          <Flex>
+            {[1, 2, 3, 4, 5].map((index) => (
+              <StarIcon
+                key={index}
+                color={index <= selectedRating ? "#00A69C" : "lightgray"}
+                onClick={() => setSelectedRating(index)}
+              />
+            ))}
+          </Flex>
+        </Td>
+              <Td
+                style={{
+                  borderBottom: "1px solid lightgray",
+                  textAlign: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "inline-block",
+                    background: "",
+                    color: "#2593F0",
+                    padding: "5px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  {data?.shipmentStatus}
+                </div>
+              </Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.price}</Td>
+            </Tr>
+
+            <Tr >
+              <Td
+                style={{
+                  borderBottom: "1px solid lightgray",
+                  fontWeight: "600",
+                  color: "black",
+                  cursor:"pointer",
+                }}
+                onClick={handleAddDriver} cursor="pointer"
+              >
+                {data?.shipmentId}
+              </Td>
+              <Td
+                style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
+              >
+                <div style={{ marginTop: "5px" }}>
+                  {data?.date}
+                </div>
+              </Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.customerId}</Td>
+              <Td
+          style={{ borderBottom: "1px solid lightgray" }}
+          className="star"
+        >
+          <Flex>
+            {[1, 2, 3, 4, 5].map((index) => (
+              <StarIcon
+                key={index}
+                color={index <= selectedRating ? "#00A69C" : "lightgray"}
+                onClick={() => setSelectedRating(index)}
+              />
+            ))}
+          </Flex>
+        </Td>
+              <Td
+                style={{
+                  borderBottom: "1px solid lightgray",
+                  textAlign: "center",
+                }}
+              >
+                <div
+                  style={{
+                    display: "inline-block",
+                    background: "", // Change the background color to blue
+                    color: "#2593F0",
+                    padding: "5px",
+                    borderRadius: "8px",
+                  }}
+                >
+                  {data?.shipmentStatus}
+                </div>
+              </Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.price}</Td>
+            </Tr>
+
+            <Tr >
+              <Td
+                style={{
+                  borderBottom: "1px solid lightgray",
+                  fontWeight: "600",
+                  color: "black",
+                  cursor:"pointer",
+                }}
+                onClick={handleRating} cursor="pointer"
+              >
+                {data?.shipmentId}
+              </Td>
+              <Td
+                style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
+              >
+                <div style={{ marginTop: "5px" }}>
+                  {data?.date}
+                </div>
+              </Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.customerId}</Td>
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
@@ -353,7 +349,7 @@ const OnlineRatin = () => {
                 }}
                 className="star"
               >
-                ---
+               {data?.ratings ? data.ratings : "----"}
               </Td>
               <Td
                 style={{
@@ -370,41 +366,32 @@ const OnlineRatin = () => {
                     borderRadius: "8px",
                   }}
                 >
-                  Delivered
+                {data?.shipmentStatus}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>N5,600</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.price}</Td>
             </Tr>
 
-            <Tr onClick={handleRating}>
+            <Tr >
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
                   fontWeight: "600",
                   color: "black",
+                  cursor:"pointer",
                 }}
+                onClick={handleRating}
               >
-                DL-5679-435EX
+                {data?.shipmentId}
               </Td>
               <Td
                 style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
               >
                 <div style={{ marginTop: "5px" }}>
-                  Mon Jun 2 2023
-                  <br />
-                  <span
-                    style={{
-                      marginTop: "10px",
-                      display: "inline-block",
-                      textAlign: "center",
-                      marginLeft: "15px",
-                    }}
-                  >
-                    12:38:37
-                  </span>
+                 {data?.date}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>DCIC-247</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.customerId}</Td>
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
@@ -412,7 +399,7 @@ const OnlineRatin = () => {
                 }}
                 className="star"
               >
-                ---
+              {data?.ratings ? data.ratings : "----"}
               </Td>
               <Td
                 style={{
@@ -429,52 +416,45 @@ const OnlineRatin = () => {
                     borderRadius: "8px",
                   }}
                 >
-                  Canceled
+                 {data?.shipmentStatus}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>N5,600</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.price}</Td>
             </Tr>
 
-            <Tr onClick={handleAddDriver}>
+            <Tr >
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
                   fontWeight: "600",
                   color: "black",
                 }}
+                onClick={handleRating} cursor="pointer"
               >
-                DL-5679-435EX
+                {data?.shipmentId}
               </Td>
               <Td
                 style={{ borderBottom: "1px solid lightgray", textAlign: "" }}
               >
                 <div style={{ marginTop: "5px" }}>
-                  Mon Jun 2 2023
-                  <br />
-                  <span
-                    style={{
-                      marginTop: "10px",
-                      display: "inline-block",
-                      textAlign: "center",
-                      marginLeft: "15px",
-                    }}
-                  >
-                    12:38:37
-                  </span>
+                 {data?.date}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>DCIC-247</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.customerId}</Td>
               <Td
-                style={{ borderBottom: "1px solid lightgray" }}
-                className="star"
-              >
-                <Flex>
-                  {[1, 2, 3, 4].map((index) => (
-                    <StarIcon key={index} color="#00A69C" />
-                  ))}
-                  <StarIcon key={5} color="lightgray" />
-                </Flex>
-              </Td>
+          style={{ borderBottom: "1px solid lightgray" }}
+          className="star"
+        >
+          <Flex>
+            {[1, 2, 3, 4, 5].map((index) => (
+              <StarIcon
+                key={index}
+                color={index <= selectedRating ? "#00A69C" : "lightgray"}
+                onClick={() => setSelectedRating(index)}
+              />
+            ))}
+          </Flex>
+        </Td>
               <Td
                 style={{
                   borderBottom: "1px solid lightgray",
@@ -490,10 +470,10 @@ const OnlineRatin = () => {
                     borderRadius: "8px",
                   }}
                 >
-                  Delivered
+                  {data?.shipmentStatus}
                 </div>
               </Td>
-              <Td style={{ borderBottom: "1px solid lightgray" }}>N5,600</Td>
+              <Td style={{ borderBottom: "1px solid lightgray" }}>{data?.price}</Td>
             </Tr>
           </Tbody>
         </Table>
