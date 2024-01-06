@@ -6,12 +6,9 @@ const DriversPeople = () => {
     <ul className="space-y-5">
       {people.map((person) => {
         return (
-          <li key={person.id}>
-            <Link
-              to={`/chat/drivers/${person.id}`}
-              className="flex items-start gap-x-5 px-2 py-2"
-            >
-              <div className="xl:w-[3.125rem]  w-[1.9rem] xl:h-[3.125rem] h-[1.9rem] relative  flex-shrink-0 rounded-full">
+          <li key={person.id} className="cursor-pointer">
+            <div className="flex items-start gap-x-5 px-2 py-2">
+              <div className="xl:w-[2.5rem]  w-[1.9rem] xl:h-[2.5rem] h-[1.9rem] relative  flex-shrink-0 rounded-full">
                 <img
                   src={person.img}
                   alt=""
@@ -22,8 +19,8 @@ const DriversPeople = () => {
                     <svg
                       className="xl:w-[22px] w-[13px]"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
+                      width="15"
+                      height="15"
                       viewBox="0 0 22 22"
                       fill="none"
                     >
@@ -42,8 +39,8 @@ const DriversPeople = () => {
                     <svg
                       className="xl:w-[22px] w-[13px]"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
+                      width="15"
+                      height="15"
                       viewBox="0 0 22 22"
                       fill="none"
                     >
@@ -60,14 +57,14 @@ const DriversPeople = () => {
                 )}
               </div>
               <div className="">
-                <h1 className="text-primary-black xl:text-[1.15rem] text-base font-semibold">
+                <h1 className="text-primary-black xl:text-[1rem] text-base font-semibold">
                   {person.name}
                 </h1>
-                <p className="text-graylight xl:text-[.9rem] text-xs  font-medium">
+                <p className="text-graylight xl:text-[.6rem] text-xs  font-medium">
                   {person.las_Msg}
                 </p>
               </div>
-            </Link>
+            </div>
           </li>
         );
       })}
