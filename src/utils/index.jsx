@@ -11,7 +11,7 @@ export function cn(...inputs) {
 
 const BASEURL = "https://apps-1.lampnets.com/distro";
 const accessToken =
-  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0NjQ3MTYsImV4cCI6MTcwNDU1MTExNn0.XdlLjNcXOoifJmjkR7ogYNgr3weT5IUaNPzWLUAXeYzceygiwdrvhh_bLmpT9pax";
+  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDI3NTM4MTQsImV4cCI6MTcwMjg0MDIxNH0.X79uLdkE8IsHWnamZL8GhLrbRcJBP_LGXuU3we4XCGYNJgdnGhmzxwOhIFG29Lj3";
 
 export const customFetch = axios.create({
   baseURL: BASEURL,

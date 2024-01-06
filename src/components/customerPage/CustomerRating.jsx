@@ -93,7 +93,7 @@ const CustomerRating = () => {
             <Tr>
               <Td style={{ borderBottom: "1px solid lightgray" }}>ORDER ID</Td>
               <Td style={{ borderBottom: "1px solid lightgray" }}>
-                ORDER RATE
+                ORDER DATE
               </Td>
               <Td style={{ borderBottom: "1px solid lightgray" }}>
                 CUSTOMER ID

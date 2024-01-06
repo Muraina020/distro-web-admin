@@ -15,9 +15,42 @@ import {
 import { FaChevronLeft, FaChevronRight, FaArrowLeft } from "react-icons/fa";
 import avatar1 from "../../assets/img/avatar1.png";
 import { useNavigate } from "react-router-dom";
+import { customFetch } from "../../utils";
+import React, { useState, useEffect } from "react";
 
 const OfflineSettin = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const response = await customFetch.post(
+          "/drivers/profile",
+          {
+            email: "driver001@gmail.com"
+          },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0Mzc3NzYsImV4cCI6MTcwNDUyNDE3Nn0.YoTfMLvmyRPG3qn1yWaj-syCEARw9RlGytN4ZSw_N40I0Q_btTdOYWl61VAu31mY`,
+            }
+          }
+        );
+  
+        // const driversData = response.data.content;
+        setData(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching drivers:", error);
+        // Handle the error as needed
+      }
+    };
+  
+  
+    fetchDrivers();
+  }, []);
+  console.log(data)
+
 
   const handleGoBaks = () => {
     // Navigate to the previous page
@@ -25,13 +58,10 @@ const OfflineSettin = () => {
   };
 
   const handleOrder = () => {
-    // Add logic to handle the "Order" click (if needed)
-    // Once the logic is executed, navigate to the "rating" page
     navigate("/dashboard/offlinerating");
   };
   return (
     <div style={{ position: "relative" }}>
-      {/* Arrow icon positioned at the top right corner */}
       <IconButton
         icon={<FaArrowLeft />}
         onClick={handleGoBaks}
@@ -70,8 +100,8 @@ const OfflineSettin = () => {
                   marginBottom="15px"
                   marginLeft="100px"
                 >
-                  <Avatar size="lg" name="John Doe" src={avatar1} />
-                  <Box mt="2">DDID-247</Box>
+                  <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
+                  <Box mt="2">{data?.driverId}</Box>
                   <Td>
                     <div
                       style={{
@@ -121,13 +151,13 @@ const OfflineSettin = () => {
                   <Td fontSize="md">
                     <b>Name </b>
                   </Td>
-                  <Td fontSize="md">David Balogun</Td>
+                  <Td fontSize="md" color='black'>{data?.name}</Td>
                 </Flex>
                 <Flex alignItems="" borderBottom="1px solid lightgray">
                   <Td fontSize="md">
                     <b>Gender</b>
                   </Td>
-                  <Td fontSize="md">Male</Td>
+                  <Td fontSize="md">{data?.gender ? data.gender : "N/A"}</Td>
                 </Flex>
               </Flex>
               <Flex
@@ -147,13 +177,13 @@ const OfflineSettin = () => {
                   <Td fontSize="md">
                     <b>Phone</b>
                   </Td>
-                  <Td fontSize="md">080123456789</Td>
+                  <Td fontSize="md">{data?.phone}</Td>
                 </Flex>
                 <Flex alignItems="" borderBottom="1px solid lightgray">
                   <Td fontSize="md">
                     <b>Email</b>
                   </Td>
-                  <Td fontSize="md">davidb@gmail.com</Td>
+                  <Td fontSize="md">{data?.email}</Td>
                 </Flex>
               </Flex>
               <Flex
@@ -173,14 +203,14 @@ const OfflineSettin = () => {
                   <Td fontSize="md">
                     <b>Adress</b>
                   </Td>
-                  <Td fontSize="md">No 1, David street </Td>
+                  <Td fontSize="md">{data?.address ? data.address : "N/A"} </Td>
                 </Flex>
-                <Flex alignItems="" borderBottom="1px solid lightgray">
+                <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='40px'>
                   <Td fontSize="md" marginTop="">
                     <b>State</b>
                   </Td>
-                  <Td fontSize="md" color="">
-                    Lagos
+                  <Td fontSize="md" color="" >
+                  {data?.state ? data.state : "N/A"}
                   </Td>
                 </Flex>
               </Flex>
@@ -201,14 +231,14 @@ const OfflineSettin = () => {
                   <Td fontSize="md">
                     <b>Next of Kin name </b>
                   </Td>
-                  <Td fontSize="md">Bello Saka</Td>
+                  <Td fontSize="md">{data?.nextOfKinName}</Td>
                 </Flex>
-                <Flex alignItems="" borderBottom="1px solid lightgray">
-                  <Td fontSize="md" marginTop="">
+                <Flex alignItems="" borderBottom="1px solid lightgray" >
+                  <Td fontSize="md">
                     <b>Phone</b>
                   </Td>
                   <Td fontSize="md" color="">
-                    08012345678
+                  {data?.nextOfKinPhone ? data.nextOfKinPhone : "N/A"}
                   </Td>
                 </Flex>
               </Flex>
@@ -229,14 +259,14 @@ const OfflineSettin = () => {
                   <Td fontSize="md">
                     <b>Vehicle</b>
                   </Td>
-                  <Td fontSize="md">Truck</Td>
+                  <Td fontSize="md"> {data?.vehicleType ? data.vehicleType : "N/A"}</Td>
                 </Flex>
                 <Flex alignItems="" borderBottom="1px solid lightgray">
                   <Td fontSize="md" marginTop="">
-                    <b>Vehicle</b>
+                    <b>Vehicle Plate No</b>
                   </Td>
                   <Td fontSize="md" color="">
-                    KSF-234U-ER
+                  {data?.vehiclePlateNumber ? data.vehiclePlateNumber : "N/A"}
                   </Td>
                 </Flex>
               </Flex>
@@ -257,14 +287,14 @@ const OfflineSettin = () => {
                   <Td fontSize="md">
                     <b>License</b>
                   </Td>
-                  <Td fontSize="md">08012345678</Td>
+                  <Td fontSize="md"> {data?.driversLicence ? data.driversLicence : "N/A"}</Td>
                 </Flex>
                 <Flex alignItems="" borderBottom="1px solid lightgray">
                   <Td fontSize="md" marginTop="">
                     <b>Rating</b>
                   </Td>
                   <Td fontSize="md" color="">
-                    4.5
+                    {data?.averageRatings}
                   </Td>
                 </Flex>
               </Flex>

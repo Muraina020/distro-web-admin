@@ -37,7 +37,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // loaders
 import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
 import { loader as scheduleHistoryLoader } from "./pages/ScheduleOrderHistory";
-import { loader as orderDetailsLoader } from "./pages/order-expressDeliverydetailPages/Details";
+import OTPInput from "./components/resetPasswordPage/OTPInput";
+import Reset from "./components/resetPasswordPage/Reset";
+import Recovered from "./components/resetPasswordPage/Recovered";
 
 // actions
 
@@ -50,6 +52,19 @@ const router = createBrowserRouter([
   //   path: "reset",
   //   element: <ResetPassword />,
   // },
+  {
+    path: "otp",
+    element: <OTPInput />,
+  },
+  {
+    path: "passwordreset",
+    element: <Reset />,
+  },
+
+  {
+    path: "recovered",
+    element: <Recovered />,
+  },
   {
     path: "/dashboard",
     element: <HomeLayouts />,
@@ -71,7 +86,6 @@ const router = createBrowserRouter([
       //   path: "dashboard/add",
       //   element: <AddDriver />,
       // },
-
       {
         path: "/dashboard/success",
         element: <Success />,
@@ -139,7 +153,6 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/orderTracking/:id",
         element: <OrderDetails />,
-        loader: orderDetailsLoader,
       },
       {
         path: "exprees_order pending_asign-drivers",

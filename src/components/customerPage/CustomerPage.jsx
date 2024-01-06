@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./customer.css"
 import {
   Table,
@@ -12,23 +12,28 @@ import {
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
-const sampleData = [
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "online" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "no order" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "online" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "no order" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "online" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "no order" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "online" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "no order" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "online" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "pending" },
-  { id: "DDIC-247", name: "David Balogun", email: "davidb@gmail.com", phone: "08012345678", status: "no order" },
-];
+import { customFetch } from "../../utils";
 
 const CustomerPage = () => {
-  const [data, setData] = useState(sampleData);
+  // const [data, setData] = useState(sampleData);
+  const [data, setData] = useState([]);
+ 
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      const response = await customFetch(
+        "https://apps-1.lampnets.com/distro/customers/all",
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQzNTkyMzMsImV4cCI6MTcwNDQ0NTYzM30.pAt7Uc35S0AK5UQX04KbjCG30OJxEhF0TmlodxI_yMCIhNHd-T3JuHHokaY6z3GB`,
+          },
+        }
+      );
+      const driversData = response.data.content;
+      setData(driversData);
+    };
+ 
+    fetchDrivers();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -44,20 +49,20 @@ const CustomerPage = () => {
         <Table variant="simple" size="lg" paddingBottom="50px">
           <Thead>
             <Tr borderBottom="2px solid lightgray">
-              <Th>DRIVER ID</Th>
+              <Th>CUSTOMER ID</Th>
               <Th>NAME</Th>
               <Th className="email-head">EMAIL</Th>
               <Th isNumeric>PHONE NUMBER</Th>
-              <Th>CURRENT ORDERS</Th>
+              <Th>CURRENT ORDERS STATUS</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data.map((item, index) => (
               <Tr key={index} borderBottom="2px solid lightgray" cursor='pointer' color='#696969' onClick={handleOrder}>
-                <Td>{item.id}</Td>
-                <Td>{item.name}</Td>
-                <Td className="email-column">{item.email}</Td>
-                <Td isNumeric>{item.phone}</Td>
+                <Td>{item?.customerId}</Td>
+                <Td>{item?.name}</Td>
+                <Td className="email-column">{item?.email}</Td>
+                <Td isNumeric>{item?.phone}</Td>
                 <Td>
                   <div
                     style={{
@@ -70,7 +75,7 @@ const CustomerPage = () => {
                       borderRadius: "8px",
                     }}
                   >
-                    {item.status}
+                    {item?.currentOrderStatus}
                   </div>
                 </Td>
               </Tr>

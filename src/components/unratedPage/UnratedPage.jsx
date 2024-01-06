@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Table,
   Thead,
@@ -15,20 +14,50 @@ import {
 import { FaArrowLeft } from 'react-icons/fa';
 import cube from "../../assets/img/cube.png";
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { customFetch } from '../../utils';
 
 const UnratedPage = () => {
   const mobileTrWidth = useBreakpointValue({ base: '400px', md: '100%' });
   const mobileWidth = useBreakpointValue({ base: '400px', md: '100%' });
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const response = await customFetch.get(
+          "/pickuporders/info/109",
+          // {
+          //   email: "driver001@gmail.com"
+          // },
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0Mzc3NzYsImV4cCI6MTcwNDUyNDE3Nn0.YoTfMLvmyRPG3qn1yWaj-syCEARw9RlGytN4ZSw_N40I0Q_btTdOYWl61VAu31mY`,
+            }
+          }
+        );
+        
+        setData(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching drivers:", error);
+        // Handle the error as needed
+      }
+    };
+   
+    fetchDrivers();
+  }, []);
+  console.log(data)
+
+
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    // Navigate to the previous page
     navigate(-1);
   };
   return (
     <div style={{ position: 'relative', overflowX: 'auto', maxWidth: '100%' }}>
-    {/* Arrow icon positioned at the top right corner */}
     <IconButton
         icon={<FaArrowLeft />}
         onClick={handleGoBack}
@@ -44,14 +73,14 @@ const UnratedPage = () => {
           <Flex  alignItems="center">
           <Avatar size="lg" name="John Doe" src={cube} />
             <Flex flexDirection="column" alignItems="center">
-              <Td fontSize="md" marginLeft=""><b>DL-5679-435EX</b></Td>
-              <Td fontSize="md" color="gray.500" marginTop="">Mon Jun 2 2023 12:38:37 </Td>
+              <Td fontSize="md" marginLeft=""><b>{data?.shipmentId}</b></Td>
+              <Td fontSize="md" color="gray.500" marginTop="">{data?.date} </Td>
             </Flex>
             </Flex>
         </Td>
         <td>
         <Flex flexDirection="column" alignItems="center">
-              <Td fontSize="md" marginTop='15px'><b>N5,600</b></Td>
+              <Td fontSize="md" marginTop='15px'><b>{data?.price}</b></Td>
               <Td fontSize="md" color="#00A69C" fontWeight='600'>Paid</Td>
             </Flex>
           </td>
@@ -74,11 +103,11 @@ const UnratedPage = () => {
          
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer ID</b></Td>
-              <Td fontSize="md">DCID-234</Td>
+              <Td fontSize="md">{data?.customerId}</Td>
             </Flex>
             <Flex alignItems="" borderBottom="1px solid lightgray">
-              <Td fontSize="md"><b> Name</b></Td>
-              <Td fontSize="md">Bankuli Kofi</Td>
+              <Td fontSize="md"><b>Name</b></Td>
+              <Td fontSize="md">{data?.senderName}</Td>
             </Flex>
       </Flex>
 
@@ -98,11 +127,11 @@ const UnratedPage = () => {
           
           <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer Phone</b></Td>
-              <Td fontSize="md">080123456789</Td>
+              <Td fontSize="md">{data?.senderPhoneNo}</Td>
             </Flex>
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Distance</b></Td>
-              <Td fontSize="md">50km</Td>
+              <Td fontSize="md">{data?.distance}</Td>
             </Flex>
       </Flex>
        
@@ -121,11 +150,11 @@ const UnratedPage = () => {
               >
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Package Type</b></Td>
-              <Td fontSize="md">Food items</Td>
+              <Td fontSize="md">{data?.itemName}</Td>
             </Flex>
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md" marginTop=''><b>Status</b></Td>
-              <Td fontSize="md" color="#F9BF42">Pending</Td>
+              <Td fontSize="md" color="#F9BF42">{data?.status}</Td>
             </Flex>
       </Flex>
       </Tr>
@@ -146,7 +175,7 @@ const UnratedPage = () => {
                 `}
               >
               <Td fontSize="md"><b>Special Instruction</b></Td>
-              <Td fontSize="md">Breakable items, be careful when carrying it  </Td>
+              <Td fontSize="md">{data?.specialInstruction}  </Td>
             </Flex>
        </Tr>
        <Tr>
@@ -165,7 +194,7 @@ const UnratedPage = () => {
                 `}
               >
               <Td fontSize="md"><b>Pickup</b></Td>
-              <Td fontSize="md">36 Adeola Adeleye Street, Ilupeju, Lagos</Td>
+              <Td fontSize="md">{data?.senderAddress}</Td>
             </Flex>
        </Tr>
        <Tr>
@@ -184,7 +213,7 @@ const UnratedPage = () => {
                 `}
               >
               <Td fontSize="md"><b>Destination </b></Td>
-              <Td fontSize="md">23 Ikorodu-Ososun Rd, ilupeju, Lagos</Td>
+              {/* <Td fontSize="md">{data?.dropOffs[0]?.receiverAddress}</Td> */}
             </Flex>
        </Tr>
         </Tbody>

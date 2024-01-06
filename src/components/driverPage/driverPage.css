@@ -1,3 +1,16 @@
+.active-status {
+  background-color: green;
+  color: white;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.inactive-status {
+  background-color: yellow;
+  color: black; /* Adjust the text color as needed */
+  padding: 5px;
+  border-radius: 8px;
+}
 
 @media screen and (max-width: 767px) {
     Th, Td {
