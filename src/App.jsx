@@ -46,6 +46,10 @@ import ResetPassword from "./pages/resetPassword/ResetPassword";
 // loaders
 import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
 import { loader as scheduleHistoryLoader } from "./pages/ScheduleOrderHistory";
+import OTPInput from "./components/resetPasswordPage/OTPInput";
+import Reset from "./components/resetPasswordPage/Reset";
+import Recovered from "./components/resetPasswordPage/Recovered";
+
 
 // actions
 
@@ -57,6 +61,19 @@ const router = createBrowserRouter([
   {
     path: "reset",
     element: <ResetPassword/>,
+  },
+  {
+    path: "otp",
+    element: <OTPInput/>,
+  },
+  {
+    path: "passwordreset",
+    element: <Reset/>,
+  },
+ 
+  {
+    path: "recovered",
+    element: <Recovered/>,
   },
   {
     path: "/dashboard",
@@ -79,9 +96,7 @@ const router = createBrowserRouter([
       //   path: "dashboard/add",
       //   element: <AddDriver />,
       // },
-     
-      
-      {
+     {
         path: "/dashboard/success",
         element: <Success />,
       },
