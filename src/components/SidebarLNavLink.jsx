@@ -6,7 +6,6 @@ const SidebarNavLink = ({ path, text, activeIcon, inActiveIcon }) => {
   return (
     <li className="text-[1.1rem] font-[400]">
       <NavLink
-        exact={true}
         to={path}
         className={activePath === path ? "nav__link active_link" : "nav__link"}
       >

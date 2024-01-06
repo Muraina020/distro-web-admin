@@ -10,7 +10,7 @@ const PendingDetail = () => {
       <TableDetailInfo status={"pending"} />
 
       <div className="mt-8 grid place-content-center py-8">
-        <Link to={"/exprees_order pending_asign-drivers"}>
+        <Link to={"/dashboard/exprees_order pending_asign-drivers"}>
           <TableDetailBtn>Assign Driver</TableDetailBtn>
         </Link>
       </div>

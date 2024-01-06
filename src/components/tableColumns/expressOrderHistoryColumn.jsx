@@ -5,15 +5,19 @@ export const expressOrderHistoryColumn = [
     accessorKey: "shipmentId",
     header: "Order ID",
 
-    cell: (props) => <p>{props.getValue() ? props.getValue() : "N/A"}</p>,
+    cell: (props) => (
+      <p className="whitespace-nowrap">
+        {props.getValue() ? props.getValue() : "N/A"}
+      </p>
+    ),
   },
   {
     accessorKey: "date",
-    header: <p className="">ORDER DATE</p>,
+    header: <p className="text-center">ORDER DATE</p>,
     cell: (props) => {
       const date = props.getValue();
       return (
-        <p className="w-[9.8125rem] leading-[1.5rem] text-graylight text-center">
+        <p className="sm:w-[9.8125rem] mx-auto w-[6rem] leading-[1.5rem] text-graylight text-center">
           {formateDate(date)}
         </p>
       );

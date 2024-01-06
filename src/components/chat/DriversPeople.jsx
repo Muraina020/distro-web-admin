@@ -60,10 +60,10 @@ const DriversPeople = () => {
                 )}
               </div>
               <div className="">
-                <h1 className="text-primary-black xl:text-[1.25rem] text-base font-semibold">
+                <h1 className="text-primary-black xl:text-[1.15rem] text-base font-semibold">
                   {person.name}
                 </h1>
-                <p className="text-graylight xl:text-[1.1875rem] text-xs  font-medium">
+                <p className="text-graylight xl:text-[.9rem] text-xs  font-medium">
                   {person.las_Msg}
                 </p>
               </div>

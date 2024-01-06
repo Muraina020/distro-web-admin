@@ -7,7 +7,7 @@ const ChatPeople = () => {
   const pathName = useLocation().pathname;
 
   return (
-    <aside className="bg-white  md:w-[25%] w-full sticky  top-[100rem] pb-7 md:pt-12  pt-3 rounded-[0.625rem] ">
+    <aside className="bg-white  md:w-[25%] w-full   top-[100rem] pb-7 md:pt-12  pt-3 rounded-[0.625rem]  ">
       <div className="flex items-center border-b">
         <Link
           to={"/chat"}

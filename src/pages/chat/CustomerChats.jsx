@@ -4,7 +4,7 @@ const CustomerChats = () => {
   return (
     <div>
       <div className="flex gap-x-4 items-center border-b px-4 pb-1">
-        <div className="xl:w-[4.375rem] md:w-[3rem] w-[2rem] xl:h-[4.375rem] md:h-[3rem] h-[2rem] rounded-full">
+        <div className="xl:w-[4rem] md:w-[3rem] w-[2rem] xl:h-[4rem] md:h-[3rem] h-[2rem] rounded-full">
           <img
             src="https://img.freepik.com/premium-photo/smiling-young-african-man-looking-camera-standing-home-headshot-portrait_562687-3051.jpg?size=626&ext=jpg&ga=GA1.1.1239515754.1699101641&semt=sph"
             alt=""
@@ -15,52 +15,57 @@ const CustomerChats = () => {
           <h1 className="xl:text-[1.875rem] md:text-[1.1rem] text-base leading-[1.32213rem]  text-primary-black font-semibold">
             Leslie Alexander
           </h1>
-          <h6 className="text-primary-default xl:text-[1.1875rem] text-sm font-medium">
+          <h6 className="text-primary-default mt-1.5 xl:text-[1.1875rem] text-sm font-medium">
             Active
           </h6>
         </div>
       </div>
-      <div className="divider xl:text-base text-sm">Fri, Jul 28</div>
-      <div className="">
-        <h4 className="text-center text-[0.875rem] text-primary-black">
-          I’m having issues with my account
-        </h4>
+      <article className="flex flex-col min-h-[68vh]">
+        <div className="flex-grow">
+          <div className="divider xl:text-base text-sm">Fri, Jul 28</div>
 
-        <div className="px-4 mt-2">
-          <div className="space-y-3 ">
-            {CusChatMsg.map((chat, i) => {
-              return (
-                <div key={i} className=" flex items-start gap-x-2">
-                  <div className="xl:w-[3.125rem] flex-shrink-0 w-[1.9rem] xl:h-[3.125rem] h-[1.9rem]">
-                    <img
-                      src={chat.img}
-                      alt=""
-                      className="w-full h-full object-cover rounded-full"
-                    />
+          <h4 className="text-center text-[0.875rem] text-primary-black">
+            I’m having issues with my account
+          </h4>
+
+          <div className="px-4 mt-2">
+            <div className="space-y-5">
+              {CusChatMsg.map((chat, i) => {
+                return (
+                  <div key={i} className=" flex items-start gap-x-2">
+                    <div className="xl:w-[3.125rem] flex-shrink-0 w-[1.9rem] xl:h-[3.125rem] h-[1.9rem]">
+                      <img
+                        src={chat.img}
+                        alt=""
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    </div>
+
+                    <div className="w-[37.8125rem]">
+                      <h1 className="text-primary-black xl:text-[1.175rem] text-base font-semibold">
+                        {chat.name}
+                        <span className="xl:text-[0.7rem] text-xs text-graylight ml-1.5">
+                          {chat.time}
+                        </span>
+                      </h1>
+
+                      <p className="mt-1 text-gray-600 xl:text-[1rem] text-sm leading-[1.875rem]">
+                        {chat.msg}
+                      </p>
+                    </div>
                   </div>
+                );
+              })}
+            </div>
 
-                  <div className="w-[37.8125rem]">
-                    <h1 className="text-primary-black xl:text-[1.375rem] text-base font-semibold">
-                      {chat.name}
-                      <span className="xl:text-[0.875rem] text-xs text-graylight ml-1.5">
-                        {chat.time}
-                      </span>
-                    </h1>
-
-                    <p className="mt-1 text-primary-black xl:text-[1.125rem] text-sm leading-[1.875rem]">
-                      {chat.msg}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+            <p className="text-[0.875rem] text-center mt-1">
+              Jane Cooper ended the chat
+            </p>
           </div>
+        </div>
 
-          <p className="text-[0.875rem] text-center mt-1">
-            Jane Cooper ended the chat
-          </p>
-
-          <div className="mt-12 w-[85%] rounded-[1.25rem]  bg-background py-2 px-3">
+        <div className="px-4">
+          <form className="mt-12 w-[85%] rounded-[1.25rem]  bg-background py-2 px-3">
             <span className="text-graylight text-[1.125rem]">
               Write a message
               <div className=" flex items-center">
@@ -109,9 +114,9 @@ const CustomerChats = () => {
                 </button>
               </div>
             </span>
-          </div>
+          </form>
         </div>
-      </div>
+      </article>
     </div>
   );
 };
