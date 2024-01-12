@@ -10,14 +10,9 @@ export function cn(...inputs) {
 }
 
 const BASEURL = "https://apps-1.lampnets.com/distro";
-const accessToken =
-  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDI3NTM4MTQsImV4cCI6MTcwMjg0MDIxNH0.X79uLdkE8IsHWnamZL8GhLrbRcJBP_LGXuU3we4XCGYNJgdnGhmzxwOhIFG29Lj3";
 
 export const customFetch = axios.create({
   baseURL: BASEURL,
-  headers: {
-    Authorization: `Bearer  ${accessToken}`,
-  },
 });
 
 export const formatPrice = (price) => {

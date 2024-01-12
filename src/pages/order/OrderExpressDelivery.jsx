@@ -1,25 +1,32 @@
 import { useEffect, useState } from "react";
-import { DataTable } from "../../components";
+import { DataTable, TableLoading } from "../../components";
 
 import { orderStatusNavText } from "../../utils/data";
 import { customFetch } from "../../utils";
 import { orderColumn } from "../../components/tableColumns/OrderTable";
-import Loading from "../../components/ui/Loading";
+import { useAuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const OrderExpressDelivery = () => {
   const [selectedTextTable, setSelectedTextTable] = useState("Pending");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await customFetch(
-          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Express`
+          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Express`,
+          { headers: { Authorization: `Bearer  ${admin.accessToken}` } }
         );
         setData(response.data.content);
       } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
       } finally {
         setLoading(false);
       }
@@ -49,7 +56,7 @@ const OrderExpressDelivery = () => {
   };
 
   if (loading) {
-    return <Loading />;
+    return <TableLoading />;
   }
 
   return (

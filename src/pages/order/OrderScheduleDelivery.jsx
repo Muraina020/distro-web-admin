@@ -5,21 +5,29 @@ import { DataTable } from "../../components";
 import { customFetch } from "../../utils";
 import Loading from "../../components/ui/Loading";
 import { orderColumn } from "../../components/tableColumns/OrderTable";
+import { useAuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const OrderScheduleDelivery = () => {
   const [selectedTextTable, setSelectedTextTable] = useState("Pending");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const response = await customFetch(
-          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Schedule`
+          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Schedule`,
+          { headers: { Authorization: `Bearer  ${admin.accessToken}` } }
         );
         setData(response.data.content);
       } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
       } finally {
         setLoading(false);
       }

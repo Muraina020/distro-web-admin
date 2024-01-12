@@ -1,6 +1,6 @@
 // AuthProvider.jsx
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const getUserLocalStorage = () => {
   return JSON.parse(localStorage.getItem("user")) || null;
@@ -10,6 +10,14 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [admin, setAdmin] = useState(getUserLocalStorage());
+
+  // useEffect(() => {
+  //   const storedAdminState = localStorage.getItem("user");
+  //   if (storedAdminState) {
+  //     setAdmin(JSON.parse(storedAdminState));
+  //   }
+  // }, []);
+
   const [auth, setAuth] = useState({
     // Default or initial authentication state
     phoneNoOrEmail: "",
@@ -17,9 +25,9 @@ export const AuthProvider = ({ children }) => {
     roles: [],
     accessToken: "",
   });
-  //   console.log(admin)
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth, admin }}>
+    <AuthContext.Provider value={{ auth, setAuth, admin, setAdmin }}>
       {children}
     </AuthContext.Provider>
   );

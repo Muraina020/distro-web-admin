@@ -32,15 +32,11 @@ import OfflineR from "./pages/rating/OfflineR";
 import ActiveR from "./pages/rating/ActiveR";
 import CustomerAccount from "./pages/customer/CustomerAccount";
 import CustomerRatin from "./pages/customer/CustomerRatin";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // loaders
-import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
-import { loader as scheduleHistoryLoader } from "./pages/ScheduleOrderHistory";
 import OTPInput from "./components/resetPasswordPage/OTPInput";
 import Reset from "./components/resetPasswordPage/Reset";
 import Recovered from "./components/resetPasswordPage/Recovered";
-
 // actions
 
 const router = createBrowserRouter([
@@ -162,13 +158,11 @@ const router = createBrowserRouter([
         path: "expressOrderHistory",
         element: <ExpressOrderHistory />,
         errorElement: <Error />,
-        loader: expressHistroyLoader,
       },
       {
         path: "scheduleOrderHistory",
         element: <ScheduleOrderHistory />,
         errorElement: <Error />,
-        loader: scheduleHistoryLoader,
       },
       {
         path: "/dashboard/profile",
@@ -202,19 +196,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1000 * 60 * 10,
-      },
-    },
-  });
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
-    </QueryClientProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
