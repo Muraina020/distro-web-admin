@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 const style = {
   message: `flex items-center shadow-xl m-4 py-2 px-3 rounded-tl-full rounded-tr-full`,
   name: `absolute mt-[-4rem] text-gray-600 text-xs`,
@@ -6,6 +8,12 @@ const style = {
 };
 
 const Message = ({ chat }) => {
+  const inViewRef = useRef();
+
+  useEffect(() => {
+    inViewRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]);
+
   const messageClass =
     chat.data.senderId === "support@distro.com.ng"
       ? `${style.sent}`
@@ -40,7 +48,7 @@ const Message = ({ chat }) => {
   const code = chat.data.code;
 
   return (
-    <div className={` `}>
+    <div ref={inViewRef}>
       {code == "TXT" && (
         <div className={` ${style.message} ${messageClass} relative `}>
           <h1 className={style.name}>
