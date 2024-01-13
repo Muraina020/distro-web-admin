@@ -1,4 +1,5 @@
 import { formatPrice, formateDate } from "../../utils";
+import { Link } from "react-router-dom";
 
 export const expressOrderHistoryColumn = [
   {
@@ -38,8 +39,23 @@ export const expressOrderHistoryColumn = [
     header: "Amount",
     cell: (props) => {
       const amount = parseFloat(props.getValue());
-
       return <p className="text-graylight">{formatPrice(amount)}</p>;
+    },
+  },
+  {
+    accessorKey: "details",
+    header: "Datails",
+    cell: (props) => {
+      // const id = row.original.id;
+      // console.log(props);
+      return (
+        <Link
+          to={`/dashboard/orderTracking/`}
+          className="p-1 rounded-md bg-gray-200 text-gray-600"
+        >
+          View
+        </Link>
+      );
     },
   },
 ];

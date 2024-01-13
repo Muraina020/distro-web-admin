@@ -22,22 +22,11 @@ const Notification = () => {
         <div className="flex items-center gap-x-3">
           <div>
             <h1 className="md:text-[1.3125rem] text-base font-medium text-primary-black">
-              Reminders
+              Push Notification
             </h1>
             <p className="md:text-[0.8125rem] text-xs w-[19rem] text-graylight leading-[1.3125rem;]">
               These are notifications to inform you of new updates done in any
-              section{" "}
-            </p>
-          </div>
-          <Switch isDefaultCheck={true} />
-        </div>
-        <div className="flex items-center gap-x-3">
-          <div>
-            <h1 className="md:text-[1.3125rem] text-base font-medium text-primary-black">
-              Reviews
-            </h1>
-            <p className="md:text-[0.8125rem] text-xs w-[19rem] text-graylight leading-[1.3125rem;]">
-              This notification informs you of new review
+              section
             </p>
           </div>
           <Switch isDefaultCheck={true} />

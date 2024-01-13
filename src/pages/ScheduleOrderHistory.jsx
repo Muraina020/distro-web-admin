@@ -5,7 +5,8 @@ import useCustomFetch from "../hooks/useCustomFetch";
 const url = "/order-history/Schedule?pageSize=55";
 
 const ScheduleOrderHistory = () => {
-  const { data, loading } = useCustomFetch(url);
+  const { data: _data, loading } = useCustomFetch(url);
+  const data = _data?.content || [];
 
   if (loading) {
     return (

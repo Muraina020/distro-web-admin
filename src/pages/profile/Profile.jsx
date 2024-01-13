@@ -15,7 +15,7 @@ const Profile = () => {
       setAdmin(null);
       removeUserFromLocalStorage();
       toast.success("Logged out");
-    }, 500);
+    }, 1000);
   };
 
   return (
