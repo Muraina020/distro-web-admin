@@ -11,7 +11,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { customFetch } from "../../utils";
 
 const DriverPage = () => {
@@ -30,14 +30,13 @@ const DriverPage = () => {
         endpoint = "/drivers/unverified/all";
       }
 
-      const response = await customFetch(endpoint, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0OTMwMjIsImV4cCI6MTcwNDU3OTQyMn0.VYr9ZWJrgWws3WQQo1BTQ09ek2lQSTHZXGfLOm11RE9jxKl_UAkKdxOuUQoC-_66`,
-        },
-      });
-
-      const driversData = response.data.content;
-      setData(driversData);
+      try {
+        const response = await customFetch(endpoint);
+        const driversData = response.data.content;
+        setData(driversData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchDrivers(activeHeader);
@@ -47,15 +46,15 @@ const DriverPage = () => {
     setActiveHeader(header);
   };
 
-  const handleRowClick = (status) => {
-    if (activeHeader === "ACTIVE") {
-      navigate('/dashboard/online');
-    } else if (activeHeader === "INACTIVE") {
-      navigate('/dashboard/offline');
-    } else if (activeHeader === "UNIFIED") {
-      navigate('/dashboard/unverify');
-    }
-  };
+  // const handleRowClick = (status) => {
+  //   if (activeHeader === "ACTIVE") {
+  //     navigate('/dashboard/online');
+  //   } else if (activeHeader === "INACTIVE") {
+  //     navigate('/dashboard/offline');
+  //   } else if (activeHeader === "UNIFIED") {
+  //     navigate('/dashboard/unverify');
+  //   }
+  // };
 
   return (
     <div>
@@ -133,9 +132,12 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td>
+                    {/* <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td> */}
+                    <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                    <Td className="email-column">{item?.email}</Td>
+                   <Link to={`/dashboard/drivers/${item?.email}`}>
+                     <Td className="email-column">{item?.email}</Td>
+                   </Link>
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div
@@ -163,9 +165,11 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td>
+                    <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                    <Td className="email-column">{item?.email}</Td>
+                    <Link to={`/dashboard/drivers/${item?.email}`}>
+                     <Td className="email-column">{item?.email}</Td>
+                   </Link>
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div
@@ -193,9 +197,11 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td>
+                    <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                    <Td className="email-column">{item?.email}</Td>
+                    <Link to={`/dashboard/drivers/${item?.email}`}>
+                     <Td className="email-column">{item?.email}</Td>
+                   </Link>
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div

@@ -28,13 +28,10 @@ const CustomerRating = () => {
   };
 
   const handleOrder = () => {
-    // Add logic to handle the "Order" click (if needed)
-    // Once the logic is executed, navigate to the "rating" page
     navigate("/dashboard/customeracc");
   };
   return (
     <div style={{ position: "relative" }}>
-      {/* Arrow icon positioned at the top right corner */}
       <IconButton
         icon={<FaArrowLeft />}
         onClick={handleGoBack}

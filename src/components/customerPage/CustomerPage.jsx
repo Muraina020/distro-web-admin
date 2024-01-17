@@ -11,7 +11,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { customFetch } from "../../utils";
 
 const CustomerPage = () => {
@@ -21,12 +21,7 @@ const CustomerPage = () => {
   useEffect(() => {
     const fetchDrivers = async () => {
       const response = await customFetch(
-        "https://apps-1.lampnets.com/distro/customers/all",
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQzNTkyMzMsImV4cCI6MTcwNDQ0NTYzM30.pAt7Uc35S0AK5UQX04KbjCG30OJxEhF0TmlodxI_yMCIhNHd-T3JuHHokaY6z3GB`,
-          },
-        }
+        "/customers/all",
       );
       const driversData = response.data.content;
       setData(driversData);
@@ -38,9 +33,7 @@ const CustomerPage = () => {
   const navigate = useNavigate();
 
   const handleOrder = () => {
-    // Add logic to handle the "Order" click (if needed)
-    // Once the logic is executed, navigate to the "rating" page
-    navigate('/dashboard/customeracc');
+    navigate('');
   };
 
   return (
@@ -58,10 +51,13 @@ const CustomerPage = () => {
           </Thead>
           <Tbody>
             {data.map((item, index) => (
-              <Tr key={index} borderBottom="2px solid lightgray" cursor='pointer' color='#696969' onClick={handleOrder}>
-                <Td>{item?.customerId}</Td>
+              <Tr key={index} borderBottom="2px solid lightgray" color='#696969' >
+                <Td onClick={handleOrder} cursor='pointer'>{item?.customerId}</Td>
                 <Td>{item?.name}</Td>
-                <Td className="email-column">{item?.email}</Td>
+
+                <Link className="email-column" to={`/dashboard/customers/${item?.email}`}> <Td className="email-column">{item?.email}</Td>
+                   </Link>
+                   
                 <Td isNumeric>{item?.phone}</Td>
                 <Td>
                   <div

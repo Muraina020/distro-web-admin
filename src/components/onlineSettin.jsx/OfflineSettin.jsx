@@ -23,33 +23,23 @@ const OfflineSettin = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const fetchDrivers = async () => {
+    const fetchDriverProfile = async () => {
       try {
         const response = await customFetch.post(
           "/drivers/profile",
-          {
-            email: "driver001@gmail.com"
-          },
-          {
-            headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0Mzc3NzYsImV4cCI6MTcwNDUyNDE3Nn0.YoTfMLvmyRPG3qn1yWaj-syCEARw9RlGytN4ZSw_N40I0Q_btTdOYWl61VAu31mY`,
-            }
-          }
+          { email: "driver001@gmail.com" }
         );
-  
-        // const driversData = response.data.content;
+
         setData(response.data);
         console.log(response);
       } catch (error) {
-        console.error("Error fetching drivers:", error);
+        console.error("Error fetching driver profile:", error);
         // Handle the error as needed
       }
     };
-  
-  
-    fetchDrivers();
+
+    fetchDriverProfile();
   }, []);
-  console.log(data)
 
 
   const handleGoBaks = () => {
