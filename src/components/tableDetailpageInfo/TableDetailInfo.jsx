@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { formatPrice, formateDate } from "../../utils";
+import { Star, StarBorderOutlined, StarHalf } from "@mui/icons-material";
 
 const TableDetailInfo = ({ data }) => {
   const {
@@ -19,6 +20,8 @@ const TableDetailInfo = ({ data }) => {
     dropOffs,
   } = data;
 
+  console.log(driver);
+
   const formattedColor =
     status === "Pending"
       ? "#00A69C"
@@ -29,6 +32,25 @@ const TableDetailInfo = ({ data }) => {
       : status === "Delivered"
       ? "#2593F0"
       : "#FF3838";
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push(<Star className="text-primary-default" />);
+      } else if (hasHalfStar && i === fullStars + 1) {
+        stars.push(<StarHalf className="text-primary-default" />);
+      } else {
+        stars.push(<StarBorderOutlined className="text-primary-default" />);
+      }
+    }
+    // console.log(stars);
+
+    return stars.slice(0, 5);
+  };
 
   return (
     <div>
@@ -170,7 +192,43 @@ const TableDetailInfo = ({ data }) => {
           </li>
         </div>
       </ul>
+
+      {driver && (
+        <div className=" mt-16">
+          <div className="border-b py-3 md:px-5 px-3">
+            <h1 className="text-xl text-primary-black font-medium ">
+              Rating and Review
+            </h1>
+          </div>
+          <div className="flex justify-between items-center px-5 ">
+            <div className="flex gap-x-3 items-center">
+              <figure className="w-[8rem] h-[8rem] rounded-full">
+                <img
+                  src={
+                    driver?.image
+                      ? driver?.image
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS167rCp9mKFPIQo0E5lfr9p2OIqZ2XpU9wgbDkoUC5tQ&s"
+                  }
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </figure>
+              <div className="space-y-4">
+                <h2 className="font-medium">{driver?.driverId}</h2>
+                <h6 className="text-gray-500"> {formateDate(date)}</h6>
+              </div>
+            </div>
+
+            <div className="">
+              {driver?.ratings.map((item) => (
+                <Star className="text-primary-default" />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default TableDetailInfo;

@@ -6,6 +6,7 @@ import SkeletonLoader from "../ui/SkeletonLoader";
 import CreateCoupons from "./CreateCoupons";
 import { toast } from "react-toastify";
 import { CiTrash } from "react-icons/ci";
+import { ModeEdit } from "@mui/icons-material";
 
 const DataCoupons = () => {
   const [coupons, setCoupons] = useState([]);
@@ -13,12 +14,19 @@ const DataCoupons = () => {
   const [loading, setLoading] = useState(false);
   const { admin } = useAuthContext();
   const navigate = useNavigate();
+  const [editingCoupon, setEditingCoupon] = useState(null);
+
   const [InputValues, setInputValues] = useState({
     discountValue: 0,
     endDate: "",
     startDate: "",
     userLimit: 0,
   });
+  const requestConfig = {
+    headers: {
+      Authorization: `Bearer ${admin.accessToken}`,
+    },
+  };
 
   const deleteCoupon = async (couponId) => {
     try {
@@ -34,7 +42,7 @@ const DataCoupons = () => {
     }
   };
 
-  const handleCreateCoupon = async (e) => {
+  const handleCouponSubmit = async (e) => {
     e.preventDefault();
     const { discountValue, endDate, startDate, userLimit } = InputValues;
 
@@ -60,6 +68,32 @@ const DataCoupons = () => {
     const formattedStartDate = new Date(startDate).toISOString();
     const formattedEndDate = new Date(endDate).toISOString();
     setLoading(true);
+
+    if (editingCoupon) {
+      try {
+        await customFetch.put(
+          `/coupons/edit/${editingCoupon.id}`,
+          {
+            ...InputValues,
+            startDate: formattedStartDate,
+            endDate: formattedEndDate,
+          },
+          requestConfig
+        );
+        toast.success("Coupon updated successfully");
+      } catch (error) {
+        console.log(error);
+        console.log({
+          ...InputValues,
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
+        });
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
     try {
       const reponse = await customFetch.post(
         "/coupons/add",
@@ -68,22 +102,16 @@ const DataCoupons = () => {
           startDate: formattedStartDate,
           endDate: formattedEndDate,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${admin.accessToken}`,
-          },
-        }
+        requestConfig
       );
-
       toast.success("Coupon created successfully");
-      fetchData();
       closeCreateCoupon();
-      return;
     } catch (error) {
       console.log(error.response);
     } finally {
       setLoading(false);
     }
+    fetchData();
   };
 
   const handleChange = (e) => {
@@ -98,9 +126,7 @@ const DataCoupons = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await customFetch("/coupons", {
-        headers: { Authorization: `Bearer ${admin.accessToken}` },
-      });
+      const response = await customFetch("/coupons", requestConfig);
       setCoupons(response.data.reverse());
     } catch (error) {
       console.log(error);
@@ -111,9 +137,6 @@ const DataCoupons = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const closeCreateCoupon = () => {
     setIsCreateCouponOpen(false);
@@ -123,11 +146,47 @@ const DataCoupons = () => {
       startDate: "",
       userLimit: 0,
     });
+    setEditingCoupon(null);
   };
+
+  const openCouponForm = () => {
+    setIsCreateCouponOpen(true);
+  };
+
+  const editCoupons = async (coupon) => {
+    setEditingCoupon(coupon);
+    openCouponForm();
+    setInputValues({
+      discountValue: coupon.discountValue,
+      endDate: coupon.endDate,
+      startDate: coupon.startDate,
+      userLimit: coupon.userLimit,
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   if (loading) {
     return (
-      <ul className="space-y-5 px-2 mt-3">
+      <ul className="space-y-5 px-1 mt-3">
+        <li className="flex items-center gap-x-4">
+          <SkeletonLoader className={"w-4 bg-neutral-300 h-4 rounded-full"} />
+          <SkeletonLoader className={"h-4 bg-neutral-300 w-[20rem]"} />
+        </li>
+        <li className="flex items-center gap-x-4">
+          <SkeletonLoader className={"w-4 bg-neutral-300 h-4 rounded-full"} />
+          <SkeletonLoader className={"h-4 bg-neutral-300 w-[20rem]"} />
+        </li>
+        <li className="flex items-center gap-x-4">
+          <SkeletonLoader className={"w-4 bg-neutral-300 h-4 rounded-full"} />
+          <SkeletonLoader className={"h-4 bg-neutral-300 w-[20rem]"} />
+        </li>
+        <li className="flex items-center gap-x-4">
+          <SkeletonLoader className={"w-4 bg-neutral-300 h-4 rounded-full"} />
+          <SkeletonLoader className={"h-4 bg-neutral-300 w-[20rem]"} />
+        </li>
         <li className="flex items-center gap-x-4">
           <SkeletonLoader className={"w-4 bg-neutral-300 h-4 rounded-full"} />
           <SkeletonLoader className={"h-4 bg-neutral-300 w-[20rem]"} />
@@ -161,7 +220,7 @@ const DataCoupons = () => {
         </h2>
 
         <button
-          onClick={() => setIsCreateCouponOpen(true)}
+          onClick={openCouponForm}
           className="text-primary-default md:text-[1.125rem] text-base border-b border-primary-default"
         >
           create
@@ -183,6 +242,14 @@ const DataCoupons = () => {
                 <td>{coupon?.discountValue}% Dicount</td>
                 <td>
                   <button
+                    onClick={() => editCoupons(coupon)}
+                    className="hover:scale-110 transition-all"
+                  >
+                    <ModeEdit />
+                  </button>
+                </td>
+                <td>
+                  <button
                     onClick={() => deleteCoupon(coupon?.id)}
                     className="hover:text-red-500"
                   >
@@ -198,10 +265,11 @@ const DataCoupons = () => {
       <CreateCoupons
         isCreateCouponOpen={isCreateCouponOpen}
         closeCreateCoupon={closeCreateCoupon}
-        handleCreateCoupon={handleCreateCoupon}
+        handleCouponSubmit={handleCouponSubmit}
         handleChange={handleChange}
         InputValues={InputValues}
         loading={loading}
+        editingCoupon={editingCoupon}
       />
     </>
   );

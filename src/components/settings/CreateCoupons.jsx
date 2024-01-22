@@ -1,13 +1,15 @@
 import { SpinnerIcon } from "@chakra-ui/icons";
 import { Cancel } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
 
 const CreateCoupons = ({
   isCreateCouponOpen,
   closeCreateCoupon,
-  handleCreateCoupon,
+  handleCouponSubmit,
   handleChange,
   InputValues,
   loading,
+  editingCoupon,
 }) => {
   return (
     <div
@@ -25,7 +27,7 @@ const CreateCoupons = ({
       <div
         className={`w-[40rem]  h-[26rem] rounded-md fixed top-1/2 left-1/2
          transform 
-        transition-all duration-200 
+        transition-all duration-300 
         -translate-x-1/2   bg-white  ${
           isCreateCouponOpen
             ? "opacity-100 visible -translate-y-1/2"
@@ -35,14 +37,14 @@ const CreateCoupons = ({
         <div className="flex items-center py-5 border-b border-b-primary-default justify-between px-6 gap-x-7">
           <span>&nbsp;</span>
           <h1 className="capitalize text-xl text-primary-default">
-            Create Coupon Code
+            {editingCoupon ? "Edit Coupon Code" : "Create Coupon Code"}
           </h1>
           <button onClick={closeCreateCoupon}>
             <Cancel />
           </button>
         </div>
 
-        <form onSubmit={handleCreateCoupon} className="px-12 py-5">
+        <form onSubmit={handleCouponSubmit} className="px-12 py-5">
           <article className=" grid grid-cols-2 gap-x-10 gap-y-8">
             <div className="flex flex-col gap-y-2">
               <label htmlFor="StartDate" className="text-lg ">
@@ -102,6 +104,7 @@ const CreateCoupons = ({
                   name="discountValue"
                   onChange={handleChange}
                   max={100}
+                  min={1}
                   className="outline-none w-full pr-7 rounded-md p-1 border border-primary-default"
                 />
                 <span className="text-primary-default absolute right-5 top-1/2 -translate-y-1/2">
@@ -121,7 +124,7 @@ const CreateCoupons = ({
                 <SpinnerIcon className="animate-spin" />{" "}
               </span>
             ) : (
-              "Create"
+              "Done"
             )}
           </button>
         </form>

@@ -29,8 +29,6 @@ const orderDetails = () => {
     fetchDetails();
   }, [id]);
 
-  // console.log(data);
-
   if (loading) {
     return (
       <Wrapper>

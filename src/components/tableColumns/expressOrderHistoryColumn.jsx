@@ -45,12 +45,11 @@ export const expressOrderHistoryColumn = [
   {
     accessorKey: "details",
     header: "Datails",
-    cell: (props) => {
-      // const id = row.original.id;
-      // console.log(props);
+    cell: ({ row }) => {
+      const id = row.original.pickupId;
       return (
         <Link
-          to={`/dashboard/orderTracking/`}
+          to={`/dashboard/orderTracking/${id}`}
           className="p-1 rounded-md bg-gray-200 text-gray-600"
         >
           View
