@@ -117,7 +117,7 @@ const ResetPasswordPage = () => {
             </div>
             <button className="reset-login" onClick={handleNewResetPaswword}>
               Reset password
-              {loading && <CircularProgress size='30px' />}
+              {loading && <CircularProgress size='30px' marginLeft='15px'/>}
             </button>
             <p className="reset-errmsg" aria-live="assertive">
               {errMsg}

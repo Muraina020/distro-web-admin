@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Table,
   Thead,
@@ -10,55 +9,82 @@ import {
   Flex,
   Avatar,
   IconButton,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { FaArrowLeft } from 'react-icons/fa';
 import cube from "../../assets/img/cube.png";
 import man from "../../assets/img/man.png";
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { customFetch } from '../../utils';
 
 const Ratedpage = () => {
 
+  const mobileTrWidth = useBreakpointValue({ base: '400px', md: '100%' });
+  const mobileWidth = useBreakpointValue({ base: '400px', md: '100%' });
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const response = await customFetch.get(
+          "/pickuporders/info/109",
+        );
+        
+        setData(response.data);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching drivers:", error);
+        // Handle the error as needed
+      }
+    };
+   
+    fetchDrivers();
+  }, []);
+  console.log(data)
+
+
   const navigate = useNavigate();
 
-  const handleGoBacks = () => {
-    // Navigate to the previous page
+  const handleGoBack = () => {
     navigate(-1);
   };
   return (
-    <div style={{ position: 'relative' }}>
-    {/* Arrow icon positioned at the top right corner */}
+    <div style={{ position: 'relative', overflowX: 'auto', maxWidth: '100%' }}>
     <IconButton
         icon={<FaArrowLeft />}
-        onClick={handleGoBacks}
+        onClick={handleGoBack}
         style={{ position: 'absolute', top: 5, left: 5, backgroundColor: 'white', color: 'gray'}}
       />
 
-    <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
-      <Table variant="simple" size="lg" paddingBottom="50px">
+<TableContainer bg="white" fontSize="18px" paddingBottom="50px" overflowX="auto">
+            <Table variant="simple" size="lg" paddingBottom="50px"  width={mobileWidth} maxWidth={{ base: '400px', md: '100%' }}>
+
         <Tbody>
-        <Tr borderBottom="2px solid lightgray">
+        <Tr borderBottom="2px solid lightgray" width={mobileTrWidth}>
         <Td>
           <Flex  alignItems="center">
-          <Avatar size="lg" name="John Doe" src={cube} />
+          <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
             <Flex flexDirection="column" alignItems="center">
-              <Td fontSize="md" marginLeft=""><b>DL-5679-435EX</b></Td>
-              <Td fontSize="md" color="gray.500" marginTop="">Mon Jun 2 2023 12:38:37 </Td>
+              <Td fontSize="md" marginLeft=""><b>{data?.shipmentId}</b></Td>
+              <Td fontSize="md" color="gray.500" marginTop="">{data?.date} </Td>
             </Flex>
             </Flex>
         </Td>
         <td>
         <Flex flexDirection="column" alignItems="center">
-              <Td fontSize="md" marginTop='15px'><b>N5,600</b></Td>
-              <Td fontSize="md" color="#00A69C" fontWeight='500'>Paid</Td>
+              <Td fontSize="md" marginTop='15px'><b>{data?.price}</b></Td>
+              <Td fontSize="md" color="#00A69C" fontWeight='600'>{data?.paymentStatus}</Td>
             </Flex>
           </td>
       </Tr>
 
-      <Tr>
-        <Flex
+      <Tr >
+      <Flex
                 justifyContent=""
-                gap="200px"
+                gap="250px"
                 width="300px"
                 marginLeft="0px"
                 css={`
@@ -72,11 +98,11 @@ const Ratedpage = () => {
          
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer ID</b></Td>
-              <Td fontSize="md">DCID-234</Td>
+              <Td fontSize="md">{data?.customerId}</Td>
             </Flex>
             <Flex alignItems="" borderBottom="1px solid lightgray">
-              <Td fontSize="md"><b> Name</b></Td>
-              <Td fontSize="md">Bankuli Kofi</Td>
+              <Td fontSize="md"><b>Name</b></Td>
+              <Td fontSize="md">{data?.senderName}</Td>
             </Flex>
       </Flex>
 
@@ -96,17 +122,17 @@ const Ratedpage = () => {
           
           <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Customer Phone</b></Td>
-              <Td fontSize="md">080123456789</Td>
+              <Td fontSize="md">{data?.senderPhoneNo}</Td>
             </Flex>
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Distance</b></Td>
-              <Td fontSize="md">50km</Td>
+              <Td fontSize="md">{data?.distance}</Td>
             </Flex>
       </Flex>
-
+       
       <Flex
                 justifyContent=""
-                gap="200px"
+                gap="250px"
                 width="300px"
                 marginLeft="0px"
                 css={`
@@ -117,14 +143,13 @@ const Ratedpage = () => {
                   }
                 `}
               >
-         
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md"><b>Package Type</b></Td>
-              <Td fontSize="md">Food items</Td>
+              <Td fontSize="md">{data?.itemName}</Td>
             </Flex>
             <Flex alignItems="" borderBottom="1px solid lightgray">
               <Td fontSize="md" marginTop=''><b>Status</b></Td>
-              <Td fontSize="md" color="#2593F0">Delivered</Td>
+              <Td fontSize="md" color="#F9BF42">{data?.status}</Td>
             </Flex>
       </Flex>
       </Tr>
@@ -132,9 +157,10 @@ const Ratedpage = () => {
        <Tr >
        <Flex
                 justifyContent=""
-                gap="200px"
+                gap="150px"
                 width="300px"
                 marginLeft="0px"
+                borderBottom="1px solid lightgray"
                 css={`
                   @media (max-width: 768px) {
                     gap: 0px;
@@ -144,15 +170,16 @@ const Ratedpage = () => {
                 `}
               >
               <Td fontSize="md"><b>Special Instruction</b></Td>
-              <Td fontSize="md">Breakable items, be careful when carrying it </Td>
+              <Td fontSize="md">{data?.specialInstruction}  </Td>
             </Flex>
        </Tr>
        <Tr>
        <Flex
                 justifyContent=""
-                gap="200px"
+                gap="150px"
                 width="300px"
                 marginLeft="0px"
+                borderBottom="1px solid lightgray"
                 css={`
                   @media (max-width: 768px) {
                     gap: 0px;
@@ -162,15 +189,16 @@ const Ratedpage = () => {
                 `}
               >
               <Td fontSize="md"><b>Pickup</b></Td>
-              <Td fontSize="md">36 Adeola Adeleye Street, Ilupeju, Lagos</Td>
+              <Td fontSize="md">{data?.senderAddress}</Td>
             </Flex>
        </Tr>
        <Tr>
        <Flex
                 justifyContent=""
-                gap="200px"
+                gap="250px"
                 width="300px"
                 marginLeft="0px"
+                borderBottom="1px solid lightgray"
                 css={`
                   @media (max-width: 768px) {
                     gap: 0px;
@@ -180,17 +208,17 @@ const Ratedpage = () => {
                 `}
               >
               <Td fontSize="md"><b>Destination </b></Td>
-              <Td fontSize="md">23 Ikorodu-Ososun Rd, ilupeju, Lagos</Td>
+              {/* <Td fontSize="md"> {data?.dropOffs[0]?.receiverAddress}</Td> */}
             </Flex>
        </Tr>
         </Tbody>
          <Tr borderBottom="2px solid lightgray">
         <Td>
           <Flex  alignItems="center">
-          <Avatar size="lg" name="John Doe" src={man} />
+          <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
             <Flex flexDirection="column" alignItems="center">
-              <Td fontSize="md" marginLeft=""><b>DL-5679-435EX</b></Td>
-              <Td fontSize="md" color="gray.500" marginTop="">Mon Jun 2 2023 12:38:37 </Td>
+            <Td fontSize="md" marginLeft=""><b>{data?.shipmentId}</b></Td>
+              <Td fontSize="md" color="gray.500" marginTop="">{data?.date} </Td>
             </Flex>
             </Flex>
         </Td>
@@ -207,7 +235,7 @@ const Ratedpage = () => {
       <Tr >
        <Flex alignItems="" borderBottom="1px solid lightgray" marginLeft='50px'>
               <Td fontSize="md"><b>Special Instruction</b></Td>
-              <Td fontSize="md">Breakable items, be careful when carrying it </Td>
+              <Td fontSize="md">{data?.specialInstruction} </Td>
             </Flex>
        </Tr>
       </Table>
