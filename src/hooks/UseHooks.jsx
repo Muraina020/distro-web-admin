@@ -1,30 +1,38 @@
 import { useEffect, useState } from "react";
 import { customFetch, getRecentOrdersById } from "../utils";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthProvider";
 
 export const UsePendingRecentOrder = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await customFetch(
+        "/orders/all?deliveryType=Express&deliveryStatus=Pending&pageSize=1000",
+        { headers: { Authorization: `Bearer ${admin.accessToken}` } }
+      );
+
+      const data = response.data.content;
+      const recentData = getRecentOrdersById(data);
+      console.log(recentData);
+      setData(recentData);
+    } catch (error) {
+      if (error.response.status === 401) {
+        navigate("/");
+      }
+      setError("There was an error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Pending"
-        );
-
-        const data = response.data.content;
-        const recentData = getRecentOrdersById(data);
-        setData(recentData);
-      } catch (error) {
-        setError("There was an error");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -33,12 +41,15 @@ export const UsePendingRecentOrder = () => {
 
 export const UseCancelRecentOrder = () => {
   const [data, setData] = useState(null);
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Cancel"
+          "/orders/all?deliveryType=Express&deliveryStatus=Cancel&pageSize=1000",
+          { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
 
         const data = response.data.content;
@@ -46,6 +57,9 @@ export const UseCancelRecentOrder = () => {
 
         setData(recentData);
       } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
         setError("There was an error");
       }
     };
@@ -58,18 +72,23 @@ export const UseCancelRecentOrder = () => {
 
 export const UseOnTheWayRecentOrder = () => {
   const [data, setData] = useState({});
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=On the way"
+          "/orders/all?deliveryType=Express&deliveryStatus=On the way&pageSize=1000",
+          { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
-
         const data = response.data.content;
         const recentData = getRecentOrdersById(data);
         setData(recentData);
       } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
         setError("There was an error");
       }
     };
@@ -82,18 +101,24 @@ export const UseOnTheWayRecentOrder = () => {
 
 export const UseDeliveredRecentOrder = () => {
   const [data, setData] = useState({});
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Delivered"
+          "/orders/all?deliveryType=Express&deliveryStatus=Delivered&pageSize=1000",
+          { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
 
         const data = response.data.content;
         const recentData = getRecentOrdersById(data);
         setData(recentData);
       } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
         setError("There was an error");
       }
     };
@@ -106,18 +131,24 @@ export const UseDeliveredRecentOrder = () => {
 
 export const UsePickedUpRecentOrder = () => {
   const [data, setData] = useState({});
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Picked up"
+          "/orders/all?deliveryType=Express&deliveryStatus=Picked up&pageSize=1000",
+          { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
 
         const data = response.data.content;
         const recentData = getRecentOrdersById(data);
         setData(recentData);
       } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
         setError("There was an error");
       }
     };

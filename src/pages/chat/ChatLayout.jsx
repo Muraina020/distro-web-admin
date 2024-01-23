@@ -1,4 +1,5 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import { ChatPeople, ChatSideBar, Container, Header } from "../../components";
 import SlideInSidebar from "../../components/sidebar/SlideInSidebar";
 

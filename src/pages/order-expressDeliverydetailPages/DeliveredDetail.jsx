@@ -7,6 +7,7 @@ const DeliveredDetail = () => {
       <ArrowBack link={"/orderTracking"} />
       <TableDetailInfo status={"delivered"} />
 
+      
       {/* <div className="grid grid-cols-2 items-center   gap-x-[5rem] gap-y-8 mt-5">
           <li className="py-3 px-2 border-b w-full flex items-center justify-between">
             <span className=" text-[1.125rem] ">Driver ID</span>

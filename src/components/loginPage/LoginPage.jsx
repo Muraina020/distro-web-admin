@@ -5,15 +5,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./loginPage.css";
-import axios from '../../api/axiosInstance';
+import axios from "../../api/axiosInstance";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { setAdmin, admin } = useAuthContext();
+
   const [credential, setCredential] = useState({
     phoneNoOrEmail: "",
     password: "",
-    accesToken: "",
+    accessToken: "",
   });
+
+  // console.log(admin, credential);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +38,9 @@ const LoginPage = () => {
         accessToken,
       };
 
-      localStorage.setItem("user", JSON.stringify(data));
       setCredential(data);
+      setAdmin(data);
+      localStorage.setItem("user", JSON.stringify(data));
 
       toast.success("Login successful!");
 

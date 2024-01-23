@@ -15,9 +15,6 @@ const accessToken =
 
 export const customFetch = axios.create({
   baseURL: BASEURL,
-  headers: {
-    Authorization: `Bearer  ${accessToken}`,
-  },
 });
 
 export const formatPrice = (price) => {
@@ -30,8 +27,21 @@ export const formatPrice = (price) => {
   return formattedPrice;
 };
 
-export const formateDate = (date) => {
-  const formattedDate = day(date).format("ddd MMM d, YYYY - hh:mm a ");
+export const formateDate = (inputDate) => {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+  const date = new Date(inputDate);
+  const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][
+    date.getUTCDay()
+  ];
+
+  const formattedDate = `${weekday} ${date.toLocaleString("en-US", options)}`;
   return formattedDate;
 };
 
