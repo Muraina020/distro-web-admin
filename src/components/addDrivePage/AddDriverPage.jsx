@@ -69,7 +69,7 @@ const AddDriverPage = () => {
       setData(response.data);
       console.log(response);
 
-      // navigate("/dashboard/success");
+      navigate("/dashboard/success");
     } catch (error) {
       console.error("Error fetching drivers:", error);
     }

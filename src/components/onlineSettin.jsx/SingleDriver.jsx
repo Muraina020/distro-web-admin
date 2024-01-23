@@ -28,6 +28,9 @@ const SingleDriver = () => {
   const [pageState, setPageState] = useState("details");
   const [data, setData] = useState([]);
   const [orderData, setOrderData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); 
+  const [totalPages, setTotalPages] = useState(0);
 
   const fetchDriverProfile = async () => {
     try {
@@ -42,9 +45,10 @@ const SingleDriver = () => {
   };
   const fetchDriverOrders = async () => {
     try {
-      const response = await customFetch.get(`/driver/orders?email=${email}`);
+      const response = await customFetch.get(`/driver/orders?email=${email}&pageNo=${currentPage - 1}&pageSize=${itemsPerPage}&sortBy=id&sortDir=asc`);
 
       setOrderData(response.data);
+      setTotalPages(Math.ceil(response.data.totalElements / itemsPerPage));
       console.log(response);
     } catch (error) {
       console.error("Error fetching driver order:", error);
@@ -57,7 +61,7 @@ const SingleDriver = () => {
     fetchDriverOrders();
     console.log(pageState);
     console.log(orderData);
-  }, [email, pageState]);
+  }, [email, pageState,currentPage, itemsPerPage]);
   console.log(data);
 
   const handleDetails = () => {
@@ -68,6 +72,10 @@ const SingleDriver = () => {
   };
   const handleGoBaks = () => {
     navigate(-1);
+  };
+  
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
   return (
     <div style={{ position: "relative" }}>
@@ -540,7 +548,7 @@ const SingleDriver = () => {
               )}
             </Tbody>
           </Table>
-          <Flex justifyContent="center" marginTop="10" alignItems="center">
+          {/* <Flex justifyContent="center" marginTop="10" alignItems="center">
             <FaChevronLeft />
             <span style={{ margin: "0 10px", color: "#00A69C" }}>1</span>
             <span style={{ margin: "0 10px" }}>2</span>
@@ -548,7 +556,20 @@ const SingleDriver = () => {
             <span style={{ margin: "0 10px" }}>4</span>
             <span style={{ margin: "0 10px" }}>5</span>
             <FaChevronRight />
-          </Flex>
+          </Flex> */}
+           <Flex justifyContent="center" marginTop="10" alignItems="center">
+          <FaChevronLeft onClick={() => handlePageChange(currentPage - 1)} />
+          {[...Array(totalPages)].map((_, index) => (
+            <span
+              key={index}
+              style={{ margin: "0 10px", color: index + 1 === currentPage ? '#00A69C' : 'black', cursor: 'pointer' }}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </span>
+          ))}
+          <FaChevronRight onClick={() => handlePageChange(currentPage + 1)} />
+        </Flex>
         </TableContainer>
       ) : null}
     </div>
