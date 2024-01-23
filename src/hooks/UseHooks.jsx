@@ -10,28 +10,29 @@ export const UsePendingRecentOrder = () => {
   const { admin } = useAuthContext();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Pending",
-          { headers: { Authorization: `Bearer ${admin.accessToken}` } }
-        );
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await customFetch(
+        "/orders/all?deliveryType=Express&deliveryStatus=Pending&pageSize=1000",
+        { headers: { Authorization: `Bearer ${admin.accessToken}` } }
+      );
 
-        const data = response.data.content;
-        const recentData = getRecentOrdersById(data);
-        setData(recentData);
-      } catch (error) {
-        if (error.response.status === 401) {
-          navigate("/");
-        }
-        setError("There was an error");
-      } finally {
-        setLoading(false);
+      const data = response.data.content;
+      const recentData = getRecentOrdersById(data);
+      console.log(recentData);
+      setData(recentData);
+    } catch (error) {
+      if (error.response.status === 401) {
+        navigate("/");
       }
-    };
+      setError("There was an error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -47,7 +48,7 @@ export const UseCancelRecentOrder = () => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Cancel",
+          "/orders/all?deliveryType=Express&deliveryStatus=Cancel&pageSize=1000",
           { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
 
@@ -78,7 +79,7 @@ export const UseOnTheWayRecentOrder = () => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=On the way",
+          "/orders/all?deliveryType=Express&deliveryStatus=On the way&pageSize=1000",
           { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
         const data = response.data.content;
@@ -107,7 +108,7 @@ export const UseDeliveredRecentOrder = () => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Delivered",
+          "/orders/all?deliveryType=Express&deliveryStatus=Delivered&pageSize=1000",
           { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
 
@@ -137,7 +138,7 @@ export const UsePickedUpRecentOrder = () => {
     const fetchData = async () => {
       try {
         const response = await customFetch(
-          "/orders/all?deliveryType=Express&deliveryStatus=Picked up",
+          "/orders/all?deliveryType=Express&deliveryStatus=Picked up&pageSize=1000",
           { headers: { Authorization: `Bearer ${admin.accessToken}` } }
         );
 

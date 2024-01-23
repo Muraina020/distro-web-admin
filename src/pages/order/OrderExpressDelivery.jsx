@@ -19,7 +19,7 @@ const OrderExpressDelivery = () => {
       setLoading(true);
       try {
         const response = await customFetch(
-          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Express`,
+          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Express&pageSize=1000`,
           { headers: { Authorization: `Bearer  ${admin.accessToken}` } }
         );
         setData(response.data.content);
