@@ -16,6 +16,8 @@ import upload from "../../assets/img/upload.png";
 import React, { useState, useEffect } from "react";
 import { customFetch } from "../../utils";
 import { useNavigate } from "react-router";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AddDriverPage = () => {
   const [section, setSection] = useState("account");
@@ -41,6 +43,7 @@ const AddDriverPage = () => {
   const [data, setData] = useState([]);
   const [vehicleType, setVehicleType] = useState("");
   const navigate = useNavigate();
+  
 
   const SubmitDriverDetails = async () => { 
     const data = {
@@ -69,7 +72,7 @@ const AddDriverPage = () => {
       setData(response.data);
       console.log(response);
 
-      navigate("/dashboard/success");
+      // navigate("/dashboard/success");
     } catch (error) {
       console.error("Error fetching drivers:", error);
     }
@@ -454,96 +457,66 @@ const AddDriverPage = () => {
                   </Td>
                 </Tr>
                 <Tr>
-                  <Td>
-                    <Flex
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      marginTop="10px" // Adjusted marginTop
-                      marginBottom="15px"
-                      marginLeft="120px"
-                    >
-                      <Input
-                        className="responsive-input"
-                        placeholder="Next of kin  phone number"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        value={ nextOfKinPhone}
-                        onChange={(e) => setNextOfKinPhone(e.target.value)}
-                        p="2"
-                        width="330px"
-                        height="40px"
-                        margin="0 10px 0 0"
-                        cursor="pointer"
-                      />
-                      <Input
-                        className="responsive-input"
-                        placeholder="Date of birth"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        value={dateOfBirth}
-                        onChange={(e) => setDateOfBirth(e.target.value)}
-                        p="2"
-                        width="330px"
-                        height="40px"
-                        margin="0 0 0 10px"
-                        cursor="pointer"
-                      />
-                    </Flex>
-                  </Td>
+                <Td>
+  <Flex
+    direction="row"
+    alignItems="center"
+    justifyContent="center"
+    marginTop="10px"
+    marginBottom="15px"
+    marginLeft="120px"
+  >
+    <Input
+      className="responsive-input"
+      placeholder="Next of kin phone number"
+      border="2px solid gray"
+      borderRadius="4px"
+      value={nextOfKinPhone}
+      onChange={(e) => setNextOfKinPhone(e.target.value)}
+      p="2"
+      width="330px"
+      height="40px"
+      margin="0 10px 0 0"
+      cursor="pointer"
+    />
+     <DatePicker
+      className="responsive-input"
+      placeholderText="yyyy/MM/dd" // Placeholder text to guide the user
+      selected={dateOfBirth}
+      onChange={(date) => setDateOfBirth(date)}
+      dateFormat="P" // Dynamic format (ISO 8601)
+      isClearable
+      showYearDropdown
+      showMonthDropdown
+      dropdownMode="select"
+      popperPlacement="bottom"
+      popperModifiers={{
+        offset: {
+          enabled: true,
+          offset: '5px, 10px',
+        },
+        preventOverflow: {
+          enabled: true,
+          escapeWithReference: false,
+          boundariesElement: 'viewport',
+        },
+      }}
+      // Use customInput to apply inline styles to the input
+      customInput={<Input style={{
+        border: '2px solid gray',
+        borderRadius: '4px',
+        width: '330px',
+        height: '40px',
+        margin: '0 0 0 10px',
+        cursor: 'pointer',
+        padding: '2px',
+        boxSizing: 'border-box',
+      }} />}
+    />
+  </Flex>
+</Td>
+
                 </Tr>
-                {/* <Tr>
-                  <Td>
-                    <Flex
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      marginTop="10px" // Adjusted marginTop
-                      marginBottom="15px"
-                      marginLeft="120px"
-                    >
-                      <Input
-                        className="responsive-input"
-                        placeholder="Next of kin  phone number"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        value={ nextOfKinPhone}
-                        onChange={(e) => setNextOfKinPhone(e.target.value)}
-                        p="2"
-                        width="330px"
-                        height="40px"
-                        margin="0 10px 0 -335px"
-                        cursor="pointer"
-                      />
-                      <Input
-                        className="responsive-input"
-                        placeholder="Next of kin  phone number"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        value={dateOfBirth}
-                        onChange={(e) => setDateOfBirth(e.target.value)}
-                        p="2"
-                        width="330px"
-                        height="40px"
-                        margin="0 10px 0 -335px"
-                        cursor="pointer"
-                      />
-                    </Flex>
-                  </Td>
-                </Tr> */}
-                {/* <Button
-        className="responsive-button"
-        width="340px"
-        height="40px"
-        marginTop="20px"
-        colorScheme="teal"
-        color="white"
-        onClick={handleContinue}
-        cursor="pointer"
-        marginLeft="350px"
-      >
-            {showPersonalInfo ? "Continue" : "Continue"}
-          </Button> */}
               </Tr>
             )}
 
