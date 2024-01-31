@@ -70,24 +70,25 @@ const DataCoupons = () => {
     setLoading(true);
 
     if (editingCoupon) {
+      const editData = {
+        // ...InputValues,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        discountValue,
+        userLimit,
+      };
+
       try {
-        await customFetch.put(
+        const response = await customFetch.put(
           `/coupons/edit/${editingCoupon.id}`,
-          {
-            ...InputValues,
-            startDate: formattedStartDate,
-            endDate: formattedEndDate,
-          },
+          editData,
           requestConfig
         );
+        console.log(response);
+
         toast.success("Coupon updated successfully");
       } catch (error) {
         console.log(error);
-        console.log({
-          ...InputValues,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate,
-        });
       } finally {
         setLoading(false);
       }

@@ -44,7 +44,7 @@ const RecentOrders = () => {
     <>
       <div className="one-order">
         {pendingRecent && (
-          <div className="one-wrap">
+          <Link to={`orderTracking/${pendingRecent?.id}`} className="one-wrap">
             <div className="date">
               <div className="dating">
                 <img src={date1} alt="" />
@@ -78,11 +78,11 @@ const RecentOrders = () => {
             <Link to={`orderTracking/${pendingRecent?.id}`} className="row-btn">
               Pending
             </Link>
-          </div>
+          </Link>
         )}
 
         {onTheWayRecent && (
-          <div className="two-wrap">
+          <Link to={`orderTracking/${onTheWayRecent?.id}`} className="two-wrap">
             <div className="date">
               <div className="dating">
                 <img src={date2} alt="" />
@@ -125,11 +125,11 @@ const RecentOrders = () => {
             >
               On the way
             </Link>
-          </div>
+          </Link>
         )}
 
         {cancelRecent && (
-          <div className="three-wrap">
+          <Link to={`orderTracking/${cancelRecent?.id}`} className="three-wrap">
             <div className="date">
               <div className="dating">
                 <img src={date3} alt="" />
@@ -174,11 +174,14 @@ const RecentOrders = () => {
             >
               Canceled
             </Link>
-          </div>
+          </Link>
         )}
 
         {deliveredRecent && (
-          <div className="four-wrap">
+          <Link
+            to={`orderTracking/${deliveredRecent?.id}`}
+            className="four-wrap"
+          >
             <div className="date">
               <div className="dating">
                 <img src={date4} alt="" />
@@ -225,11 +228,14 @@ const RecentOrders = () => {
             >
               Delivered
             </Link>
-          </div>
+          </Link>
         )}
 
         {PickedUpRecent && (
-          <div className="five-wrap">
+          <Link
+            to={`orderTracking/${PickedUpRecent?.id}`}
+            className="five-wrap"
+          >
             <div className="date">
               <div className="dating">
                 <img src={date5} alt="" />
@@ -284,7 +290,7 @@ const RecentOrders = () => {
             >
               Pick up
             </Link>
-          </div>
+          </Link>
         )}
       </div>
     </>
