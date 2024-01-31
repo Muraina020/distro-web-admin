@@ -10,14 +10,16 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-
+import { Avatar } from "@files-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import upload from "../../assets/img/upload.png";
 import React, { useState, useEffect } from "react";
 import { customFetch } from "../../utils";
 import { useNavigate } from "react-router";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from "react-datepicker";
+import { FileInputButton, FileCard } from "@files-ui/react";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const AddDriverPage = () => {
   const [section, setSection] = useState("account");
@@ -38,14 +40,14 @@ const AddDriverPage = () => {
   const [nextOfKinLastname, setNextOfKinLastname] = useState("");
   const [nextOfKinPhone, setNextOfKinPhone] = useState("");
   const [vehiclePlateNumber, setVehiclePlateNumber] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  const [userAvatar, setUserAvatar] = useState(null);
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
   const [data, setData] = useState([]);
   const [vehicleType, setVehicleType] = useState("");
+  const [base64Img, setBase64Img] = useState("");
   const navigate = useNavigate();
-  
 
-  const SubmitDriverDetails = async () => { 
+  const SubmitDriverDetails = async () => {
     const data = {
       firstname,
       lastname,
@@ -63,12 +65,14 @@ const AddDriverPage = () => {
       nextOfKinLastname,
       nextOfKinPhone,
       vehiclePlateNumber,
-      userAvatar
-    }
-    console.log(data)
+      userAvatar,
+    };
+    console.log(data);
     try {
-      const response = await customFetch.post("/profiles/addnewdriveraccount",
-        data );
+      const response = await customFetch.post(
+        "/profiles/addnewdriveraccount",
+        data
+      );
       setData(response.data);
       console.log(response);
 
@@ -91,12 +95,34 @@ const AddDriverPage = () => {
       setSection("personal");
     } else if (section === "personal") {
       setSection("upload");
-    }else {
-      SubmitDriverDetails()
+    } else {
+      SubmitDriverDetails();
     }
   };
 
-  
+  // const [file, setFile] = useState('');
+  const handleFileChange = (selectedFile) => {
+    setUserAvatar(selectedFile); // add the selected image URL to the base64 image
+    // Check if the file size is less than 500KB
+    if (selectedFile.size > 500 * 1024) {
+      // toast.error(File must be lesser than than 500KB);
+      console.error("File must be lesser than than 500KB");
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const base64Image = e.target?.result;
+     
+      setBase64Img(base64Image)
+    };
+
+    reader.readAsDataURL(selectedFile);
+  };
+   useEffect (()=>{
+    if (userAvatar)
+    console.log(userAvatar)
+   }, [userAvatar])
 
   return (
     <div>
@@ -432,7 +458,7 @@ const AddDriverPage = () => {
                         placeholder="Next of kin Firstname"
                         border="2px solid gray"
                         borderRadius="4px"
-                        value={ nextOfKinFirstname}
+                        value={nextOfKinFirstname}
                         onChange={(e) => setNextOfKinFirstname(e.target.value)}
                         p="2"
                         width="330px"
@@ -457,65 +483,43 @@ const AddDriverPage = () => {
                   </Td>
                 </Tr>
                 <Tr>
-                <Td>
-  <Flex
-    direction="row"
-    alignItems="center"
-    justifyContent="center"
-    marginTop="10px"
-    marginBottom="15px"
-    marginLeft="120px"
-  >
-    <Input
-      className="responsive-input"
-      placeholder="Next of kin phone number"
-      border="2px solid gray"
-      borderRadius="4px"
-      value={nextOfKinPhone}
-      onChange={(e) => setNextOfKinPhone(e.target.value)}
-      p="2"
-      width="330px"
-      height="40px"
-      margin="0 10px 0 0"
-      cursor="pointer"
-    />
-     <DatePicker
-      className="responsive-input"
-      placeholderText="yyyy/MM/dd" // Placeholder text to guide the user
-      selected={dateOfBirth}
-      onChange={(date) => setDateOfBirth(date)}
-      dateFormat="P" // Dynamic format (ISO 8601)
-      isClearable
-      showYearDropdown
-      showMonthDropdown
-      dropdownMode="select"
-      popperPlacement="bottom"
-      popperModifiers={{
-        offset: {
-          enabled: true,
-          offset: '5px, 10px',
-        },
-        preventOverflow: {
-          enabled: true,
-          escapeWithReference: false,
-          boundariesElement: 'viewport',
-        },
-      }}
-      // Use customInput to apply inline styles to the input
-      customInput={<Input style={{
-        border: '2px solid gray',
-        borderRadius: '4px',
-        width: '330px',
-        height: '40px',
-        margin: '0 0 0 10px',
-        cursor: 'pointer',
-        padding: '2px',
-        boxSizing: 'border-box',
-      }} />}
-    />
-  </Flex>
-</Td>
-
+                  <Td>
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px"
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="Next of kin phone number"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={nextOfKinPhone}
+                        onChange={(e) => setNextOfKinPhone(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="Date of birth (YYY-MM-DD)"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={dateOfBirth}
+                        onChange={(e) => setDateOfBirth(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
                 </Tr>
               </Tr>
             )}
@@ -569,37 +573,22 @@ const AddDriverPage = () => {
                     marginTop="10px"
                     marginBottom="15px"
                   >
-                    <div
-                      className="upload"
+                    <Avatar
+                      src={userAvatar || upload}
+                      alt="Avatar"
+                      smartImgFit={"center"}
+                      changeLabel={
+                        userAvatar === "" ? "add image" : "change image"
+                      }
+                      onChange={handleFileChange}
+                      // variant="circle"
                       style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        backgroundColor: "lightgray",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginRight: "10px",
+                        width: "8.5rem",
+                        height: "8.5rem",
+                        borderRadius: "100%",
+                        border: "6px solid white",
                       }}
-                    >
-                      <img
-                        src={upload}
-                        alt=""
-                        style={{
-                          width: "50%",
-                          height: "50%",
-                          borderRadius: "50%",
-                        }}
-                      />
-                    </div>
-                    <Text
-                      color="#00A69C"
-                      fontSize="lg"
-                      marginTop="10px"
-                      className="upload-text"
-                    >
-                      UPLOAD DRIVER'S PICTURE
-                    </Text>
+                    />
                   </Flex>
                 </Td>
               </Tr>
@@ -616,7 +605,9 @@ const AddDriverPage = () => {
               cursor="pointer"
               marginLeft="250px"
             >
-            {section === 'account' || section === 'personal'? 'continue' : 'Submit' }
+              {section === "account" || section === "personal"
+                ? "continue"
+                : "Submit"}
             </Button>
           </Tbody>
         </Table>

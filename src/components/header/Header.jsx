@@ -1,10 +1,26 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/distro-logo.png";
 import Container from "../ui/Container";
+import React, { useState } from 'react';
 import { useAppContext } from "../../context/AppContext";
 
 const Header = () => {
   const { openSidebar } = useAppContext();
+ 
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`https://apps-1.lampnets.com/distro/pickuporders/search?query=${searchTerm}`);
+      const data = await response.json();
+
+      // Handle the retrieved data as needed
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      // Handle the error as needed
+    }
+  };
 
   return (
     <header className=" py-6 lg:px-11 px-5 sticky left-0 w-full top-0 bg-background z-20 ">
@@ -48,7 +64,7 @@ const Header = () => {
           </div>
 
           <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3">
-            <button className="pl-2">
+            <button  onClick={handleSearch} className="pl-2">
               <svg
                 className="lg:w-[25px] lg:h-[25px] w-[20px] h-[20px]"
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,6 +90,8 @@ const Header = () => {
               type="text"
               placeholder="Search"
               className="w-full outline-none p-2 rounded-[48px]"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
