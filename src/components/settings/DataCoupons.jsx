@@ -22,6 +22,7 @@ const DataCoupons = () => {
     startDate: "",
     userLimit: 0,
   });
+
   const requestConfig = {
     headers: {
       Authorization: `Bearer ${admin.accessToken}`,
@@ -67,30 +68,40 @@ const DataCoupons = () => {
 
     const formattedStartDate = new Date(startDate).toISOString();
     const formattedEndDate = new Date(endDate).toISOString();
+
     setLoading(true);
 
     if (editingCoupon) {
+      const editData = {
+        ...editingCoupon,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        discountValue,
+        userLimit,
+        couponStatus: editingCoupon.couponStatus,
+      };
+
       try {
-        await customFetch.put(
+        const response = await customFetch.put(
           `/coupons/edit/${editingCoupon.id}`,
-          {
-            ...InputValues,
-            startDate: formattedStartDate,
-            endDate: formattedEndDate,
-          },
+          editData,
           requestConfig
         );
+        console.log(response);
+
+        const editedCoupon = coupons.map((coupon) => {
+          return editingCoupon.id === coupon.id ? editData : coupon;
+        });
+        setCoupons(editedCoupon);
         toast.success("Coupon updated successfully");
+        fetchData();
+        closeCreateCoupon();
       } catch (error) {
         console.log(error);
-        console.log({
-          ...InputValues,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate,
-        });
       } finally {
         setLoading(false);
       }
+
       return;
     }
 

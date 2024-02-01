@@ -12,13 +12,15 @@ import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 import { useChatContext } from "../../context/ChatContext";
 import SkeletonLoader from "../ui/SkeletonLoader";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const DriversPeople = () => {
   const [chatUsers, setChatUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const { dispatch } = useChatContext();
-  const { chatRoomId } = useChatContext();
+  const { chatRoomId, setSelect } = useChatContext();
   const [active, setActive] = useState(chatRoomId);
+  const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
   useEffect(() => {
     const fetchPeople = () => {
@@ -45,6 +47,10 @@ const DriversPeople = () => {
   const handleSelect = (u, id) => {
     dispatch({ type: "CHANGE_USER", payload: u });
     setActive(id);
+
+    if (!isMediumDevice) {
+      setSelect(true);
+    }
   };
 
   return (

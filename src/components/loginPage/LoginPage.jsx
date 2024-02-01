@@ -40,7 +40,6 @@ const LoginPage = () => {
       setCredential(data);
       setAdmin(data);
       localStorage.setItem("user", JSON.stringify(data));
-
       toast.success("Login successful!");
 
       setTimeout(() => {

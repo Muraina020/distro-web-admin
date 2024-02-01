@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
 const ChatContext = createContext(null);
 
@@ -29,9 +23,10 @@ const ChatContextProvider = ({ children }) => {
     user: {},
   };
   const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
+  const [select, setSelect] = useState(false);
 
   return (
-    <ChatContext.Provider value={{ ...state, dispatch }}>
+    <ChatContext.Provider value={{ ...state, dispatch, setSelect, select }}>
       {children}
     </ChatContext.Provider>
   );

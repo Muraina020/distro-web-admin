@@ -11,9 +11,9 @@ const ChatLayout = () => {
         <ChatSideBar />
         <SlideInSidebar />
         <main className="xl:ml-[6rem] min-h-[85vh] pb-5 xl:px-0 px-3">
-          <div className="flex w-full md:flex-row flex-col items-start gap-x-4">
+          <div className="flex w-full  md:flex-row flex-col items-start gap-x-4">
             <ChatPeople />
-            <section className="bg-white rounded-[0.625rem] md:block  hidden md:w-[75%] w-full py-5">
+            <section className="bg-white rounded-[0.625rem] md:block  md:w-[75%] w-full py-5">
               <Outlet />
             </section>
           </div>
