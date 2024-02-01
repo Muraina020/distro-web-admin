@@ -271,7 +271,7 @@ export const CusChatMsg = [
 
 export const chatNavLinks = [
   {
-    path: "/",
+    path: "/dashboard",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -290,7 +290,7 @@ export const chatNavLinks = [
     ),
   },
   {
-    path: "/addDriver",
+    path: "/dashboard/AddDriver",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +324,7 @@ export const chatNavLinks = [
     ),
   },
   {
-    path: "/drivers",
+    path: "/dashboard/drivers",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -391,7 +391,7 @@ export const chatNavLinks = [
     ),
   },
   {
-    path: "/customer",
+    path: "/dashboard/customer",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -420,7 +420,7 @@ export const chatNavLinks = [
     ),
   },
   {
-    path: "/orderTracking",
+    path: "/dashboard/orderTracking",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -465,7 +465,7 @@ export const chatNavLinks = [
   },
 
   {
-    path: "/expressOrderHistory",
+    path: "/dashboard/expressOrderHistory",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -516,7 +516,7 @@ export const chatNavLinks = [
   },
 
   {
-    path: "/scheduleOrderHistory",
+    path: "/dashboard/scheduleOrderHistory",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

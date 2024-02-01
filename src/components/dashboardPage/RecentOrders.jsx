@@ -68,8 +68,8 @@ const RecentOrders = () => {
                 <span className="assigned">
                   Assigned Driver:{" "}
                   <span className="bankuli">
-                    {pendingRecent?.driver.firstName}{" "}
-                    {pendingRecent?.driver.lastName}
+                    {pendingRecent?.driver?.firstName}{" "}
+                    {pendingRecent?.driver?.lastName}
                   </span>
                 </span>
               </div>
