@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./customer.css"
 import {
   Table,
   Thead,
@@ -11,41 +10,45 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { customFetch } from "../../utils";
 
 const CustomerPage = () => {
   // const [data, setData] = useState(sampleData);
   const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); 
+  const [totalPages, setTotalPages] = useState(0);
  
   useEffect(() => {
     const fetchDrivers = async () => {
-      const response = await customFetch(
-        "https://apps-1.lampnets.com/distro/customers/all",
-        {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQzNTkyMzMsImV4cCI6MTcwNDQ0NTYzM30.pAt7Uc35S0AK5UQX04KbjCG30OJxEhF0TmlodxI_yMCIhNHd-T3JuHHokaY6z3GB`,
-          },
-        }
-      );
-      const driversData = response.data.content;
-      setData(driversData);
+      try {
+        const response = await customFetch(
+          `https://apps-1.lampnets.com/distro/customers/all?pageNo=${currentPage - 1}&pageSize=${itemsPerPage}&sortBy=id&sortDir=asc`
+        );
+        const driversData = response.data.content;
+        setData(driversData);
+        setTotalPages(Math.ceil(response.data.totalElements / itemsPerPage));
+      } catch (error) {
+        console.error(error);
+      }
     };
- 
+
     fetchDrivers();
-  }, []);
+  }, [currentPage, itemsPerPage]);
 
   const navigate = useNavigate();
 
   const handleOrder = () => {
-    // Add logic to handle the "Order" click (if needed)
-    // Once the logic is executed, navigate to the "rating" page
-    navigate('/dashboard/customeracc');
+    navigate('');
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   return (
     <div>
-      <TableContainer bg="white" className="table-container-mobile" fontSize="18px" paddingBottom="30px">
+      <TableContainer bg="white"  fontSize="18px" paddingBottom="30px">
         <Table variant="simple" size="lg" paddingBottom="50px">
           <Thead>
             <Tr borderBottom="2px solid lightgray">
@@ -58,10 +61,13 @@ const CustomerPage = () => {
           </Thead>
           <Tbody>
             {data.map((item, index) => (
-              <Tr key={index} borderBottom="2px solid lightgray" cursor='pointer' color='#696969' onClick={handleOrder}>
-                <Td>{item?.customerId}</Td>
+              <Tr key={index} borderBottom="2px solid lightgray" color='#696969' >
+                <Td onClick={handleOrder} cursor='pointer'>{item?.customerId}</Td>
                 <Td>{item?.name}</Td>
-                <Td className="email-column">{item?.email}</Td>
+
+                <Link className="email-column" to={`/dashboard/customers/${item?.email}`}> <Td className="email-column">{item?.email}</Td>
+                   </Link>
+                   
                 <Td isNumeric>{item?.phone}</Td>
                 <Td>
                   <div
@@ -84,13 +90,17 @@ const CustomerPage = () => {
         </Table>
 
         <Flex justifyContent="center" marginTop="10" alignItems="center">
-          <FaChevronLeft />
-          <span style={{ margin: "0 10px", color: '#00A69C'}}>1</span>
-          <span style={{ margin: "0 10px" }}>2</span>
-          <span style={{ margin: "0 10px" }}>3</span>
-          <span style={{ margin: "0 10px" }}>4</span>
-          <span style={{ margin: "0 10px" }}>5</span>
-          <FaChevronRight />
+          <FaChevronLeft onClick={() => handlePageChange(currentPage - 1)} />
+          {[...Array(totalPages)].map((_, index) => (
+            <span
+              key={index}
+              style={{ margin: "0 10px", color: index + 1 === currentPage ? '#00A69C' : 'black', cursor: 'pointer' }}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </span>
+          ))}
+          <FaChevronRight onClick={() => handlePageChange(currentPage + 1)} />
         </Flex>
       </TableContainer>
     </div>

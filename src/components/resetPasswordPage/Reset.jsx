@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "../../api/axiosInstance";
+import { useNavigate } from "react-router";
 
 
 const Reset = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     password: "",
     confirmPassword: "",
@@ -34,15 +36,18 @@ const Reset = () => {
         confirmPassword: formData.confirmPassword,
       });
 
-      // Handle success
-      // setSuccessMessage(response.data.message);
-      if(response.status === 200){
-        console.log('change password successful')
+      if (response.status === 200) {
+        setSuccessMessage("Password changed successfully");
+        setTimeout(() => {
+          setSuccessMessage(null);
+          navigate('/');
+        }, 2000); // Adjust the duration of the success message before navigating
       }
+
       setError(null);
     } catch (error) {
       // Handle error
-      // setError(error.response.data.message);
+      setError(error.response.data.message);
       setSuccessMessage(null);
     }
   };
