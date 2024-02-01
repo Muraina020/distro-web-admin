@@ -3,24 +3,37 @@ import logo from "../../assets/img/distro-logo.png";
 import Container from "../ui/Container";
 import React, { useState } from 'react';
 import { useAppContext } from "../../context/AppContext";
+import { customFetch } from "../../utils";
 
 const Header = () => {
   const { openSidebar } = useAppContext();
- 
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`https://apps-1.lampnets.com/distro/pickuporders/search?query=${searchTerm}`);
-      const data = await response.json();
+      // const response = await customFetch.get("/pickuporders/search?shipmentId=OA-5342-4720EX");
+      const response = await customFetch.get(`/pickuporders/search?shipmentId=${searchTerm}`);
+      const data = response.data;  // Adjust here based on the API response structure
+
+      // Update the state with the search results
+      setSearchResults(data);
 
       // Handle the retrieved data as needed
       console.log(data);
     } catch (error) {
       console.error('Error fetching search results:', error);
+      console.log(error)
       // Handle the error as needed
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
+    
 
   return (
     <header className=" py-6 lg:px-11 px-5 sticky left-0 w-full top-0 bg-background z-20 ">
@@ -64,7 +77,8 @@ const Header = () => {
           </div>
 
           <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3">
-            <button  onClick={handleSearch} className="pl-2">
+          <form onSubmit={handleSubmit} className="flex items-center">
+            <button className="pl-2">
               <svg
                 className="lg:w-[25px] lg:h-[25px] w-[20px] h-[20px]"
                 xmlns="http://www.w3.org/2000/svg"
@@ -93,6 +107,7 @@ const Header = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+               </form>
           </div>
 
           <ul className="flex gap-x-3">

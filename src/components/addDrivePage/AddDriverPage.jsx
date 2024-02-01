@@ -20,7 +20,6 @@ import DatePicker from "react-datepicker";
 import { FileInputButton, FileCard } from "@files-ui/react";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const AddDriverPage = () => {
   const [section, setSection] = useState("account");
   const [username, setUsername] = useState("");
