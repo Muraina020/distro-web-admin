@@ -10,16 +10,7 @@ export function cn(...inputs) {
 }
 
 const BASEURL = "https://apps-1.lampnets.com/distro";
-const accessToken =
-  "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0NjQ3MTYsImV4cCI6MTcwNDU1MTExNn0.XdlLjNcXOoifJmjkR7ogYNgr3weT5IUaNPzWLUAXeYzceygiwdrvhh_bLmpT9pax";
 
-// Function to retrieve the access token from localStorage
-const getAccessToken = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  return user?.accessToken || "";
-};
-
-// Axios instance with dynamic Authorization header
 export const customFetch = axios.create({
   baseURL: BASEURL,
 });

@@ -58,7 +58,7 @@ const OfflineSettin = () => {
   };
 
   const handleOrder = () => {
-    navigate("/dashboard/offlinerating");
+    navigate("/dashboard/rating");
   };
   return (
     <div style={{ position: "relative" }}>
@@ -106,7 +106,7 @@ const OfflineSettin = () => {
                     <div
                       style={{
                         display: "inline-block",
-                        backgroundColor: "#F9BF42",
+                        backgroundColor: "green",
                         color: "white",
                         padding: "5px",
                         borderRadius: "8px",
