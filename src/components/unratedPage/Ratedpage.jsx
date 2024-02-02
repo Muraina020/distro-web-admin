@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Table,
   Thead,
@@ -12,6 +11,7 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
+
 import { StarIcon } from "@chakra-ui/icons";
 import { FaArrowLeft } from "react-icons/fa";
 import cube from "../../assets/img/cube.png";
@@ -27,17 +27,15 @@ const Ratedpage = () => {
   // const [data, setData] = useState([]);
   const [data, setData] = useState({});
 
-
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
         const response = await customFetch.get("/pickuporders/info/109");
 
-      
         setData(response.data);
-      // console.log(response.data);
-      // console.log(response.data.dropOffs);
-      console.log(response.data.dropOffs[0].receiverAddress);
+        // console.log(response.data);
+        // console.log(response.data.dropOffs);
+        console.log(response.data.dropOffs[0].receiverAddress);
       } catch (error) {
         console.error("Error fetching drivers:", error);
       }
@@ -253,11 +251,10 @@ const Ratedpage = () => {
                   <b>Destination </b>
                 </Td>
                 <Td fontSize="md">
-  {data?.dropOffs && data.dropOffs.length > 0
-    ? data.dropOffs[0].receiverAddress
-    : "N/A"}
-</Td>
-
+                  {data?.dropOffs && data.dropOffs.length > 0
+                    ? data.dropOffs[0].receiverAddress
+                    : "N/A"}
+                </Td>
               </Flex>
             </Tr>
           </Tbody>
