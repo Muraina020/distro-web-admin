@@ -9,27 +9,120 @@ import {
   Flex,
   Input,
   Button,
-} from '@chakra-ui/react';
-
+  Text,
+} from "@chakra-ui/react";
+import { Avatar } from "@files-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import UploadPage from './UploadPage';
+import upload from "../../assets/img/upload.png";
+import React, { useState, useEffect } from "react";
+import { customFetch } from "../../utils";
+import { useNavigate } from "react-router";
+import DatePicker from "react-datepicker";
+import { FileInputButton, FileCard } from "@files-ui/react";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddDriverPage = () => {
-    const [section, setSection] = useState('account');
-    const [showPersonalInfo, setShowPersonalInfo] = useState(false);
+  const [section, setSection] = useState("account");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [gender, setGender] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [nextOfKinFirstname, setNextOfKinFirstname] = useState("");
+  const [nextOfKinLastname, setNextOfKinLastname] = useState("");
+  const [nextOfKinPhone, setNextOfKinPhone] = useState("");
+  const [vehiclePlateNumber, setVehiclePlateNumber] = useState("");
+  const [userAvatar, setUserAvatar] = useState(null);
+  const [showPersonalInfo, setShowPersonalInfo] = useState(false);
+  const [data, setData] = useState([]);
+  const [vehicleType, setVehicleType] = useState("");
+  const [base64Img, setBase64Img] = useState("");
+  const navigate = useNavigate();
+
+  const SubmitDriverDetails = async () => {
+    const data = {
+      firstname,
+      lastname,
+      email,
+      phone,
+      password,
+      address,
+      city,
+      state,
+      username,
+      vehicleType,
+      gender,
+      dateOfBirth,
+      nextOfKinFirstname,
+      nextOfKinLastname,
+      nextOfKinPhone,
+      vehiclePlateNumber,
+      userAvatar,
+    };
+    console.log(data);
+    try {
+      const response = await customFetch.post(
+        "/profiles/addnewdriveraccount",
+        data
+      );
+      setData(response.data);
+      console.log(response);
+
+      // navigate("/dashboard/success");
+    } catch (error) {
+      console.error("Error fetching drivers:", error);
+    }
+  };
 
   const handleToggleSection = (selectedSection) => {
     setSection(selectedSection);
   };
 
   const handleContinue = () => {
-    if (section === 'account') {
-      setSection('personal');
-    } else if (section === 'personal') {
-      setSection('upload'); // Change section to 'upload' after personal information
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("password not match");
+      return;
     }
-    // Add other conditions as needed for additional sections
+    if (section === "account") {
+      setSection("personal");
+    } else if (section === "personal") {
+      setSection("upload");
+    } else {
+      SubmitDriverDetails();
+    }
   };
+
+  // const [file, setFile] = useState('');
+  const handleFileChange = (selectedFile) => {
+    setUserAvatar(selectedFile); // add the selected image URL to the base64 image
+    // Check if the file size is less than 500KB
+    if (selectedFile.size > 500 * 1024) {
+      // toast.error(File must be lesser than than 500KB);
+      console.error("File must be lesser than than 500KB");
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const base64Image = e.target?.result;
+     
+      setBase64Img(base64Image)
+    };
+
+    reader.readAsDataURL(selectedFile);
+  };
+   useEffect (()=>{
+    if (userAvatar)
+    console.log(userAvatar)
+   }, [userAvatar])
 
   return (
     <div>
@@ -169,245 +262,328 @@ const AddDriverPage = () => {
             }
           }
         `}
-      </style>
-               
-          <Tr justifyContent="center" alignItems="center">
-            <Td className='input-data'>
-              <Flex
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                marginTop="10px" // Adjusted marginTop
-                marginBottom="15px"
-                marginLeft='120px'
-              >
-                <Input
-                 className="responsive-input"
-                  placeholder="Firstname"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 10px 0 0"
-                  cursor="pointer"
-                />
-                <Input
-                 className="responsive-input"
-                  placeholder="Lastname"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 0 0 10px"
-                  cursor="pointer"
-                />
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                marginTop="10px" // Adjusted marginTop
-                marginBottom="15px"
-                marginLeft='120px'
-              >
-                <Input
-                 className="responsive-input"
-                  placeholder="Select Gender"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 15px 0 0px"
-                  cursor="pointer"
-                />
-                <ChevronDownIcon
-                  boxSize={6}
-                  color="gray.500"
-                  cursor="pointer"
-                  marginLeft="-40px" // Adjusted marginLeft
-                />
-                <Input
-                 className="responsive-input"
-                  placeholder="Marital Status"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 0 0 20px"
-                  cursor="pointer"
-                />
-                <ChevronDownIcon
-                  boxSize={6}
-                  color="gray.500"
-                  cursor="pointer"
-                  marginLeft="-28px" // Adjusted marginLeft
-                />
-              </Flex>
-            </Td>
-          </Tr>
+                </style>
 
-          <Tr>
-            <Td>
-              <Flex
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                marginTop="10px" // Adjusted marginTop
-                marginBottom="15px"
-                marginLeft='120px'
-              >
-                <Input
-                 className="responsive-input"
-                  placeholder="Phone Number"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 10px 0 0"
-                  cursor="pointer"
-                />
-                <Input
-                 className="responsive-input"
-                  placeholder="Email"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 0 0 10px"
-                  cursor="pointer"
-                />
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                marginTop="10px" // Adjusted marginTop
-                marginBottom="15px"
-                marginLeft='120px'
-              >
-                <Input
-                 className="responsive-input"
-                  placeholder="Address"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 10px 0 0"
-                  cursor="pointer"
-                />
-                <Input
-                 className="responsive-input"
-                  placeholder="State"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 0 0 10px"
-                  cursor="pointer"
-                />
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                marginTop="10px" // Adjusted marginTop
-                marginBottom="15px"
-                marginLeft='120px'
-              >
-                <Input
-                 className="responsive-input"
-                  placeholder="Next of kin Firstname"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 10px 0 0"
-                  cursor="pointer"
-                />
-                <Input
-                 className="responsive-input"
-                  placeholder="Next of kin Lastname"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 0 0 10px"
-                  cursor="pointer"
-                />
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-                marginTop="10px" // Adjusted marginTop
-                marginBottom="15px"
-                marginLeft='120px'
-              >
-                <Input
-                 className="responsive-input"
-                  placeholder="Next of kin  phone number"
-                  border="2px solid gray"
-                  borderRadius="4px"
-                  p="2"
-                  width="330px"
-                  height="40px"
-                  margin="0 10px 0 -335px"
-                  cursor="pointer"
-                />
-              </Flex>
-            </Td>
-          </Tr>
-          <Button
-        className="responsive-button"
-        width="340px"
-        height="40px"
-        marginTop="20px"
-        colorScheme="teal"
-        color="white"
-        onClick={handleContinue}
-        cursor="pointer"
-        marginLeft="350px"
-      >
-            {showPersonalInfo ? "Continue" : "Continue"}
-          </Button>
-
+                <Tr justifyContent="center" alignItems="center">
+                  <Td className="input-data">
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px" // Adjusted marginTop
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="Firstname"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="Lastname"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={lastname}
+                        onChange={(e) => setLastname(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px" // Adjusted marginTop
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="Phone Number"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="Email"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px" // Adjusted marginTop
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="Address"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="State"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px" // Adjusted marginTop
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="City"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="Gender"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px" // Adjusted marginTop
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="Next of kin Firstname"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={nextOfKinFirstname}
+                        onChange={(e) => setNextOfKinFirstname(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="Next of kin Lastname"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={nextOfKinLastname}
+                        onChange={(e) => setNextOfKinLastname(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      marginTop="10px"
+                      marginBottom="15px"
+                      marginLeft="120px"
+                    >
+                      <Input
+                        className="responsive-input"
+                        placeholder="Next of kin phone number"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={nextOfKinPhone}
+                        onChange={(e) => setNextOfKinPhone(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 10px 0 0"
+                        cursor="pointer"
+                      />
+                      <Input
+                        className="responsive-input"
+                        placeholder="Date of birth (YYY-MM-DD)"
+                        border="2px solid gray"
+                        borderRadius="4px"
+                        value={dateOfBirth}
+                        onChange={(e) => setDateOfBirth(e.target.value)}
+                        p="2"
+                        width="330px"
+                        height="40px"
+                        margin="0 0 0 10px"
+                        cursor="pointer"
+                      />
+                    </Flex>
+                  </Td>
+                </Tr>
               </Tr>
             )}
 
-            {section === 'upload' && (
-              <Tr>
-               <UploadPage/>
-               
+            {section === "upload" && (
+              <Tr display="flex" flexDirection="column">
+                <Td>
+                  <Flex
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="center"
+                    marginTop="10px" // Adjusted marginTop
+                    marginBottom="15px"
+                    marginLeft="120px"
+                  >
+                    <Input
+                      className="responsive-input"
+                      placeholder="Vehicle Plate Number "
+                      border="2px solid gray"
+                      borderRadius="4px"
+                      value={vehiclePlateNumber}
+                      onChange={(e) => setVehiclePlateNumber(e.target.value)}
+                      p="2"
+                      width="330px"
+                      height="40px"
+                      margin="0 0 0 0px"
+                      cursor="pointer"
+                      marginRight="5px"
+                    />
+                    <Input
+                      className="responsive-input"
+                      placeholder="vehicleType"
+                      border="2px solid gray"
+                      borderRadius="4px"
+                      value={vehicleType}
+                      onChange={(e) => setVehicleType(e.target.value)}
+                      p="2"
+                      width="330px"
+                      height="40px"
+                      margin="0 10px 0 0"
+                      cursor="pointer"
+                    />
+                  </Flex>
+                </Td>
+
+                <Td>
+                  <Flex
+                    direction="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    marginTop="10px"
+                    marginBottom="15px"
+                  >
+                    <Avatar
+                      src={userAvatar || upload}
+                      alt="Avatar"
+                      smartImgFit={"center"}
+                      changeLabel={
+                        userAvatar === "" ? "add image" : "change image"
+                      }
+                      onChange={handleFileChange}
+                      // variant="circle"
+                      style={{
+                        width: "8.5rem",
+                        height: "8.5rem",
+                        borderRadius: "100%",
+                        border: "6px solid white",
+                      }}
+                    />
+                  </Flex>
+                </Td>
               </Tr>
             )}
 
-            {/* ... (other sections) */}
+            <Button
+              className="responsive-button"
+              width="340px"
+              height="40px"
+              marginTop="20px"
+              colorScheme="teal"
+              color="white"
+              onClick={handleContinue}
+              cursor="pointer"
+              marginLeft="250px"
+            >
+            {section === 'account' || section === 'personal'? 'continue' : 'Submit' }
+            </Button>
           </Tbody>
         </Table>
       </TableContainer>

@@ -33,87 +33,161 @@ const DashboardPage = () => {
   const [prizeCard3, setPrizeCard3] = useState("$30.5k");
   const [prizeCard4, setPrizeCard4] = useState("$30.5k");
 
+  const apiEndpoints = {
+    card1: "https://apps-1.lampnets.com/distro/orders/sum",
+    card2: "https://apps-1.lampnets.com/distro/orders/size",
+    card3: "https://apps-1.lampnets.com/distro/customers/size",
+    card4: "https://apps-1.lampnets.com/distro/drivers/size",
+  };
+
+  console.log(apiEndpoints);
+
+  const fetchPrizeData = async (card) => {
+    try {
+      const response = await customFetch.get(apiEndpoints[card]);
+
+      switch (card) {
+        case "card1":
+          setPrizeCard1(response.data.amount);
+          break;
+        case "card2":
+          setPrizeCard2(response.data.total);
+          break;
+        case "card3":
+          setPrizeCard3(response.data.total);
+          break;
+        case "card4":
+          setPrizeCard4(response.data.total);
+          break;
+        default:
+          break;
+      }
+
+      // console.log(response);
+    } catch (error) {
+      console.error(`Error fetching prize data for ${card}:`, error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrizeData("card1");
+    fetchPrizeData("card2");
+    fetchPrizeData("card3");
+    fetchPrizeData("card4");
+  }, []); // Fetch prize data on component mount
+
   const handleMoreVertClick = (card) => {
     switch (card) {
-      case 'card1':
-        setDropdownOpenCard1(!isDropdownOpenCard1);
-        setDropdownOpenCard2(false);
-        setDropdownOpenCard3(false);
-        setDropdownOpenCard4(false);
+      case "card1":
+        setDropdownOpenCard1(isDropdownOpenCard1 === true ? false : true);
         break;
-      case 'card2':
-        setDropdownOpenCard2(!isDropdownOpenCard2);
-        setDropdownOpenCard1(false);
-        setDropdownOpenCard3(false);
-        setDropdownOpenCard4(false);
+      case "card2":
+        setDropdownOpenCard2(isDropdownOpenCard2 === true ? false : true);
         break;
-      case 'card3':
-        setDropdownOpenCard3(!isDropdownOpenCard3);
-        setDropdownOpenCard1(false);
-        setDropdownOpenCard2(false);
-        setDropdownOpenCard4(false);
+      case "card3":
+        setDropdownOpenCard3(isDropdownOpenCard3 === true ? false : true);
         break;
-      case 'card4':
-        setDropdownOpenCard4(!isDropdownOpenCard4);
-        setDropdownOpenCard1(false);
-        setDropdownOpenCard2(false);
-        setDropdownOpenCard3(false);
+      case "card4":
+        setDropdownOpenCard4(isDropdownOpenCard4 === true ? false : true);
         break;
       default:
         break;
     }
   };
 
-  const handleDropdownItemClick = (item, card) => {
-    // Update time duration and prize based on the selected item
-    switch (item) {
-      case 'Item 1':
-        setDropdownOpenCard1(false);
-        setDropdownOpenCard2(false);
-        setDropdownOpenCard3(false);
-        setDropdownOpenCard4(false);
-        break;
-      case 'Item 2':
-        setDropdownOpenCard1(false);
-        setDropdownOpenCard2(false);
-        setDropdownOpenCard3(false);
-        setDropdownOpenCard4(false);
-        break;
-      case 'Item 3':
-        setDropdownOpenCard1(false);
-        setDropdownOpenCard2(false);
-        setDropdownOpenCard3(false);
-        setDropdownOpenCard4(false);
-        break;
-      default:
-        break;
-    }
+  const handleDailyRevenue = async () => {
+    const response = await customFetch.get(
+      "https://apps-1.lampnets.com/distro/orders/sum?dateFilter=daily"
+    );
+    setPrizeCard1(response.data.amount);
+    setDropdownOpenCard1(false);
+    setTimeDurationCard1("daily");
+  };
+  const handleWeeklyRevenue = async () => {
+    const response = await customFetch.get(
+      "https://apps-1.lampnets.com/distro/orders/sum?dateFilter=weekly"
+    );
+    setPrizeCard1(response.data.amount);
+    setDropdownOpenCard1(false);
+    setTimeDurationCard1("weekly");
+  };
+  const handleMonthlyRevenue = async () => {
+    const response = await customFetch.get(
+      "https://apps-1.lampnets.com/distro/orders/sum?dateFilter=monthly"
+    );
+    setPrizeCard1(response.data.amount);
+    setDropdownOpenCard1(false);
+    setTimeDurationCard1("monthly");
+  };
 
-    // Update time duration and prize based on the selected item and card
-    switch (card) {
-      case 'card1':
-        setSelectedItemCard1(item);
-        setTimeDurationCard1(item === 'Item 1' ? 'daily' : item === 'Item 2' ? 'weekly' : 'monthly');
-        setPrizeCard1(item === 'Item 1' ? '$30.5k' : item === 'Item 2' ? '$100' : '$150');
-        break;
-        case 'card2':
-          setSelectedItemCard2(item);
-          setTimeDurationCard2(item === 'Item 1' ? 'daily' : item === 'Item 2' ? 'weekly' : 'monthly');
-          setPrizeCard2(item === 'Item 1' ? '496' : item === 'Item 2' ? '501' : '600');
-          break;
-      case 'card3':
-        setSelectedItemCard3(item);
-        setTimeDurationCard3(item === 'Item 1' ? 'daily' : item === 'Item 2' ? 'weekly' : 'monthly');
-        setPrizeCard3(item === 'Item 1' ? '325' : item === 'Item 2' ? '333' : '150');
-        break;
-      case 'card4':
-        setSelectedItemCard4(item);
-        setTimeDurationCard4(item === 'Item 1' ? 'daily' : item === 'Item 2' ? 'weekly' : 'monthly');
-        setPrizeCard4(item === 'Item 1' ? '262' : item === 'Item 2' ? '320' : '150');
-        break;
-      default:
-        break;
-    }
+  const handleDailyOrder = async () => {
+    const response = await customFetch.get(
+      "https://apps-1.lampnets.com/distro/orders/size?dateFilter=daily"
+    );
+    setPrizeCard2(response.data.total);
+    setDropdownOpenCard2(false);
+    setTimeDurationCard2("daily");
+  };
+  const handleWeeklyOrder = async () => {
+    const response = await customFetch.get(
+      "https://apps-1.lampnets.com/distro/orders/size?dateFilter=weekly"
+    );
+    setPrizeCard2(response.data.total);
+    setDropdownOpenCard2(false);
+    setTimeDurationCard2("weekly");
+  };
+  const handleMonthlyOrder = async () => {
+    const response = await customFetch.get(
+      "https://apps-1.lampnets.com/distro/orders/size?dateFilter=monthly"
+    );
+    setPrizeCard2(response.data.total);
+    setDropdownOpenCard2(false);
+    setTimeDurationCard2("monthly");
+  };
+
+  const handleDailyDriver = async () => {
+    const response = await customFetch.get("/drivers/size?currentStatus=Free");
+    setPrizeCard3(response.data.total);
+    setDropdownOpenCard3(false);
+    setTimeDurationCard3("daily");
+  };
+  const handleWeeklyDriver = async () => {
+    const response = await customFetch.get(
+      "/drivers/size?currentStatus=Occupied"
+    );
+    setPrizeCard3(response.data.total);
+    setDropdownOpenCard3(false);
+    setTimeDurationCard3("weekly");
+  };
+  const handleMonthlyDriver = async () => {
+    const response = await customFetch.get(
+      "/drivers/size?currentStatus=Offline"
+    );
+    setPrizeCard3(response.data.total);
+    setDropdownOpenCard3(false);
+    setTimeDurationCard3("monthly");
+  };
+  const handleDailyCustomer = async () => {
+    const response = await customFetch.get("/drivers/size?currentStatus=Free");
+    setPrizeCard4(response.data.total);
+    setDropdownOpenCard4(false);
+    setTimeDurationCard4("daily");
+  };
+  const handleWeeklyCustomer = async () => {
+    const response = await customFetch.get(
+      "/drivers/size?currentStatus=Occupied"
+    );
+    setPrizeCard4(response.data.total);
+    setDropdownOpenCard4(false);
+    setTimeDurationCard4("weekly");
+  };
+  const handleMonthlyCustomer = async () => {
+    const response = await customFetch.get(
+      "/drivers/size?currentStatus=Offline"
+    );
+    setPrizeCard4(response.data.total);
+    setDropdownOpenCard4(false);
+    setTimeDurationCard4("monthly");
   };
 
   return (
@@ -129,19 +203,21 @@ const DashboardPage = () => {
       </div>
 
       <div className="cards">
-      <div className="card">
+        <div className="card">
           <div className="rev-profit">
             <img src={ife} alt="" />
             <span>Revenue</span>
             <span className="rev-profit-text">{prizeCard1}</span>
             <span>{`${timeDurationCard1} point`}</span>
-            <span className='dots' onClick={() => handleMoreVertClick('card1')}><MoreVertIcon /></span>
+            <span className="dots" onClick={() => handleMoreVertClick("card1")}>
+              <MoreVertIcon />
+            </span>
           </div>
           {isDropdownOpenCard1 && (
-            <div className='dropdown-box'>
-              <div onClick={() => handleDropdownItemClick('Item 1', 'card1')}>Daily</div>
-              <div onClick={() => handleDropdownItemClick('Item 2', 'card1')}>Weekly</div>
-              <div onClick={() => handleDropdownItemClick('Item 3', 'card1')}>Monthly</div>
+            <div className="dropdown-box">
+              <div onClick={() => handleDailyRevenue()}>Daily</div>
+              <div onClick={() => handleWeeklyRevenue()}>Weekly</div>
+              <div onClick={() => handleMonthlyRevenue()}>Monthly</div>
             </div>
           )}
         </div>
@@ -150,32 +226,36 @@ const DashboardPage = () => {
             <img src={or} alt="" />
             <span>Order</span>
             <span className="refund-profit-text">{prizeCard2}</span>
-    <span>{`${timeDurationCard2} point`}</span>
-    <span className='dots' onClick={() => handleMoreVertClick('card2')}><MoreVertIcon /></span>
-  </div>
-  {isDropdownOpenCard2 && (
-    <div className='dropdown-box'>
-      <div onClick={() => handleDropdownItemClick('Item 1', 'card2')}>Daily</div>
-      <div onClick={() => handleDropdownItemClick('Item 2', 'card2')}>Weekly</div>
-      <div onClick={() => handleDropdownItemClick('Item 3', 'card2')}>Monthly</div>
-    </div>
-  )}
+            <span>{`${timeDurationCard2} point`}</span>
+            <span className="dots" onClick={() => handleMoreVertClick("card2")}>
+              <MoreVertIcon />
+            </span>
+          </div>
+          {isDropdownOpenCard2 && (
+            <div className="dropdown-box">
+              <div onClick={() => handleDailyOrder()}>Daily</div>
+              <div onClick={() => handleWeeklyOrder()}>Weekly</div>
+              <div onClick={() => handleMonthlyOrder()}>Monthly</div>
+            </div>
+          )}
         </div>
         <div className="card">
           <div className="order-profit">
             <img src={driver1} alt="" />
             <span>Active Driver</span>
             <span className="order-profit-text">{prizeCard3}</span>
-    <span>{`${timeDurationCard3} point`}</span>
-    <span className='dots' onClick={() => handleMoreVertClick('card3')}><MoreVertIcon /></span>
-  </div>
-  {isDropdownOpenCard3 && (
-    <div className='dropdown-box'>
-      <div onClick={() => handleDropdownItemClick('Item 1', 'card3')}>Daily</div>
-      <div onClick={() => handleDropdownItemClick('Item 2', 'card3')}>Weekly</div>
-      <div onClick={() => handleDropdownItemClick('Item 3', 'card3')}>Monthly</div>
-    </div>
-  )}
+            <span>{`${timeDurationCard3} point`}</span>
+            <span className="dots" onClick={() => handleMoreVertClick("card3")}>
+              <MoreVertIcon />
+            </span>
+          </div>
+          {isDropdownOpenCard3 && (
+            <div className="dropdown-box">
+              <div onClick={() => handleDailyDriver()}>Daily</div>
+              <div onClick={() => handleWeeklyDriver()}>Weekly</div>
+              <div onClick={() => handleMonthlyDriver()}>Monthly</div>
+            </div>
+          )}
         </div>
         <div className="card">
           <div className="rev-profit">
@@ -187,9 +267,9 @@ const DashboardPage = () => {
   </div>
   {isDropdownOpenCard4 && (
     <div className='dropdown-box'>
-      <div onClick={() => handleDropdownItemClick('Item 1', 'card4')}>Daily</div>
-      <div onClick={() => handleDropdownItemClick('Item 2', 'card4')}>Weekly</div>
-      <div onClick={() => handleDropdownItemClick('Item 3', 'card4')}>Monthly</div>
+      <div onClick={() => handleDailyCustomer()}>Daily</div>
+      <div onClick={() => handleWeeklyCustomer()}>Weekly</div>
+      <div onClick={() => handleMonthlyCustomer()}>Monthly</div>
     </div>
   )}
         </div>
