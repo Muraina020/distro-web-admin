@@ -14,3 +14,4 @@ export { default as Help } from "./settings/Help";
 export { default as CheckBox } from "./ui/CheckBox";
 export { default as ChatSideBar } from "./sidebar/ChatSideBar";
 export { default as ChatPeople } from "./chat/ChatPeople";
+export { default as TableLoading } from "./ui/TableLoading";

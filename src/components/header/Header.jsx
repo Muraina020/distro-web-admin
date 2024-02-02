@@ -70,7 +70,7 @@ const Header = () => {
             </button>
 
             <Link to={"/dashboard"}>
-              <div className=" lg:w-[9.70575rem] lg:h-[3.28713rem] w-[4rem]  ">
+              <div className=" lg:w-[7rem] lg:h-[3rem] w-[4rem]  ">
                 <img src={logo} alt="distor logo" className="h-full w-full" />
               </div>
             </Link>

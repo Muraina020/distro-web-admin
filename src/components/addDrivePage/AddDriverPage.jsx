@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Table,
   Tbody,
@@ -128,8 +129,8 @@ const AddDriverPage = () => {
       <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
         <Table variant="simple" size="lg" paddingBottom="50px">
           <Tbody>
-            <style>
-              {`
+          <style>
+        {`
           @media screen and (max-width: 600px) {
             .respond-td {
               width: 100%; 
@@ -138,8 +139,8 @@ const AddDriverPage = () => {
             }
           }
         `}
-            </style>
-            <Tr className="respond-td">
+      </style>
+            <Tr  className='respond-td'>
               <Flex
                 direction="row"
                 alignItems="center"
@@ -148,51 +149,42 @@ const AddDriverPage = () => {
                 marginBottom="15px"
               >
                 <Th
-                  className="respond-td"
+                className='respond-td'
                   style={{
-                    borderBottom:
-                      section === "account"
-                        ? "2px solid teal"
-                        : "2px solid gray",
-                    color: section === "account" ? "teal" : "gray",
+                    borderBottom: section === 'account' ? "2px solid teal" : "2px solid gray",
+                    color: section === 'account' ? "teal" : "gray",
                     cursor: "pointer",
                   }}
-                  onClick={() => handleToggleSection("account")}
+                  onClick={() => handleToggleSection('account')}
                 >
                   Account information
                 </Th>
                 <Th
-                  className="respond-td"
+                 className='respond-td'
                   style={{
-                    borderBottom:
-                      section === "personal"
-                        ? "2px solid teal"
-                        : "2px solid gray",
-                    color: section === "personal" ? "teal" : "gray",
-                    cursor: "pointer",
+                    borderBottom: section === 'personal' ? "2px solid teal" : "2px solid gray",
+                    color: section === 'personal' ? "teal" : "gray",
+                    cursor: "pointer"
                   }}
-                  onClick={() => handleToggleSection("personal")}
+                  onClick={() => handleToggleSection('personal')}
                 >
                   Personal information
                 </Th>
                 <Th
-                  className="respond-td"
+                 className='respond-td'
                   style={{
-                    borderBottom:
-                      section === "upload"
-                        ? "2px solid teal"
-                        : "2px solid gray",
-                    color: section === "upload" ? "teal" : "gray",
-                    cursor: "pointer",
+                    borderBottom: section === 'upload' ? "2px solid teal" : "2px solid gray",
+                    color: section === 'upload' ? "teal" : "gray",
+                    cursor: "pointer"
                   }}
-                  onClick={() => handleToggleSection("upload")}
+                  onClick={() => handleToggleSection('upload')}
                 >
                   Upload information
                 </Th>
               </Flex>
             </Tr>
 
-            {section === "account" && (
+            {section === 'account' && (
               <Tr>
                 <Td colSpan={6} textAlign="center">
                   <Flex
@@ -202,14 +194,13 @@ const AddDriverPage = () => {
                     marginTop="40px"
                     marginBottom="15px"
                   >
+                    {/* ... (your account information form fields) */}
                     <Input
                       placeholder="Username"
                       border="2px solid gray"
                       borderRadius="4px"
                       p="2"
                       width="330px"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
                       height="40px"
                       marginTop="40px"
                       cursor="pointer"
@@ -219,36 +210,23 @@ const AddDriverPage = () => {
                       border="2px solid gray"
                       borderRadius="4px"
                       p="2"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       width="330px"
                       height="40px"
                       marginTop="40px"
                       cursor="pointer"
                     />
-
-                    <div className="flex flex-col">
-                      {" "}
-                      <Input
-                        placeholder="Confirm Password"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        p="2"
-                        width="330px"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        height="40px"
-                        marginTop="40px"
-                        cursor="pointer"
-                      />
-                      <span className="text-xs text-red-500">
-                        {confirmPasswordError !== null
-                          ? confirmPasswordError
-                          : null}
-                      </span>
-                    </div>
+                    <Input
+                      placeholder="Confirm Password"
+                      border="2px solid gray"
+                      borderRadius="4px"
+                      p="2"
+                      width="330px"
+                      height="40px"
+                      marginTop="40px"
+                      cursor="pointer"
+                    />
                     {/* Continue button */}
-                    {/* <Button
+                    <Button
                       width="340px"
                       height="40px"
                       marginTop="20px"
@@ -256,19 +234,19 @@ const AddDriverPage = () => {
                       color="white"
                       onClick={handleContinue}
                       cursor="pointer"
-                      marginBottom="100px"
+                      marginBottom='100px'
                     >
                       Continue
-                    </Button> */}
+                    </Button>
                   </Flex>
                 </Td>
               </Tr>
             )}
 
-            {section === "personal" && (
-              <Tr>
+            {section === 'personal' && (
+              <Tr >
                 <style>
-                  {`
+        {`
           @media screen and (max-width: 600px) {
             /* Adjust styles for small screens here */
             .responsive-input {
@@ -604,15 +582,13 @@ const AddDriverPage = () => {
               cursor="pointer"
               marginLeft="250px"
             >
-              {section === "account" || section === "personal"
-                ? "continue"
-                : "Submit"}
+            {section === 'account' || section === 'personal'? 'continue' : 'Submit' }
             </Button>
           </Tbody>
         </Table>
       </TableContainer>
     </div>
-  );
-};
+  )
+}
 
-export default AddDriverPage;
+export default AddDriverPage

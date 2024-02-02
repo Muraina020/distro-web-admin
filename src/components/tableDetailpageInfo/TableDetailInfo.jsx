@@ -1,14 +1,56 @@
-const TableDetailInfo = ({ status }) => {
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { formatPrice, formateDate } from "../../utils";
+import { Star, StarBorderOutlined, StarHalf } from "@mui/icons-material";
+
+const TableDetailInfo = ({ data }) => {
+  const {
+    date,
+    price,
+    shipmentId,
+    assignmentStatus: status,
+    senderPhoneNo,
+    senderName,
+    shipmentType,
+    specialInstruction,
+    distance,
+    payment,
+    senderAddress,
+    driver,
+    dropOffs,
+  } = data;
+
+  console.log(driver);
+
   const formattedColor =
-    status === "pending"
+    status === "Pending"
       ? "#00A69C"
-      : status === "picked up"
+      : status === "Picked up"
       ? "#46B04C"
-      : status === "on the way"
+      : status === "On the way"
       ? "#F9BF42"
-      : status === "delivered"
+      : status === "Delivered"
       ? "#2593F0"
       : "#FF3838";
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push(<Star className="text-primary-default" />);
+      } else if (hasHalfStar && i === fullStars + 1) {
+        stars.push(<StarHalf className="text-primary-default" />);
+      } else {
+        stars.push(<StarBorderOutlined className="text-primary-default" />);
+      }
+    }
+    // console.log(stars);
+
+    return stars.slice(0, 5);
+  };
 
   return (
     <div>
@@ -38,17 +80,17 @@ const TableDetailInfo = ({ status }) => {
           </svg>
         </span>
         <div className="">
-          <h5 className="lg:text-[1.5625rem] text-[1.1rem]">DL-5679-435EX</h5>
+          <h5 className="lg:text-[1.5625rem] text-[1.1rem]">{shipmentId}</h5>
           <p className="mt-1 text-graylight lg:text-[1.25rem] text-[1rem]">
-            Mon Jun 2 2023 12:38:37{" "}
+            {formateDate(date)}
           </p>
         </div>
         <div className="ms-auto">
           <h5 className="lg:text-[1.5625rem] text-[1.1rem] font-semibold leading-[-0.05875rem]">
-            N5,600
+            {formatPrice(price)}
           </h5>
           <span className="inline-block rounded-[0.40475rem] lg:text-[1.48144rem] text-[1rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
-            Paid
+            {payment}
           </span>
         </div>
       </div>
@@ -67,7 +109,7 @@ const TableDetailInfo = ({ status }) => {
             Customer Name
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-            Bankuli Kofi
+            {senderName}
           </span>
         </li>
         <li className="py-3 px-2 border-b w-full gap-x-1 flex items-center ">
@@ -75,7 +117,7 @@ const TableDetailInfo = ({ status }) => {
             Customer Phone
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-            080123456789
+            {senderPhoneNo}
           </span>
         </li>
         <li className="py-3 px-2 border-b w-full flex gap-x-1 items-center ">
@@ -83,7 +125,7 @@ const TableDetailInfo = ({ status }) => {
             Distance
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-            50km
+            {distance}km
           </span>
         </li>
         <li className="py-3 px-2 border-b w-full gap-x-1 flex  items-center ">
@@ -91,7 +133,7 @@ const TableDetailInfo = ({ status }) => {
             Package Type
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-            Food items
+            {shipmentType?.name}
           </span>
         </li>
         <li className="py-3 px-2 border-b w-full gap-x-1 flex items-center ">
@@ -102,7 +144,7 @@ const TableDetailInfo = ({ status }) => {
             style={{ color: formattedColor }}
             className=" lg:text-[1.125rem] text-[.9rem] capitalize text-graylight"
           >
-            {status}
+            {status ? status : "N/A"}
           </span>
         </li>
       </ul>
@@ -113,8 +155,7 @@ const TableDetailInfo = ({ status }) => {
             Special Instruction
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem]  text-graylight">
-            Breakable items, be careful when carrying it and when dropping it,
-            it’s vey{" "}
+            {specialInstruction}
           </span>
         </li>
         <li className="py-3 px-2 border-b w-full flex gap-x-1 items-center  ">
@@ -122,7 +163,7 @@ const TableDetailInfo = ({ status }) => {
             Pickup
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-            36 Adeola Adeleye Street, Ilupeju, Lagos
+            {senderAddress}
           </span>
         </li>
 
@@ -131,11 +172,63 @@ const TableDetailInfo = ({ status }) => {
             Destination{" "}
           </span>
           <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight ">
-            23 Ikorodu-Ososun Rd, ilupeju, Lagos
+            {dropOffs?.[0]?.receiverAddress}
           </span>
         </li>
+        <div className="grid grid-cols-2 items-center   gap-x-[5rem] gap-y-8 mt-5">
+          <li className="py-3 px-2 border-b w-full flex items-center justify-between">
+            <span className=" lg:text-[1.125rem] text-[.9rem] ">Driver ID</span>
+            <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+              {driver?.driverId}
+            </span>
+          </li>
+          <li className="py-3 px-2 border-b w-full flex items-center justify-between">
+            <span className=" lg:text-[1.125rem] text-[.9rem] ">
+              Driver Name
+            </span>
+            <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+              {`${driver?.firstName} ${driver?.lastName}`}
+            </span>
+          </li>
+        </div>
       </ul>
+
+      {driver && (
+        <div className=" mt-16">
+          <div className="border-b py-3 md:px-5 px-3">
+            <h1 className="text-xl text-primary-black font-medium ">
+              Rating and Review
+            </h1>
+          </div>
+          <div className="flex justify-between items-center px-5 ">
+            <div className="flex gap-x-3 items-center">
+              <figure className="w-[8rem] h-[8rem] rounded-full">
+                <img
+                  src={
+                    driver?.image
+                      ? driver?.image
+                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS167rCp9mKFPIQo0E5lfr9p2OIqZ2XpU9wgbDkoUC5tQ&s"
+                  }
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </figure>
+              <div className="space-y-4">
+                <h2 className="font-medium">{driver?.driverId}</h2>
+                <h6 className="text-gray-500"> {formateDate(date)}</h6>
+              </div>
+            </div>
+
+            <div className="">
+              {driver?.ratings.map((item) => (
+                <Star className="text-primary-default" />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default TableDetailInfo;

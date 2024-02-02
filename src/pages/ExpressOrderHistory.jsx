@@ -1,24 +1,24 @@
-import { useEffect } from "react";
-import { DataTable, Wrapper } from "../components";
+import { DataTable, TableLoading, Wrapper } from "../components";
 import { expressOrderHistoryColumn } from "../components/tableColumns/expressOrderHistoryColumn";
-import { customFetch } from "../utils";
-import { useLoaderData } from "react-router-dom";
+import useCustomFetch from "../hooks/useCustomFetch";
 
-export const loader = async () => {
-  const url = "/order-history/Express?pageSize=55";
-  const response = await customFetch(url);
-  const data = response.data;
-  const content = data.content;
-
-  return { content };
-};
+const url = "/order-history/Express?pageSize=100";
 
 const ExpressOrderHistory = () => {
-  const { content } = useLoaderData();
+  const { data: _data, loading } = useCustomFetch(url);
+  const data = _data?.content || [];
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <TableLoading />
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
-      <DataTable columns={expressOrderHistoryColumn} data={content} />
+      <DataTable columns={expressOrderHistoryColumn} data={data} />
     </Wrapper>
   );
 };

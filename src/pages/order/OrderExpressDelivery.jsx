@@ -1,64 +1,63 @@
-import { useState } from "react";
-import { DataTable } from "../../components";
+import { useEffect, useState } from "react";
+import { DataTable, TableLoading } from "../../components";
 
-import { pendingExpressColumn } from "../../components/tableColumns/PendingExpressColumn";
-import { pickedUpExpressColumn } from "../../components/tableColumns/pickedUpExpressColumn";
-import { onTheWayExpressColumn } from "../../components/tableColumns/onTheWayExpressColumn";
-import { deliveredExpressColumn } from "../../components/tableColumns/deliveredExpressColumn";
-import { cancelExpressColumn } from "../../components/tableColumns/cancelExpressColumn";
-import {
-  expreesCancelTableData,
-  expreesPendingTableData,
-  orderStatusNavText,
-} from "../../utils/data";
+import { orderStatusNavText } from "../../utils/data";
+import { customFetch } from "../../utils";
+import { orderColumn } from "../../components/tableColumns/OrderTable";
+import { useAuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const OrderExpressDelivery = () => {
   const [selectedTextTable, setSelectedTextTable] = useState("Pending");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await customFetch(
+          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Express&pageSize=1000`,
+          { headers: { Authorization: `Bearer  ${admin.accessToken}` } }
+        );
+        setData(response.data.content);
+      } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedTextTable]);
 
   const table = {
-    Pending: (
-      <DataTable
-        columns={pendingExpressColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    "picked UP": (
-      <DataTable
-        columns={pickedUpExpressColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    "On The way": (
-      <DataTable
-        columns={onTheWayExpressColumn}
-        data={expreesPendingTableData}
-      />
-    ),
+    Pending: <DataTable columns={orderColumn} data={data} />,
 
-    Delivered: (
-      <DataTable
-        columns={pendingExpressColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    Delivered: (
-      <DataTable
-        columns={deliveredExpressColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    Canceled: (
-      <DataTable columns={cancelExpressColumn} data={expreesCancelTableData} />
-    ),
+    "Picked up": <DataTable columns={orderColumn} data={data} />,
+
+    "On the way": <DataTable columns={orderColumn} data={data} />,
+
+    Delivered: <DataTable columns={orderColumn} data={data} />,
+    Delivered: <DataTable columns={orderColumn} data={data} />,
+    Canceled: <DataTable columns={orderColumn} data={data} />,
   };
 
   const color = {
     Pending: "#00A69C",
-    "picked UP": "#46B04C",
-    "On The way": "#F9BF42",
+    "Picked up": "#46B04C",
+    "On the way": "#F9BF42",
     Delivered: "#2593F0",
     Canceled: "#FF3838",
   };
+
+  if (loading) {
+    return <TableLoading />;
+  }
 
   return (
     <>

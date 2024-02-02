@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Table,
   Thead,
@@ -48,7 +49,8 @@ const Ratedpage = () => {
 
   const navigate = useNavigate();
 
-  const handleGoBack = () => {
+  const handleGoBacks = () => {
+    // Navigate to the previous page
     navigate(-1);
   };
   return (
@@ -108,7 +110,7 @@ const Ratedpage = () => {
             <Tr>
               <Flex
                 justifyContent=""
-                gap="250px"
+                gap="200px"
                 width="300px"
                 marginLeft="0px"
                 css={`

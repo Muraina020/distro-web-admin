@@ -1,23 +1,23 @@
-import { useLoaderData } from "react-router-dom";
-import { DataTable, Wrapper } from "../components";
+import { DataTable, TableLoading, Wrapper } from "../components";
 import { expressOrderHistoryColumn } from "../components/tableColumns/expressOrderHistoryColumn";
-import { expreesCancelTableData } from "../utils/data";
-import { customFetch } from "../utils";
+import useCustomFetch from "../hooks/useCustomFetch";
 
-export const loader = async () => {
-  const url = "/order-history/Schedule?pageSize=55";
-  const response = await customFetch(url);
-  const data = response.data;
-  const content = data.content;
-
-  return { content };
-};
+const url = "/order-history/Schedule?pageSize=55";
 
 const ScheduleOrderHistory = () => {
-  const { content } = useLoaderData();
+  const { data: _data, loading } = useCustomFetch(url);
+  const data = _data?.content || [];
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <TableLoading />
+      </Wrapper>
+    );
+  }
   return (
     <Wrapper>
-      <DataTable columns={expressOrderHistoryColumn} data={content} />
+      <DataTable columns={expressOrderHistoryColumn} data={data} />
     </Wrapper>
   );
 };

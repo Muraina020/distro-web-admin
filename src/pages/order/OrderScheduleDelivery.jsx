@@ -1,64 +1,64 @@
-import { useState } from "react";
-import {
-  expreesCancelTableData,
-  expreesPendingTableData,
-  orderStatusNavText,
-} from "../../utils/data";
+import { useState, useEffect } from "react";
+import { orderStatusNavText } from "../../utils/data";
 import { DataTable } from "../../components";
 
-import { pendingScheduleColumn } from "../../components/tableColumns/pendingScheduleColumn";
-import { pickedUpScheduleColumn } from "../../components/tableColumns/pickedUpScheduleColumn";
-import { onTheWayScheduleColumn } from "../../components/tableColumns/onTheWaySchedule";
-import { deliveredScheduleColumn } from "../../components/tableColumns/deliveredScheduleColumn";
-import { cancelScheduleColumn } from "../../components/tableColumns/cancelScheduleColumn";
+import { customFetch } from "../../utils";
+import Loading from "../../components/ui/Loading";
+import { orderColumn } from "../../components/tableColumns/OrderTable";
+import { useAuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const OrderScheduleDelivery = () => {
   const [selectedTextTable, setSelectedTextTable] = useState("Pending");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { admin } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await customFetch(
+          `/orders/all?deliveryStatus=${selectedTextTable}&deliveryType=Schedule`,
+          { headers: { Authorization: `Bearer  ${admin.accessToken}` } }
+        );
+        setData(response.data.content);
+      } catch (error) {
+        if (error.response.status === 401) {
+          navigate("/");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedTextTable]);
 
   const table = {
-    Pending: (
-      <DataTable
-        columns={pendingScheduleColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    "picked UP": (
-      <DataTable
-        columns={pickedUpScheduleColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    "On The way": (
-      <DataTable
-        columns={onTheWayScheduleColumn}
-        data={expreesPendingTableData}
-      />
-    ),
+    Pending: <DataTable columns={orderColumn} data={data} />,
 
-    Delivered: (
-      <DataTable
-        columns={pendingScheduleColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    Delivered: (
-      <DataTable
-        columns={deliveredScheduleColumn}
-        data={expreesPendingTableData}
-      />
-    ),
-    Canceled: (
-      <DataTable columns={cancelScheduleColumn} data={expreesCancelTableData} />
-    ),
+    "Picked up": <DataTable columns={orderColumn} data={data} />,
+
+    "On the way": <DataTable columns={orderColumn} data={data} />,
+
+    Delivered: <DataTable columns={orderColumn} data={data} />,
+    Delivered: <DataTable columns={orderColumn} data={data} />,
+    Canceled: <DataTable columns={orderColumn} data={data} />,
   };
 
   const color = {
     Pending: "#00A69C",
-    "picked UP": "#46B04C",
-    "On The way": "#F9BF42",
+    "Picked up": "#46B04C",
+    "On the way": "#F9BF42",
     Delivered: "#2593F0",
     Canceled: "#FF3838",
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

@@ -1,11 +1,15 @@
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { Container, Header, Sidebar } from "../components";
 import SlideInSidebar from "../components/sidebar/SlideInSidebar";
-import Loading from "../components/ui/Loading";
+import { useAuthContext } from "../context/AuthProvider";
 
 const HomeLayouts = () => {
-  const navigation = useNavigation();
-  const isPageLoading = navigation.state === "loading";
+  const { admin } = useAuthContext();
+
+  if (!admin) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <>
       <Container>
@@ -14,7 +18,7 @@ const HomeLayouts = () => {
           <Sidebar />
           <SlideInSidebar />
           <main className="xl:ml-[25rem] lg:ml-[20rem]">
-            {isPageLoading ? <Loading /> : <Outlet />}
+            <Outlet />
           </main>
         </div>
       </Container>

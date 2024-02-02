@@ -1,13 +1,14 @@
 import React, {  useState} from "react";
+// import { useContext } from "react";
+// import { RecoveryContext } from "../App";
 import { useNavigate } from "react-router";
 
 export default function () {
   const navigate = useNavigate()
+  // const { email, otp, setPage } = useContext(RecoveryContext);
   const [timerCount, setTimer] = useState(60);
   const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
   const [disable, setDisable] = useState(true);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   function resendOTP() {
     if (disable) return;
@@ -28,18 +29,9 @@ export default function () {
   console.log('USER ENTERED', codeEntered)
   const recoveryCode  = localStorage.getItem('recoveryCode');
   console.log('RECOVERY CODE IS', recoveryCode)
-//   if(codeEntered === recoveryCode) {
-// navigate('/passwordreset')
-//   }
-if (codeEntered === recoveryCode) {
-  setShowSuccessMessage(true);
-  setTimeout(() => {
-    setShowSuccessMessage(false);
-    navigate("/passwordreset");
-  }, 2000); // Adjust the duration of the success message before navigating
-} else {
-  setShowErrorMessage(true);
-}
+  if(codeEntered === recoveryCode) {
+navigate('/passwordreset')
+  }
  }
 
   
@@ -140,15 +132,6 @@ if (codeEntered === recoveryCode) {
                       Verify Account
                     </a>
                   </div>
-
-                  {showSuccessMessage && (
-          <div className="text-green-500">Verification successful! Redirecting...</div>
-        )}
-
-        {showErrorMessage && (
-          <div className="text-red-500">Verification failed. Please try again.</div>
-        )}
-
 
                   <div className="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
                     <p>Didn't recieve code?</p>{" "}

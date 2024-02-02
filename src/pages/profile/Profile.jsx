@@ -1,7 +1,23 @@
 import logo from "../../assets/img/circlelogo.png";
 import { Wrapper } from "../../components";
+import { useAuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
+
+export const removeUserFromLocalStorage = () => {
+  localStorage.removeItem("user");
+};
 
 const Profile = () => {
+  const { admin, setAdmin } = useAuthContext();
+
+  const logOutAdmin = () => {
+    setTimeout(() => {
+      setAdmin(null);
+      removeUserFromLocalStorage();
+      toast.success("Logged out");
+    }, 1000);
+  };
+
   return (
     <Wrapper className={"sm:mt-0 mt-3"}>
       <div className="pt-[5rem] md:px-[2.5rem] px-3">
@@ -17,6 +33,8 @@ const Profile = () => {
             <input
               id="email"
               type="text"
+              // onChange={() => {}}
+              // value={admin?.phoneNoOrEmail}
               placeholder="admin@distro.com"
               className="p-2 outline-none lg:w-[72%] bg-transparent"
             />
@@ -30,6 +48,8 @@ const Profile = () => {
               id="password"
               type="password"
               placeholder="*************"
+              // onChange={() => {}}
+              // value={admin?.password}
               className="p-2 outline-none lg:basis-[65%] w-full bg-transparent"
             />
             <button className="text-primary-default  sm:text-[1.125rem] text-sm">
@@ -39,7 +59,10 @@ const Profile = () => {
         </form>
 
         <div className="grid place-content-center">
-          <button className="lg:text-[1.75rem] text-base  text-[#F00] mt-20 flex  items-center gap-x-2">
+          <button
+            onClick={logOutAdmin}
+            className="lg:text-[1.75rem] text-base  text-[#F00] mt-20 flex  items-center gap-x-2"
+          >
             <svg
               className="lg:w-[34px] w-[25px]"
               xmlns="http://www.w3.org/2000/svg"
