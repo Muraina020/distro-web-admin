@@ -49,11 +49,11 @@ const DriverPage = () => {
 
   const handleRowClick = (status) => {
     if (activeHeader === "ACTIVE") {
-      navigate('/dashboard/online');
+      navigate("/dashboard/online");
     } else if (activeHeader === "INACTIVE") {
-      navigate('/dashboard/offline');
+      navigate("/dashboard/offline");
     } else if (activeHeader === "UNIFIED") {
-      navigate('/dashboard/unverify');
+      navigate("/dashboard/unverify");
     }
   };
 
@@ -133,7 +133,7 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td>
+                    <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
                     <Td className="email-column">{item?.email}</Td>
                     <Td isNumeric>{item?.phoneNumber}</Td>
@@ -163,7 +163,9 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td>
+                    <Td onClick={() => handleRowClick(item.status)}>
+                      {item?.driverId}
+                    </Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
                     <Td className="email-column">{item?.email}</Td>
                     <Td isNumeric>{item?.phoneNumber}</Td>
@@ -193,7 +195,9 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td>
+                    <Td onClick={() => handleRowClick(item.status)}>
+                      {item?.driverId}
+                    </Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
                     <Td className="email-column">{item?.email}</Td>
                     <Td isNumeric>{item?.phoneNumber}</Td>

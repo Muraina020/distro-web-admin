@@ -11,40 +11,45 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+// import { StarIcon } from "@chakra-ui/icons";
 import { FaArrowLeft } from "react-icons/fa";
+import { BsStarHalf, BsStarFill, BsStar } from "react-icons/bs";
 import cube from "../../assets/img/cube.png";
 import man from "../../assets/img/man.png";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { customFetch } from "../../utils";
 
-const Ratedpage = () => {
-  // const [data, setData] = useState([]);
-  const [data, setData] = useState({});
+const OrderId = () => {
+  const mobileTrWidth = useBreakpointValue({ base: "400px", md: "100%" });
+  const mobileWidth = useBreakpointValue({ base: "400px", md: "100%" });
+
+  const { orderId } = useParams();
+  console.log(orderId);
+
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
-        const response = await customFetch.get("/pickuporders/info/109");
+        const response = await customFetch.get(`/pickuporders/info/${orderId}`);
 
         setData(response.data);
-        // console.log(response.data);
-        // console.log(response.data.dropOffs);
-        console.log(response.data.dropOffs[0].receiverAddress);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching drivers:", error);
+        // Handle the error as needed
       }
     };
 
     fetchDrivers();
-  }, []);
+  }, [orderId]);
   console.log(data);
 
   const navigate = useNavigate();
 
-  const handleGoBacks = () => {
-    // Navigate to the previous page
+  const handleGoBack = () => {
     navigate(-1);
   };
   return (
@@ -104,7 +109,7 @@ const Ratedpage = () => {
             <Tr>
               <Flex
                 justifyContent=""
-                gap="200px"
+                gap="250px"
                 width="300px"
                 marginLeft="0px"
                 css={`
@@ -204,7 +209,9 @@ const Ratedpage = () => {
                 <Td fontSize="md">
                   <b>Special Instruction</b>
                 </Td>
-                <Td fontSize="md">{data?.specialInstruction} </Td>
+                <Td fontSize="md">
+                  {data?.specialInstruction ? data.specialInstruction : "N/A"}
+                </Td>
               </Flex>
             </Tr>
             <Tr>
@@ -254,46 +261,87 @@ const Ratedpage = () => {
               </Flex>
             </Tr>
           </Tbody>
-          <Tr borderBottom="2px solid lightgray">
-            <Td>
-              <Flex alignItems="center">
-                <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
-                <Flex flexDirection="column" alignItems="center">
-                  <Td fontSize="md" marginLeft="">
-                    <b>{data?.shipmentId}</b>
+
+          {data?.review?.rating > 0 ? (
+            <>
+              <Tr borderBottom="2px solid lightgray">
+                <Td>
+                  <Flex alignItems="center">
+                    <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
+                    <Flex flexDirection="column" alignItems="center">
+                      <Td fontSize="md" marginLeft="">
+                        <b>{data?.shipmentId}</b>
+                      </Td>
+                      <Td fontSize="md" color="gray.500" marginTop="">
+                        {data?.date}{" "}
+                      </Td>
+                    </Flex>
+                  </Flex>
+                </Td>
+
+                {/* <Td style={{ borderBottom: "1px solid lightgray" }}>
+                  <Flex>
+                    {[1, 2, 3, 4].map((index) => (
+                      <StarIcon key={index} color="#00A69C" />
+                    ))}
+                    <StarIcon key={5} color="lightgray" />
+                  </Flex>
+                </Td> */}
+                <Td
+                  style={{
+                    borderBottom: "1px solid lightgray",
+                    textAlign: "center",
+                    display: "flex",
+                    gap: "3px",
+                  }}
+                  className="star"
+                >
+                  {Array(5)
+                    .fill("_")
+                    .map((star, index) => (
+                      <div
+                        className={`${
+                          index < data?.review?.rating
+                            ? "text-[green]"
+                            : "text-slate-400"
+                        }  text-xs md:text-xl`}
+                        key={index}
+                      >
+                        {index < data?.review?.rating ? (
+                          index === Math.floor(data?.review?.rating) &&
+                          data?.review?.rating % 1 !== 0 ? (
+                            <BsStarHalf />
+                          ) : (
+                            <BsStarFill />
+                          )
+                        ) : (
+                          <BsStar />
+                        )}
+                      </div>
+                    ))}
+                </Td>
+                
+              </Tr>
+              <Tr>
+                <Flex
+                  alignItems=""
+                  borderBottom="1px solid lightgray"
+                  marginLeft="50px"
+                >
+                  <Td fontSize="md">
+                    <b>Special Instruction</b>
                   </Td>
-                  <Td fontSize="md" color="gray.500" marginTop="">
-                    {data?.date}{" "}
+                  <Td fontSize="md">
+                    {data?.specialInstruction ? data.specialInstruction : "N/A"}
                   </Td>
                 </Flex>
-              </Flex>
-            </Td>
-
-            <Td style={{ borderBottom: "1px solid lightgray" }}>
-              <Flex>
-                {[1, 2, 3, 4].map((index) => (
-                  <StarIcon key={index} color="#00A69C" />
-                ))}
-                <StarIcon key={5} color="lightgray" />
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Flex
-              alignItems=""
-              borderBottom="1px solid lightgray"
-              marginLeft="50px"
-            >
-              <Td fontSize="md">
-                <b>Special Instruction</b>
-              </Td>
-              <Td fontSize="md">{data?.specialInstruction} </Td>
-            </Flex>
-          </Tr>
+              </Tr>
+            </>
+          ) : null}
         </Table>
       </TableContainer>
     </div>
   );
 };
 
-export default Ratedpage;
+export default OrderId;
