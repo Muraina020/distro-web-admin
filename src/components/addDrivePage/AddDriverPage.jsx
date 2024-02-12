@@ -1,3 +1,4 @@
+// import React, { useState } from 'react';
 import {
   Table,
   Tbody,
@@ -10,12 +11,15 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-
+import { Avatar } from "@files-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import upload from "../../assets/img/upload.png";
 import React, { useState, useEffect } from "react";
 import { customFetch } from "../../utils";
 import { useNavigate } from "react-router";
+import DatePicker from "react-datepicker";
+import { FileInputButton, FileCard } from "@files-ui/react";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddDriverPage = () => {
   const [section, setSection] = useState("account");
@@ -36,13 +40,14 @@ const AddDriverPage = () => {
   const [nextOfKinLastname, setNextOfKinLastname] = useState("");
   const [nextOfKinPhone, setNextOfKinPhone] = useState("");
   const [vehiclePlateNumber, setVehiclePlateNumber] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  const [userAvatar, setUserAvatar] = useState(null);
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
   const [data, setData] = useState([]);
   const [vehicleType, setVehicleType] = useState("");
+  const [base64Img, setBase64Img] = useState("");
   const navigate = useNavigate();
 
-  const SubmitDriverDetails = async () => { 
+  const SubmitDriverDetails = async () => {
     const data = {
       firstname,
       lastname,
@@ -60,16 +65,18 @@ const AddDriverPage = () => {
       nextOfKinLastname,
       nextOfKinPhone,
       vehiclePlateNumber,
-      userAvatar
-    }
-    console.log(data)
+      userAvatar,
+    };
+    console.log(data);
     try {
-      const response = await customFetch.post("/profiles/addnewdriveraccount",
-        data );
+      const response = await customFetch.post(
+        "/profiles/addnewdriveraccount",
+        data
+      );
       setData(response.data);
       console.log(response);
 
-      navigate("/dashboard/success");
+      // navigate("/dashboard/success");
     } catch (error) {
       console.error("Error fetching drivers:", error);
     }
@@ -88,20 +95,42 @@ const AddDriverPage = () => {
       setSection("personal");
     } else if (section === "personal") {
       setSection("upload");
-    }else {
-      SubmitDriverDetails()
+    } else {
+      SubmitDriverDetails();
     }
   };
 
-  
+  // const [file, setFile] = useState('');
+  const handleFileChange = (selectedFile) => {
+    setUserAvatar(selectedFile); // add the selected image URL to the base64 image
+    // Check if the file size is less than 500KB
+    if (selectedFile.size > 500 * 1024) {
+      // toast.error(File must be lesser than than 500KB);
+      console.error("File must be lesser than than 500KB");
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const base64Image = e.target?.result;
+     
+      setBase64Img(base64Image)
+    };
+
+    reader.readAsDataURL(selectedFile);
+  };
+   useEffect (()=>{
+    if (userAvatar)
+    console.log(userAvatar)
+   }, [userAvatar])
 
   return (
     <div>
       <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
         <Table variant="simple" size="lg" paddingBottom="50px">
           <Tbody>
-            <style>
-              {`
+          <style>
+        {`
           @media screen and (max-width: 600px) {
             .respond-td {
               width: 100%; 
@@ -110,8 +139,8 @@ const AddDriverPage = () => {
             }
           }
         `}
-            </style>
-            <Tr className="respond-td">
+      </style>
+            <Tr  className='respond-td'>
               <Flex
                 direction="row"
                 alignItems="center"
@@ -120,51 +149,42 @@ const AddDriverPage = () => {
                 marginBottom="15px"
               >
                 <Th
-                  className="respond-td"
+                className='respond-td'
                   style={{
-                    borderBottom:
-                      section === "account"
-                        ? "2px solid teal"
-                        : "2px solid gray",
-                    color: section === "account" ? "teal" : "gray",
+                    borderBottom: section === 'account' ? "2px solid teal" : "2px solid gray",
+                    color: section === 'account' ? "teal" : "gray",
                     cursor: "pointer",
                   }}
-                  onClick={() => handleToggleSection("account")}
+                  onClick={() => handleToggleSection('account')}
                 >
                   Account information
                 </Th>
                 <Th
-                  className="respond-td"
+                 className='respond-td'
                   style={{
-                    borderBottom:
-                      section === "personal"
-                        ? "2px solid teal"
-                        : "2px solid gray",
-                    color: section === "personal" ? "teal" : "gray",
-                    cursor: "pointer",
+                    borderBottom: section === 'personal' ? "2px solid teal" : "2px solid gray",
+                    color: section === 'personal' ? "teal" : "gray",
+                    cursor: "pointer"
                   }}
-                  onClick={() => handleToggleSection("personal")}
+                  onClick={() => handleToggleSection('personal')}
                 >
                   Personal information
                 </Th>
                 <Th
-                  className="respond-td"
+                 className='respond-td'
                   style={{
-                    borderBottom:
-                      section === "upload"
-                        ? "2px solid teal"
-                        : "2px solid gray",
-                    color: section === "upload" ? "teal" : "gray",
-                    cursor: "pointer",
+                    borderBottom: section === 'upload' ? "2px solid teal" : "2px solid gray",
+                    color: section === 'upload' ? "teal" : "gray",
+                    cursor: "pointer"
                   }}
-                  onClick={() => handleToggleSection("upload")}
+                  onClick={() => handleToggleSection('upload')}
                 >
                   Upload information
                 </Th>
               </Flex>
             </Tr>
 
-            {section === "account" && (
+            {section === 'account' && (
               <Tr>
                 <Td colSpan={6} textAlign="center">
                   <Flex
@@ -174,14 +194,13 @@ const AddDriverPage = () => {
                     marginTop="40px"
                     marginBottom="15px"
                   >
+                    {/* ... (your account information form fields) */}
                     <Input
                       placeholder="Username"
                       border="2px solid gray"
                       borderRadius="4px"
                       p="2"
                       width="330px"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
                       height="40px"
                       marginTop="40px"
                       cursor="pointer"
@@ -191,36 +210,23 @@ const AddDriverPage = () => {
                       border="2px solid gray"
                       borderRadius="4px"
                       p="2"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       width="330px"
                       height="40px"
                       marginTop="40px"
                       cursor="pointer"
                     />
-
-                    <div className="flex flex-col">
-                      {" "}
-                      <Input
-                        placeholder="Confirm Password"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        p="2"
-                        width="330px"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        height="40px"
-                        marginTop="40px"
-                        cursor="pointer"
-                      />
-                      <span className="text-xs text-red-500">
-                        {confirmPasswordError !== null
-                          ? confirmPasswordError
-                          : null}
-                      </span>
-                    </div>
+                    <Input
+                      placeholder="Confirm Password"
+                      border="2px solid gray"
+                      borderRadius="4px"
+                      p="2"
+                      width="330px"
+                      height="40px"
+                      marginTop="40px"
+                      cursor="pointer"
+                    />
                     {/* Continue button */}
-                    {/* <Button
+                    <Button
                       width="340px"
                       height="40px"
                       marginTop="20px"
@@ -228,19 +234,19 @@ const AddDriverPage = () => {
                       color="white"
                       onClick={handleContinue}
                       cursor="pointer"
-                      marginBottom="100px"
+                      marginBottom='100px'
                     >
                       Continue
-                    </Button> */}
+                    </Button>
                   </Flex>
                 </Td>
               </Tr>
             )}
 
-            {section === "personal" && (
-              <Tr>
+            {section === 'personal' && (
+              <Tr >
                 <style>
-                  {`
+        {`
           @media screen and (max-width: 600px) {
             /* Adjust styles for small screens here */
             .responsive-input {
@@ -429,7 +435,7 @@ const AddDriverPage = () => {
                         placeholder="Next of kin Firstname"
                         border="2px solid gray"
                         borderRadius="4px"
-                        value={ nextOfKinFirstname}
+                        value={nextOfKinFirstname}
                         onChange={(e) => setNextOfKinFirstname(e.target.value)}
                         p="2"
                         width="330px"
@@ -459,16 +465,16 @@ const AddDriverPage = () => {
                       direction="row"
                       alignItems="center"
                       justifyContent="center"
-                      marginTop="10px" // Adjusted marginTop
+                      marginTop="10px"
                       marginBottom="15px"
                       marginLeft="120px"
                     >
                       <Input
                         className="responsive-input"
-                        placeholder="Next of kin  phone number"
+                        placeholder="Next of kin phone number"
                         border="2px solid gray"
                         borderRadius="4px"
-                        value={ nextOfKinPhone}
+                        value={nextOfKinPhone}
                         onChange={(e) => setNextOfKinPhone(e.target.value)}
                         p="2"
                         width="330px"
@@ -478,7 +484,7 @@ const AddDriverPage = () => {
                       />
                       <Input
                         className="responsive-input"
-                        placeholder="Date of birth"
+                        placeholder="Date of birth (YYY-MM-DD)"
                         border="2px solid gray"
                         borderRadius="4px"
                         value={dateOfBirth}
@@ -492,58 +498,6 @@ const AddDriverPage = () => {
                     </Flex>
                   </Td>
                 </Tr>
-                {/* <Tr>
-                  <Td>
-                    <Flex
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      marginTop="10px" // Adjusted marginTop
-                      marginBottom="15px"
-                      marginLeft="120px"
-                    >
-                      <Input
-                        className="responsive-input"
-                        placeholder="Next of kin  phone number"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        value={ nextOfKinPhone}
-                        onChange={(e) => setNextOfKinPhone(e.target.value)}
-                        p="2"
-                        width="330px"
-                        height="40px"
-                        margin="0 10px 0 -335px"
-                        cursor="pointer"
-                      />
-                      <Input
-                        className="responsive-input"
-                        placeholder="Next of kin  phone number"
-                        border="2px solid gray"
-                        borderRadius="4px"
-                        value={dateOfBirth}
-                        onChange={(e) => setDateOfBirth(e.target.value)}
-                        p="2"
-                        width="330px"
-                        height="40px"
-                        margin="0 10px 0 -335px"
-                        cursor="pointer"
-                      />
-                    </Flex>
-                  </Td>
-                </Tr> */}
-                {/* <Button
-        className="responsive-button"
-        width="340px"
-        height="40px"
-        marginTop="20px"
-        colorScheme="teal"
-        color="white"
-        onClick={handleContinue}
-        cursor="pointer"
-        marginLeft="350px"
-      >
-            {showPersonalInfo ? "Continue" : "Continue"}
-          </Button> */}
               </Tr>
             )}
 
@@ -596,37 +550,22 @@ const AddDriverPage = () => {
                     marginTop="10px"
                     marginBottom="15px"
                   >
-                    <div
-                      className="upload"
+                    <Avatar
+                      src={userAvatar || upload}
+                      alt="Avatar"
+                      smartImgFit={"center"}
+                      changeLabel={
+                        userAvatar === "" ? "add image" : "change image"
+                      }
+                      onChange={handleFileChange}
+                      // variant="circle"
                       style={{
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "50%",
-                        backgroundColor: "lightgray",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginRight: "10px",
+                        width: "8.5rem",
+                        height: "8.5rem",
+                        borderRadius: "100%",
+                        border: "6px solid white",
                       }}
-                    >
-                      <img
-                        src={upload}
-                        alt=""
-                        style={{
-                          width: "50%",
-                          height: "50%",
-                          borderRadius: "50%",
-                        }}
-                      />
-                    </div>
-                    <Text
-                      color="#00A69C"
-                      fontSize="lg"
-                      marginTop="10px"
-                      className="upload-text"
-                    >
-                      UPLOAD DRIVER'S PICTURE
-                    </Text>
+                    />
                   </Flex>
                 </Td>
               </Tr>
@@ -649,7 +588,7 @@ const AddDriverPage = () => {
         </Table>
       </TableContainer>
     </div>
-  );
-};
+  )
+}
 
-export default AddDriverPage;
+export default AddDriverPage

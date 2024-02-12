@@ -10,7 +10,8 @@ import { useAuthContext } from "../../context/AuthProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const { setAdmin, admin } = useAuthContext();
+
   const [credential, setCredential] = useState({
     phoneNoOrEmail: "",
     password: "",
@@ -57,10 +58,6 @@ const LoginPage = () => {
     setCredential({ ...credential, [name]: value });
   };
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
     <div className="contain">
       <div className="left">
@@ -82,14 +79,14 @@ const LoginPage = () => {
         </div>
         <div className="second-inp">
           <input
-            type={showPassword ? "text" : "password"}
+            type="password"
             onChange={handleChange}
             name="password"
             value={credential.password}
             placeholder="password"
           />
           <span className="eye-icon">
-            <RemoveRedEyeIcon onClick={handleTogglePassword} />
+            <RemoveRedEyeIcon />
           </span>
         </div>
         <div className="remember">

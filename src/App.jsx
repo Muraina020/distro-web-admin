@@ -15,6 +15,8 @@ import {
   ChatMobileDrivers,
   Error,
   OrderDetails,
+  BlockedDrivers,
+  BlockedCustomers,
 } from "./pages";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Driver from "./pages/driver/Driver";
@@ -22,20 +24,21 @@ import AddDriver from "./pages/addDriver/AddDriver";
 import Login from "./pages/login/Login";
 import Success from "./pages/success/Success";
 import CustomerTable from "./pages/customer/CustomerTable";
+import OnlineSetting from "./pages/onlinesetting/OnlineSetting";
+import Rating from "./pages/rating/Rating";
+import Unrated from "./pages/unrated/Unrated";
 import Rated from "./pages/unrated/Rated";
-import ResetPassword from "./pages/resetPassword/ResetPassword";
+import Activate from "./pages/onlinesetting/Activate";
+import Offline from "./pages/onlinesetting/Offline";
+import OfflineR from "./pages/rating/OfflineR";
+import ActiveR from "./pages/rating/ActiveR";
+import CustomerAccount from "./pages/customer/CustomerAccount";
+import CustomerRatin from "./pages/customer/CustomerRatin";
+
 // loaders
-import { loader as expressHistroyLoader } from "./pages/ExpressOrderHistory";
-import { loader as scheduleHistoryLoader } from "./pages/ScheduleOrderHistory";
-import { loader as orderDetailsLoader } from "./pages/order-expressDeliverydetailPages/Details";
 import OTPInput from "./components/resetPasswordPage/OTPInput";
 import Reset from "./components/resetPasswordPage/Reset";
 import Recovered from "./components/resetPasswordPage/Recovered";
-import SingleDriver from "./components/onlineSettin.jsx/SingleDriver";
-
-import OrderId from "./components/onlineSettin.jsx/OrderId";
-import SingleCustomer from "./components/customerPage/SingleCustomer";
-
 // actions
 
 const router = createBrowserRouter([
@@ -43,10 +46,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Login />,
   },
-  // {
-  //   path: "reset",
-  //   element: <ResetPassword />,
-  // },
   {
     path: "otp",
     element: <OTPInput />,
@@ -74,24 +73,50 @@ const router = createBrowserRouter([
         element: <Driver />,
       },
       {
+        path: "/dashboard/blocked/customers",
+        element: <BlockedCustomers />,
+      },
+      {
+        path: "/dashboard/blocked/drivers",
+        element: <BlockedDrivers />,
+      },
+      {
         path: "/dashboard/addDriver",
         element: <AddDriver />,
       },
-
       {
         path: "/dashboard/success",
         element: <Success />,
       },
-
       {
-        path: "/dashboard/drivers/:email",
-        element: <SingleDriver />,
+        path: "/dashboard/online",
+        element: <OnlineSetting />,
       },
       {
-        path: "/dashboard/order/:orderId",
-        element: <OrderId />,
+        path: "/dashboard/offline",
+        element: <Offline />,
+      },
+      {
+        path: "/dashboard/unverify",
+        element: <Activate />,
       },
 
+      {
+        path: "/dashboard/rating",
+        element: <Rating />,
+      },
+      {
+        path: "/dashboard/offlinerating",
+        element: <OfflineR />,
+      },
+      {
+        path: "/dashboard/activerating",
+        element: <ActiveR />,
+      },
+      {
+        path: "/dashboard/unrated",
+        element: <Unrated />,
+      },
       {
         path: "/dashboard/rated",
         element: <Rated />,
@@ -101,8 +126,12 @@ const router = createBrowserRouter([
         element: <CustomerTable />,
       },
       {
-        path: "/dashboard/customers/:email",
-        element: <SingleCustomer />,
+        path: "/dashboard/customeracc",
+        element: <CustomerAccount />,
+      },
+      {
+        path: "/dashboard/customrating",
+        element: <CustomerRatin />,
       },
       {
         path: "/dashboard/orderTracking",

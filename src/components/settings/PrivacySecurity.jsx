@@ -1,8 +1,13 @@
+import { Link } from "react-router-dom";
+
 const PrivacySecurity = () => {
   return (
     <div>
       <div className="">
-        <div className="py-4 border-b px-6">
+        <Link
+          to={"/dashboard/blocked/customers"}
+          className="py-4 block border-b px-6"
+        >
           <button className="flex justify-between items-center w-full ">
             <h2 className="text-primary-black text-base md:text-[1.3125rem]">
               {" "}
@@ -25,8 +30,11 @@ const PrivacySecurity = () => {
               />
             </svg>
           </button>
-        </div>
-        <div className="py-4 border-b px-6">
+        </Link>
+        <Link
+          to={"/dashboard/blocked/drivers"}
+          className="py-4 border-b px-6 block"
+        >
           <button className="flex justify-between items-center w-full ">
             <h2 className="text-primary-black text-base md:text-[1.3125rem]">
               {" "}
@@ -49,7 +57,7 @@ const PrivacySecurity = () => {
               />
             </svg>
           </button>
-        </div>
+        </Link>
         <div className="py-4 border-b px-6">
           <button className="flex justify-between items-center w-full ">
             <h2 className="text-primary-black text-base md:text-[1.3125rem]">

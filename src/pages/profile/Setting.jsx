@@ -22,7 +22,6 @@ const Setting = () => {
   const [currentSetting, setCurrentSetting] = useState("Notification");
   const navigate = useNavigate();
   const { search } = useLocation();
-  // console.log(navigate);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(search);

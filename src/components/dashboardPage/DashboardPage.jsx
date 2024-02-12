@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useEffect } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ife from "../../assets/img/ife.png";
 import date1 from "../../assets/img/date1.png";
@@ -13,7 +13,7 @@ import usr from "../../assets/img/usr.png";
 import hamburg from "../../assets/img/hamburg.png";
 // import customer1 from "../../assets/img/customer1.png";
 import "./dashboardPage.css";
-import { customFetch } from "../../utils";
+import RecentOrders from "./RecentOrders";
 
 const DashboardPage = () => {
   const [isDropdownOpenCard1, setDropdownOpenCard1] = useState(false);
@@ -28,10 +28,10 @@ const DashboardPage = () => {
   const [timeDurationCard2, setTimeDurationCard2] = useState("daily");
   const [timeDurationCard3, setTimeDurationCard3] = useState("daily");
   const [timeDurationCard4, setTimeDurationCard4] = useState("daily");
-  const [prizeCard1, setPrizeCard1] = useState(null);
-  const [prizeCard2, setPrizeCard2] = useState(null);
-  const [prizeCard3, setPrizeCard3] = useState(null);
-  const [prizeCard4, setPrizeCard4] = useState(null);
+  const [prizeCard1, setPrizeCard1] = useState("$30.5k"); // Default prize
+  const [prizeCard2, setPrizeCard2] = useState("$30.5k");
+  const [prizeCard3, setPrizeCard3] = useState("$30.5k");
+  const [prizeCard4, setPrizeCard4] = useState("$30.5k");
 
   const apiEndpoints = {
     card1: "https://apps-1.lampnets.com/distro/orders/sum",
@@ -39,6 +39,8 @@ const DashboardPage = () => {
     card3: "https://apps-1.lampnets.com/distro/customers/size",
     card4: "https://apps-1.lampnets.com/distro/drivers/size",
   };
+
+  console.log(apiEndpoints);
 
   const fetchPrizeData = async (card) => {
     try {
@@ -260,18 +262,16 @@ const DashboardPage = () => {
             <img src={usr} alt="" />
             <span>Customer</span>
             <span className="order-profit-text">{prizeCard4}</span>
-            <span>{`${timeDurationCard4} point`}</span>
-            <span className="dots" onClick={() => handleMoreVertClick("card4")}>
-              <MoreVertIcon />
-            </span>
-          </div>
-          {isDropdownOpenCard4 && (
-            <div className="dropdown-box">
-              <div onClick={() => handleDailyCustomer()}>Daily</div>
-              <div onClick={() => handleWeeklyCustomer()}>Weekly</div>
-              <div onClick={() => handleMonthlyCustomer()}>Monthly</div>
-            </div>
-          )}
+    <span>{`${timeDurationCard4} point`}</span>
+    <span className='dots' onClick={() => handleMoreVertClick('card4')}><MoreVertIcon /></span>
+  </div>
+  {isDropdownOpenCard4 && (
+    <div className='dropdown-box'>
+      <div onClick={() => handleDailyCustomer()}>Daily</div>
+      <div onClick={() => handleWeeklyCustomer()}>Weekly</div>
+      <div onClick={() => handleMonthlyCustomer()}>Monthly</div>
+    </div>
+  )}
         </div>
       </div>
 
