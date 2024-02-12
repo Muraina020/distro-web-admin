@@ -15,6 +15,8 @@ import {
   ChatMobileDrivers,
   Error,
   OrderDetails,
+  BlockedDrivers,
+  BlockedCustomers,
 } from "./pages";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Driver from "./pages/driver/Driver";
@@ -44,10 +46,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Login />,
   },
-  // {
-  //   path: "reset",
-  //   element: <ResetPassword />,
-  // },
   {
     path: "otp",
     element: <OTPInput />,
@@ -75,13 +73,17 @@ const router = createBrowserRouter([
         element: <Driver />,
       },
       {
+        path: "/dashboard/blocked/customers",
+        element: <BlockedCustomers />,
+      },
+      {
+        path: "/dashboard/blocked/drivers",
+        element: <BlockedDrivers />,
+      },
+      {
         path: "/dashboard/addDriver",
         element: <AddDriver />,
       },
-      // {
-      //   path: "dashboard/add",
-      //   element: <AddDriver />,
-      // },
       {
         path: "/dashboard/success",
         element: <Success />,
