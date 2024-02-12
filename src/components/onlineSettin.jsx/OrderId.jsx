@@ -11,8 +11,9 @@ import {
   IconButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
+// import { StarIcon } from "@chakra-ui/icons";
 import { FaArrowLeft } from "react-icons/fa";
+import { BsStarHalf, BsStarFill, BsStar } from "react-icons/bs";
 import cube from "../../assets/img/cube.png";
 import man from "../../assets/img/man.png";
 import { useNavigate } from "react-router-dom";
@@ -208,7 +209,9 @@ const OrderId = () => {
                 <Td fontSize="md">
                   <b>Special Instruction</b>
                 </Td>
-                <Td fontSize="md">{data?.specialInstruction} </Td>
+                <Td fontSize="md">
+                  {data?.specialInstruction ? data.specialInstruction : "N/A"}
+                </Td>
               </Flex>
             </Tr>
             <Tr>
@@ -250,48 +253,91 @@ const OrderId = () => {
                 <Td fontSize="md">
                   <b>Destination </b>
                 </Td>
-                {/* <Td fontSize="md"> {data?.dropOffs[0]?.receiverAddress}</Td> */}
+                <Td fontSize="md">
+                  {data?.dropOffs && data.dropOffs.length > 0
+                    ? data.dropOffs[0].receiverAddress
+                    : "N/A"}
+                </Td>
               </Flex>
             </Tr>
           </Tbody>
 
+          {data?.review?.rating > 0 ? (
+            <>
+              <Tr borderBottom="2px solid lightgray">
+                <Td>
+                  <Flex alignItems="center">
+                    <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
+                    <Flex flexDirection="column" alignItems="center">
+                      <Td fontSize="md" marginLeft="">
+                        <b>{data?.shipmentId}</b>
+                      </Td>
+                      <Td fontSize="md" color="gray.500" marginTop="">
+                        {data?.date}{" "}
+                      </Td>
+                    </Flex>
+                  </Flex>
+                </Td>
 
-          {data?.review?.rating>0? <><Tr borderBottom="2px solid lightgray">
-            <Td>
-              <Flex alignItems="center">
-                <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
-                <Flex flexDirection="column" alignItems="center">
-                  <Td fontSize="md" marginLeft="">
-                    <b>{data?.shipmentId}</b>
+                {/* <Td style={{ borderBottom: "1px solid lightgray" }}>
+                  <Flex>
+                    {[1, 2, 3, 4].map((index) => (
+                      <StarIcon key={index} color="#00A69C" />
+                    ))}
+                    <StarIcon key={5} color="lightgray" />
+                  </Flex>
+                </Td> */}
+                <Td
+                  style={{
+                    borderBottom: "1px solid lightgray",
+                    textAlign: "center",
+                    display: "flex",
+                    gap: "3px",
+                  }}
+                  className="star"
+                >
+                  {Array(5)
+                    .fill("_")
+                    .map((star, index) => (
+                      <div
+                        className={`${
+                          index < data?.review?.rating
+                            ? "text-[green]"
+                            : "text-slate-400"
+                        }  text-xs md:text-xl`}
+                        key={index}
+                      >
+                        {index < data?.review?.rating ? (
+                          index === Math.floor(data?.review?.rating) &&
+                          data?.review?.rating % 1 !== 0 ? (
+                            <BsStarHalf />
+                          ) : (
+                            <BsStarFill />
+                          )
+                        ) : (
+                          <BsStar />
+                        )}
+                      </div>
+                    ))}
+                </Td>
+                
+              </Tr>
+              <Tr>
+                <Flex
+                  alignItems=""
+                  borderBottom="1px solid lightgray"
+                  marginLeft="50px"
+                >
+                  <Td fontSize="md">
+                    <b>Special Instruction</b>
                   </Td>
-                  <Td fontSize="md" color="gray.500" marginTop="">
-                    {data?.date}{" "}
+                  <Td fontSize="md">
+                    {data?.specialInstruction ? data.specialInstruction : "N/A"}
                   </Td>
                 </Flex>
-              </Flex>
-            </Td>
-
-            <Td style={{ borderBottom: "1px solid lightgray" }}>
-              <Flex>
-                {[1, 2, 3, 4].map((index) => (
-                  <StarIcon key={index} color="#00A69C" />
-                ))}
-                <StarIcon key={5} color="lightgray" />
-              </Flex>
-            </Td>
-          </Tr>
-          <Tr>
-            <Flex
-              alignItems=""
-              borderBottom="1px solid lightgray"
-              marginLeft="50px"
-            >
-              <Td fontSize="md">
-                <b>Special Instruction</b>
-              </Td>
-              <Td fontSize="md">{data?.specialInstruction} </Td>
-            </Flex>
-          </Tr></> : null}
+              </Tr>
+            </>
+          ) : null}
         </Table>
       </TableContainer>
     </div>

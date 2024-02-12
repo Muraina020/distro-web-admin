@@ -1,39 +1,36 @@
+
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/distro-logo.png";
 import Container from "../ui/Container";
-import React, { useState } from 'react';
+import { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import { customFetch } from "../../utils";
+import ResultList from "./ResultList";
 
 const Header = () => {
   const { openSidebar } = useAppContext();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [input, setInput] = useState("")
+  const [results, setResults] = useState([])
 
-  const handleSearch = async () => {
-    try {
-      // const response = await customFetch.get("/pickuporders/search?shipmentId=OA-5342-4720EX");
-      const response = await customFetch.get(`/pickuporders/search?shipmentId=${searchTerm}`);
-      const data = response.data;  // Adjust here based on the API response structure
+  const fetchData = (value) => {
+     fetch("https://jsonplaceholder.typicode.com/users").then((response) => response.json()).then((json) => {
+      // console.log(json);
+      const results = json.filter((user) => {
+        return (
+          value &&
+          user &&
+          user.name &&
+          user.name.toLowerCase().includes(value)
+        );
+      });
+      // console.log(results)
+      setResults(results);
+     })
+  }
 
-      // Update the state with the search results
-      setSearchResults(data);
-
-      // Handle the retrieved data as needed
-      console.log(data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-      console.log(error)
-      // Handle the error as needed
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSearch();
-  };
-
-    
+  const handleSearch = (value) =>{
+    setInput(value)
+    fetchData(value)
+  }
 
   return (
     <header className=" py-6 lg:px-11 px-5 sticky left-0 w-full top-0 bg-background z-20 ">
@@ -75,9 +72,8 @@ const Header = () => {
               </div>
             </Link>
           </div>
-
-          <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3">
-          <form onSubmit={handleSubmit} className="flex items-center">
+          <div className="flex flex-col gap-[8px] max-w-[366px] w-full">
+          <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3" setResults={setResults}>
             <button className="pl-2">
               <svg
                 className="lg:w-[25px] lg:h-[25px] w-[20px] h-[20px]"
@@ -102,12 +98,15 @@ const Header = () => {
             </button>
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Type to Search ...."
+              value={input}
+              onChange={(e) =>handleSearch(e.target.value)}
               className="w-full outline-none p-2 rounded-[48px]"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
             />
-               </form>
+         </div>
+          <div className="max-w-[266px] flex flex-col items-center bg-white rounded-[5px] p-1 pr-3">
+           <ResultList results={results}/>
+          </div>
           </div>
 
           <ul className="flex gap-x-3">

@@ -129,7 +129,7 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    {/* <Td  onClick={() => handleRowClick(item.status)}>{item?.driverId}</Td> */}
+                  
                     <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
                    <Link to={`/dashboard/drivers/${item?.email}`}>

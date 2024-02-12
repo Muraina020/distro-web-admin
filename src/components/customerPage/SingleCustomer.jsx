@@ -14,7 +14,7 @@ import {
   } from "@chakra-ui/react";
   import { BsStarHalf, BsStarFill, BsStar } from "react-icons/bs";
   import { FaChevronLeft, FaChevronRight, FaArrowLeft } from "react-icons/fa";
-  import avatar1 from "../../assets/img/avatar1.png";
+  // import avatar1 from "../../assets/img/avatar1.png";
   import { Link, useNavigate } from "react-router-dom";
   import { customFetch } from "../../utils";
   import React, { useState, useEffect } from "react";

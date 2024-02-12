@@ -19,6 +19,9 @@ import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
 import { FileInputButton, FileCard } from "@files-ui/react";
 import "react-datepicker/dist/react-datepicker.css";
+import {imgDB} from "../../components/addDrivePage/firebaseimgConfig";
+import {v4} from "uuid";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 
 const AddDriverPage = () => {
   const [section, setSection] = useState("account");
@@ -39,11 +42,10 @@ const AddDriverPage = () => {
   const [nextOfKinLastname, setNextOfKinLastname] = useState("");
   const [nextOfKinPhone, setNextOfKinPhone] = useState("");
   const [vehiclePlateNumber, setVehiclePlateNumber] = useState("");
-  const [userAvatar, setUserAvatar] = useState(null);
+  const [userAvatar, setUserAvatar] = useState('');
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
   const [data, setData] = useState([]);
   const [vehicleType, setVehicleType] = useState("");
-  const [base64Img, setBase64Img] = useState("");
   const navigate = useNavigate();
 
   const SubmitDriverDetails = async () => {
@@ -99,29 +101,29 @@ const AddDriverPage = () => {
     }
   };
 
-  // const [file, setFile] = useState('');
-  const handleFileChange = (selectedFile) => {
-    setUserAvatar(selectedFile); // add the selected image URL to the base64 image
-    // Check if the file size is less than 500KB
-    if (selectedFile.size > 500 * 1024) {
-      // toast.error(File must be lesser than than 500KB);
-      console.error("File must be lesser than than 500KB");
-      return;
+  // const handleUpload = (e) =>{
+  //   console.log(e.target.files[0])
+  //   const imgs = ref(imgDB, `Imgs${v4()}`)
+  //   uploadBytes(imgs,e.target.files[0]).then(data =>{
+  //     console.log(data, "imgs")
+  //     getDownloadURL(data.ref).then(val=>{
+  //       // console.log(val)
+  //       setUserAvatar(val)
+  //     })
+  //   }) 
+  // } 
+
+  const handleUpload = async (e) => {
+    try {
+      const file = e.target.files[0];
+      const storageRef = ref(imgDB, `Imgs${v4()}`);
+      await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+      setUserAvatar(downloadURL);
+    } catch (error) {
+      console.error("Error uploading file:", error);
     }
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      const base64Image = e.target?.result;
-     
-      setBase64Img(base64Image)
-    };
-
-    reader.readAsDataURL(selectedFile);
   };
-   useEffect (()=>{
-    if (userAvatar)
-    console.log(userAvatar)
-   }, [userAvatar])
 
   return (
     <div>
@@ -247,19 +249,6 @@ const AddDriverPage = () => {
                           : null}
                       </span>
                     </div>
-                    {/* Continue button */}
-                    {/* <Button
-                      width="340px"
-                      height="40px"
-                      marginTop="20px"
-                      colorScheme="teal"
-                      color="white"
-                      onClick={handleContinue}
-                      cursor="pointer"
-                      marginBottom="100px"
-                    >
-                      Continue
-                    </Button> */}
                   </Flex>
                 </Td>
               </Tr>
@@ -572,22 +561,7 @@ const AddDriverPage = () => {
                     marginTop="10px"
                     marginBottom="15px"
                   >
-                    <Avatar
-                      src={userAvatar || upload}
-                      alt="Avatar"
-                      smartImgFit={"center"}
-                      changeLabel={
-                        userAvatar === "" ? "add image" : "change image"
-                      }
-                      onChange={handleFileChange}
-                      // variant="circle"
-                      style={{
-                        width: "8.5rem",
-                        height: "8.5rem",
-                        borderRadius: "100%",
-                        border: "6px solid white",
-                      }}
-                    />
+                 <input type="file" onChange={(e)=>handleUpload(e)}/>
                   </Flex>
                 </Td>
               </Tr>
