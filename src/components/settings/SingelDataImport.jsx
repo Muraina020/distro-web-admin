@@ -15,7 +15,7 @@ const SingelDataImport = ({ category, requestConfig, fetchData }) => {
   };
 
   return (
-    <li key={category.id} className="flex items-center w-56 gap-x-4">
+    <li key={category.id} className="flex items-center md:w-56 w-full gap-x-4">
       <CheckBox isDefaultChecked={true} id={category?.name} />
 
       <label htmlFor={category?.name} className="text-[0.8125rem]">

@@ -25,7 +25,7 @@ const CreateCoupons = ({
       ></div>
 
       <div
-        className={`w-[40rem]  h-[26rem] rounded-md fixed top-1/2 left-1/2
+        className={`max-w-[40rem] w-full overflow-y-scroll   h-[26rem] rounded-md fixed top-1/2 left-1/2
          transform 
         transition-all duration-300 
         -translate-x-1/2   bg-white  ${
@@ -44,8 +44,8 @@ const CreateCoupons = ({
           </button>
         </div>
 
-        <form onSubmit={handleCouponSubmit} className="px-12 py-5">
-          <article className=" grid grid-cols-2 gap-x-10 gap-y-8">
+        <form onSubmit={handleCouponSubmit} className="md:px-12 px-3 py-5">
+          <article className=" grid sm:grid-cols-2 grid-cols-1 gap-x-10 gap-y-8">
             <div className="flex flex-col gap-y-2">
               <label htmlFor="StartDate" className="text-lg ">
                 Start Date
@@ -117,7 +117,7 @@ const CreateCoupons = ({
           <button
             disabled={loading}
             type="submit"
-            className="w-40 mt-16 hover:scale-105 transition-all  grid place-items-center rounded-md mx-auto py-2 px-2 bg-primary-default text-white text-xl"
+            className="w-40 sm:mt-16 mt-9 hover:scale-105 transition-all  grid place-items-center rounded-md mx-auto py-2 px-2 bg-primary-default text-white text-xl"
           >
             {loading ? (
               <span>

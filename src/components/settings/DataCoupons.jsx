@@ -224,8 +224,8 @@ const DataCoupons = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <h2 className="md:text-[1.3125rem] text-base font-medium text-primary-black">
+      <div className="flex  items-center justify-between rounded-md px-2 py-2 md:bg-transparent bg-white">
+        <h2 className="md:text-[1.3125rem]   md:py-0 py-3 text-base font-medium text-primary-black">
           {" "}
           Discounts & Promo Code Management
         </h2>
@@ -237,41 +237,43 @@ const DataCoupons = () => {
           create
         </button>
       </div>
-      <table className=" table mt-2 space-y-4">
-        <tbody>
-          {coupons.map((coupon) => {
-            return (
-              <tr
-                key={coupon.id}
-                className="text-[0.9rem]  text-primary-default"
-              >
-                <td>{coupon?.couponCode}</td>
-                <td>
-                  {coupon?.startDate} - {coupon?.endDate}
-                </td>
-                <td>{coupon?.userLimit} Users</td>
-                <td>{coupon?.discountValue}% Dicount</td>
-                <td>
-                  <button
-                    onClick={() => editCoupons(coupon)}
-                    className="hover:scale-110 transition-all"
-                  >
-                    <ModeEdit />
-                  </button>
-                </td>
-                <td>
-                  <button
-                    onClick={() => deleteCoupon(coupon?.id)}
-                    className="hover:text-red-500"
-                  >
-                    <CiTrash />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="table table-lg mt-2 space-y-4 ">
+          <tbody>
+            {coupons.map((coupon) => {
+              return (
+                <tr
+                  key={coupon.id}
+                  className="text-[0.9rem]  text-primary-default"
+                >
+                  <td className="whitespace-nowrap">{coupon?.couponCode}</td>
+                  <td className="whitespace-nowrap">
+                    {coupon?.startDate} - {coupon?.endDate}
+                  </td>
+                  <td>{coupon?.userLimit} Users</td>
+                  <td>{coupon?.discountValue}% Dicount</td>
+                  <td>
+                    <button
+                      onClick={() => editCoupons(coupon)}
+                      className="hover:scale-110 transition-all"
+                    >
+                      <ModeEdit />
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => deleteCoupon(coupon?.id)}
+                      className="hover:text-red-500"
+                    >
+                      <CiTrash />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
       <CreateCoupons
         isCreateCouponOpen={isCreateCouponOpen}

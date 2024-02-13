@@ -49,7 +49,7 @@ const Setting = () => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper className={"sm:block hidden"}>
         <div className="mt-5 sm:flex hidden">
           <div className="w-[19rem]">
             <ul className="space-y-4">
