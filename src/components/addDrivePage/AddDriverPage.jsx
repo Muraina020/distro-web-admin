@@ -20,7 +20,8 @@ import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
 import { FileInputButton, FileCard } from "@files-ui/react";
 import "react-datepicker/dist/react-datepicker.css";
-import { imgDB } from "../../components/addDrivePage/firebaseimgConfig";
+// import { imgDB } from "../../components/addDrivePage/firebaseimgConfig";
+import { imgDB } from "../../firebase";
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
