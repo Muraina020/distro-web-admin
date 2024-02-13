@@ -244,15 +244,17 @@ const DataCoupons = () => {
               return (
                 <tr
                   key={coupon.id}
-                  className="text-[0.9rem]  text-primary-default"
+                  className="md:text-[0.9rem]  text-primary-default"
                 >
-                  <td className="whitespace-nowrap">{coupon?.couponCode}</td>
-                  <td className="whitespace-nowrap">
+                  <td className="whitespace-nowrap text-sm">
+                    {coupon?.couponCode}
+                  </td>
+                  <td className="whitespace-nowrap text-sm">
                     {coupon?.startDate} - {coupon?.endDate}
                   </td>
-                  <td>{coupon?.userLimit} Users</td>
-                  <td>{coupon?.discountValue}% Dicount</td>
-                  <td>
+                  <td className="text-sm">{coupon?.userLimit} Users</td>
+                  <td className="text-sm">{coupon?.discountValue}% Dicount</td>
+                  <td className="text-sm">
                     <button
                       onClick={() => editCoupons(coupon)}
                       className="hover:scale-110 transition-all"

@@ -28,17 +28,6 @@ const ChatPeople = () => {
             <span className="w-full h-[0.1rem] inline-block top-full absolute left-0 bg-primary-default " />
           )}
         </Link>
-        {/* <Link
-          to={"/chat/customer"}
-          className={`w-full relative py-2 xl:text-[1.125rem] text-base text-center text-graylight ${
-            pathName === "/chat/customer" ? "text-primary-default" : null
-          }`}
-        >
-          Customers
-          {pathName === "/chat/customer" && (
-            <span className="w-full h-[0.1rem] inline-block top-full absolute left-0 bg-primary-default " />
-          )}
-        </Link> */}
       </div>
 
       {pathName === "/chat" && <DriversPeople />}

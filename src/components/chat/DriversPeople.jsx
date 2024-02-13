@@ -11,7 +11,6 @@ import {
 import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 import { useChatContext } from "../../context/ChatContext";
-import SkeletonLoader from "../ui/SkeletonLoader";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
 const DriversPeople = () => {
