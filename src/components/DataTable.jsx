@@ -1,33 +1,55 @@
+import {
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+
+import DataTablePagination from "./ui/DataTablePagination";
 import { useState } from "react";
 
-import {
-  useReactTable,
-  getCoreRowModel,
-  flexRender,
-  getPaginationRowModel,
-} from "@tanstack/react-table";
-import DataTablePagination from "./ui/DataTablePagination";
+const DataTable = ({ data, columns, filter }) => {
+  const [columnFilters, setColumnFilters] = useState([]);
 
-const DataTable = ({ data, columns }) => {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters,
+    },
   });
 
   return (
     <div className="pb-5 ">
       <div className="overflow-x-auto">
+        {filter && (
+          <div className="flex justify-end my-4 pr-5">
+            <input
+              value={table.getColumn("name")?.getFilterValue() ?? ""}
+              onChange={(event) =>
+                table.getColumn("name")?.setFilterValue(event.target.value)
+              }
+              type="text"
+              placeholder="filter name..."
+              className="py-2 px-3 rounded-md border "
+            />
+          </div>
+        )}
+
         <table className="table table-lg">
-          <thead>
+          <thead className="">
             {table.getHeaderGroups().map((headerGroup, i) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
+                {headerGroup.headers.map((header, i) => {
                   return (
                     <th
-                      key={header.id}
-                      className="lg:text-[1rem] text-[.9rem] py-7  font-semibold"
+                      key={i}
+                      className="lg:text-[1rem]   text-[.9rem] py-7  font-semibold"
                     >
                       {header.column.columnDef.header}
                     </th>
@@ -38,14 +60,12 @@ const DataTable = ({ data, columns }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, i) => (
                 <tr
-                  key={row.id}
-                  className="hover:bg-gray-50 transition duration-300"
+                  key={i}
+                  className="hover:bg-gray-50  transition duration-300"
                 >
                   {row.getVisibleCells().map((cell) => {
-                    const id = cell.getContext().row.original.order_id;
-
                     return (
                       <td
                         key={cell.id}

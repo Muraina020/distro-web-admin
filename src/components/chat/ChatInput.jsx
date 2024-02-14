@@ -34,6 +34,7 @@ const ChatInput = () => {
     } else {
       return;
     }
+
     // Add message to Firestore
     await addDoc(collection(db, "Chatrooms", chatRoomId, "Messages"), {
       code,

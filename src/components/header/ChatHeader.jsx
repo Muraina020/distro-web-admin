@@ -52,7 +52,7 @@ const ChatHeader = () => {
           <ChatSearch />
 
           <ul className="flex gap-x-3">
-            <li className="lg:hidden block">
+            <li className="sm:hidden block">
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +68,7 @@ const ChatHeader = () => {
                 </svg>
               </button>
             </li>
+
             <li>
               <Link to={"/chat"}>
                 <button>

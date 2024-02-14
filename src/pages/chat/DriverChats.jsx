@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { chatMsg } from "../../utils/data";
 import {
   collection,
   onSnapshot,

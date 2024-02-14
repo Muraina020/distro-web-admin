@@ -57,7 +57,7 @@ const ChatSearch = () => {
   return (
     <div
       ref={ref}
-      className="max-w-[390px] relative  w-full flex  items-center bg-white rounded-[48px] p-1 pr-3"
+      className="max-w-[390px] relative  hidden  w-full sm:flex  items-center bg-white rounded-[48px] p-1 pr-3"
     >
       <button className="pl-2">
         <svg

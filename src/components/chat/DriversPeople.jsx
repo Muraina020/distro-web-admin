@@ -12,6 +12,7 @@ import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 import { useChatContext } from "../../context/ChatContext";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const DriversPeople = () => {
   const [chatUsers, setChatUsers] = useState([]);
@@ -19,6 +20,7 @@ const DriversPeople = () => {
   const { dispatch } = useChatContext();
   const { chatRoomId, setSelect } = useChatContext();
   const [active, setActive] = useState(chatRoomId);
+  const { admin } = useAuthContext();
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
   useEffect(() => {

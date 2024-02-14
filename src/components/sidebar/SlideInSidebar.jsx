@@ -39,8 +39,8 @@ const SlideInSidebar = () => {
           </figure>
 
           <div>
-            <h2 className="text-base font-medium">John Jonson</h2>
-            <p className="text-xs text-graylight">Driver</p>
+            <h2 className="text-base font-medium">Distro support</h2>
+            <p className="text-xs text-graylight">Admin</p>
           </div>
         </div>
 

@@ -1,10 +1,10 @@
 import { DataTable, TableLoading, Wrapper } from "../../components";
-import { expressOrderHistoryColumn } from "../../components/tableColumns/expressOrderHistoryColumn";
+import { BlockedUsersColumn } from "../../components/tableColumns/BlockedUsersColumn";
 import useCustomFetch from "../../hooks/useCustomFetch";
 
 const Customers = () => {
   const { data: _data, loading } = useCustomFetch(
-    "/customers/deactivated?PageSize=1000"
+    `/customers/deactivated?PageSize=${Infinity}`
   );
 
   const data = _data?.content || [];
@@ -19,7 +19,7 @@ const Customers = () => {
 
   return (
     <Wrapper>
-      <DataTable columns={expressOrderHistoryColumn} data={data} />
+      <DataTable columns={BlockedUsersColumn} filter={true} data={data} />
     </Wrapper>
   );
 };

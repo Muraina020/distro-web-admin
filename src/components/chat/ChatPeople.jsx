@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import DriversPeople from "./DriversPeople";
-import CustomersPeople from "./CustomersPeople";
 import { useChatContext } from "../../context/ChatContext";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
@@ -23,7 +22,7 @@ const ChatPeople = () => {
             pathName === "/chat" ? "text-primary-default" : null
           }`}
         >
-          Customers
+          Chat
           {pathName === "/chat" && (
             <span className="w-full h-[0.1rem] inline-block top-full absolute left-0 bg-primary-default " />
           )}
@@ -31,7 +30,6 @@ const ChatPeople = () => {
       </div>
 
       {pathName === "/chat" && <DriversPeople />}
-      {pathName === "/chat/customer" && <CustomersPeople />}
     </aside>
   );
 };
