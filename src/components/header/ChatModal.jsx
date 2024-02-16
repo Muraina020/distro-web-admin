@@ -2,7 +2,7 @@ import { getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import ChatUserSearch from "./ChatUserSearch";
 
-const ChatModal = ({ data, searchValue }) => {
+const ChatModal = ({ data, searchValue, handleSearchModal }) => {
   return (
     <div className="absolute w-full h-[13rem] py-2 overflow-y-auto bg-white rounded-md shadow-lg top-full left-0">
       {!searchValue && (
@@ -18,7 +18,9 @@ const ChatModal = ({ data, searchValue }) => {
       {data.length > 0 && searchValue && (
         <ul>
           {data.map((user, i) => {
-            return <ChatUserSearch key={i} user={user} />;
+            return (
+              <ChatUserSearch key={i} user={user} onclick={handleSearchModal} />
+            );
           })}
         </ul>
       )}

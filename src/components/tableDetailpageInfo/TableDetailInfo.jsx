@@ -1,7 +1,8 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthProvider";
 import { formatPrice, formateDate } from "../../utils";
-import { Star, StarBorderOutlined, StarHalf } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { doc, getDoc, setDoc, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const TableDetailInfo = ({ data }) => {
   const {
@@ -18,9 +19,11 @@ const TableDetailInfo = ({ data }) => {
     senderAddress,
     driver,
     dropOffs,
+    email,
   } = data;
-
-  console.log(driver);
+  const {
+    admin: { phoneNoOrEmail: currentUid },
+  } = useAuthContext();
 
   const formattedColor =
     status === "Pending"
@@ -33,24 +36,47 @@ const TableDetailInfo = ({ data }) => {
       ? "#2593F0"
       : "#FF3838";
 
-  const renderStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
+  async function handleClick() {
+    const combinedId =
+      currentUid > email ? currentUid + email : email + currentUid;
 
-    for (let i = 1; i <= 5; i++) {
-      if (i <= fullStars) {
-        stars.push(<Star className="text-primary-default" />);
-      } else if (hasHalfStar && i === fullStars + 1) {
-        stars.push(<StarHalf className="text-primary-default" />);
-      } else {
-        stars.push(<StarBorderOutlined className="text-primary-default" />);
+    const docRef = doc(db, "Chatrooms", combinedId);
+
+    const res = await getDoc(docRef);
+
+    try {
+      console.log(res.exists());
+      if (!res.exists()) {
+        await setDoc(doc(db, "Chatrooms", combinedId), {
+          chatRoomId: combinedId,
+          isRequestSent: false,
+          lastMessage: "",
+          lastMessageSenderId: "",
+          lastMessageTime: "",
+          unreadMessageCount: 0,
+          userIds: [email, currentUid],
+          users: [
+            {
+              deletedAt: "",
+              name: senderName,
+              profileUrl: null,
+              uid: email,
+              fcmToken: "",
+            },
+            {
+              deletedAt: "",
+              name: "Distro Support",
+              profileUrl: null,
+              uid: currentUid,
+              fcmToken: "",
+            },
+          ],
+        });
       }
+    } catch (error) {
+      console.log(error);
     }
-    // console.log(stars);
-
-    return stars.slice(0, 5);
-  };
+  }
 
   return (
     <div>
@@ -89,9 +115,17 @@ const TableDetailInfo = ({ data }) => {
           <h5 className="lg:text-[1.5625rem] text-[1.1rem] font-semibold leading-[-0.05875rem]">
             {formatPrice(price)}
           </h5>
-          <span className="inline-block rounded-[0.40475rem] lg:text-[1.48144rem] text-[1rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
+          <span className="block rounded-[0.40475rem]  text-[1rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
             {payment}
           </span>
+
+          <Link
+            onClick={handleClick}
+            to={"/chat"}
+            className=" rounded-lg bg-primary-default text-white p-2  block text-center text-sm hover:bg-primary-default/90 transition duration-300 mt-2"
+          >
+            Message customer
+          </Link>
         </div>
       </div>
 
@@ -217,12 +251,6 @@ const TableDetailInfo = ({ data }) => {
                 <h2 className="font-medium">{driver?.driverId}</h2>
                 <h6 className="text-gray-500"> {formateDate(date)}</h6>
               </div>
-            </div>
-
-            <div className="">
-              {driver?.ratings.map((item) => (
-                <Star className="text-primary-default" />
-              ))}
             </div>
           </div>
         </div>

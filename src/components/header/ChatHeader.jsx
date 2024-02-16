@@ -4,9 +4,11 @@ import Container from "../ui/Container";
 import { useAppContext } from "../../context/AppContext";
 
 import ChatSearch from "./ChatSearch";
+import { useChatContext } from "../../context/ChatContext";
 
 const ChatHeader = () => {
   const { openSidebar } = useAppContext();
+  const { setIsOpen } = useChatContext();
 
   return (
     <header className=" py-6 lg:px-11 px-5 sticky left-0 w-full top-0 bg-background z-20 ">
@@ -52,7 +54,7 @@ const ChatHeader = () => {
           <ChatSearch />
 
           <ul className="flex gap-x-3">
-            <li className="sm:hidden block">
+            <li onClick={() => setIsOpen(true)} className="sm:hidden block">
               <button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

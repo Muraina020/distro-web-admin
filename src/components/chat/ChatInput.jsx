@@ -11,11 +11,16 @@ import {
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useChatContext } from "../../context/ChatContext";
 import { v4 as uuid } from "uuid";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const ChatInput = () => {
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const { chatRoomId } = useChatContext();
+
+  const {
+    admin: { phoneNoOrEmail: CurrentUid },
+  } = useAuthContext();
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -40,21 +45,24 @@ const ChatInput = () => {
       code,
       content,
       createdOn: serverTimestamp(),
-      senderId: "support@distro.com.ng",
+      senderId: CurrentUid,
       id: uuid(),
       isMessageRead: false,
     });
 
+    // console.log("i was");
+
     // Update chatroom properties
     const chatRoomRef = doc(db, "Chatrooms", chatRoomId);
     await updateDoc(chatRoomRef, {
-      lastMessageSenderId: "support@distro.com.ng",
+      lastMessageSenderId: CurrentUid,
       lastMessageTime: Timestamp.now(),
       lastMessage: content,
     });
 
     // Reset input fields
     setText("");
+    console.log("i waset reached");
     setImage(null);
   };
 

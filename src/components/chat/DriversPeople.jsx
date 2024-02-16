@@ -27,7 +27,7 @@ const DriversPeople = () => {
     const fetchPeople = () => {
       const q = query(
         collection(db, "Chatrooms"),
-        where("userIds", "array-contains", "support@distro.com.ng"),
+        where("userIds", "array-contains", admin.phoneNoOrEmail),
         orderBy("lastMessageTime", "desc")
       );
       const unsub = onSnapshot(q, (querySnapShot) => {

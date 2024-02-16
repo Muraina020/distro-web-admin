@@ -1,20 +1,25 @@
-import { doc, getDocs, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, addDoc, Timestamp } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthProvider";
 import { db } from "../../firebase";
 
-const ChatUserSearch = ({ user }) => {
-  const { phoneNoOrEmail } = useAuthContext();
+const ChatUserSearch = ({ user, onclick }) => {
+  const {
+    admin: { phoneNoOrEmail: currentUid },
+  } = useAuthContext();
 
-  const handleClick = async () => {
-    const currentUid = "support@distro.com.ng";
+  async function handleClick() {
     const combinedId =
-      currentUid > user.uid ? currentUid + user.uid : user.uid + currentUid;
+      currentUid > user.uid
+        ? currentUid + "_" + user.uid
+        : user.uid + "_" + currentUid;
+
+    const docRef = doc(db, "Chatrooms", combinedId);
+
+    const res = await getDoc(docRef);
 
     try {
-      const res = await getDocs(db, "Chatrooms", combinedId);
-
-      if (!res.exits()) {
-        await setDoc(doc, db, "Chatrooms", combinedId, {
+      if (!res.exists()) {
+        await setDoc(doc(db, "Chatrooms", combinedId), {
           chatRoomId: combinedId,
           isRequestSent: false,
           lastMessage: "",
@@ -24,16 +29,18 @@ const ChatUserSearch = ({ user }) => {
           userIds: [user.uid, currentUid],
           users: [
             {
-              deletedAt: "",
+              deletedAt: Timestamp.now(),
               name: user.name,
               profileUrl: null,
               uid: user.uid,
+              fcmToken: "",
             },
             {
-              deletedAt: "",
+              deletedAt: Timestamp.now(),
               name: "Distro Support",
               profileUrl: null,
-              uid: user.uid,
+              uid: currentUid,
+              fcmToken: "",
             },
           ],
         });
@@ -41,7 +48,8 @@ const ChatUserSearch = ({ user }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+    onclick();
+  }
 
   return (
     <li

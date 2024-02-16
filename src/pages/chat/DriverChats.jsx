@@ -113,7 +113,7 @@ const DriverChats = () => {
               />
             </div>
             <div>
-              <h1 className="xl:text-[1.2rem] md:text-[1.1rem] text-base leading-[1.32213rem]  text-primary-black font-semibold">
+              <h1 className="xl:text-[1.2rem] capitalize md:text-[1.1rem] text-base leading-[1.32213rem]  text-primary-black font-semibold">
                 {user.name}
               </h1>
               <h6 className="text-primary-default xl:text-[1rem] mt-1 text-sm font-medium">
