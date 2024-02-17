@@ -3,7 +3,7 @@ import { DataTable, TableLoading } from "../../components";
 
 import { orderStatusNavText } from "../../utils/data";
 import { customFetch } from "../../utils";
-import { orderColumn } from "../../components/tableColumns/OrderTable";
+import { orderColumn } from "../../components/tableColumns/orderTable";
 import { useAuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 

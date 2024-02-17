@@ -9,6 +9,7 @@ const ChatSearchMobile = ({ handleChange, searchValue, data }) => {
   const handleClose = () => {
     setIsOpen(false);
   };
+
   return (
     <>
       <div

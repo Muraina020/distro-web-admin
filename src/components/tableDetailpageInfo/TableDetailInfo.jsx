@@ -3,6 +3,8 @@ import { formatPrice, formateDate } from "../../utils";
 import { Link } from "react-router-dom";
 import { doc, getDoc, setDoc, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useChatContext } from "../../context/ChatContext";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const TableDetailInfo = ({ data }) => {
   const {
@@ -21,10 +23,18 @@ const TableDetailInfo = ({ data }) => {
     dropOffs,
     email,
   } = data;
+
+  const user = { name: senderName, uid: email };
+
+  console.log(user);
+
   const {
     admin: { phoneNoOrEmail: currentUid },
   } = useAuthContext();
+  const { dispatch, setSelect, setActive } = useChatContext();
+  const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
+  console.log(data);
   const formattedColor =
     status === "Pending"
       ? "#00A69C"
@@ -36,17 +46,28 @@ const TableDetailInfo = ({ data }) => {
       ? "#2593F0"
       : "#FF3838";
 
+  const handleSelectUser = (u, id) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+    setActive(id);
+
+    if (!isMediumDevice) {
+      setSelect(true);
+    }
+  };
+  const combinedId =
+    currentUid > email ? currentUid + "_" + email : email + "_" + currentUid;
+  console.log(combinedId);
+
   async function handleClick() {
     const combinedId =
-      currentUid > email ? currentUid + email : email + currentUid;
+      currentUid > email ? currentUid + "_" + email : email + "_" + currentUid;
 
     const docRef = doc(db, "Chatrooms", combinedId);
-
     const res = await getDoc(docRef);
 
     try {
-      console.log(res.exists());
       if (!res.exists()) {
+        console.log("reached");
         await setDoc(doc(db, "Chatrooms", combinedId), {
           chatRoomId: combinedId,
           isRequestSent: false,
@@ -73,6 +94,7 @@ const TableDetailInfo = ({ data }) => {
           ],
         });
       }
+      handleSelectUser(user, combinedId);
     } catch (error) {
       console.log(error);
     }
@@ -210,20 +232,27 @@ const TableDetailInfo = ({ data }) => {
           </span>
         </li>
         <div className="grid grid-cols-2 items-center   gap-x-[5rem] gap-y-8 mt-5">
-          <li className="py-3 px-2 border-b w-full flex items-center justify-between">
-            <span className=" lg:text-[1.125rem] text-[.9rem] ">Driver ID</span>
-            <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-              {driver?.driverId}
-            </span>
-          </li>
-          <li className="py-3 px-2 border-b w-full flex items-center justify-between">
-            <span className=" lg:text-[1.125rem] text-[.9rem] ">
-              Driver Name
-            </span>
-            <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-              {`${driver?.firstName} ${driver?.lastName}`}
-            </span>
-          </li>
+          {driver && (
+            <li className="py-3 px-2 border-b w-full flex items-center justify-between">
+              <span className=" lg:text-[1.125rem] text-[.9rem] ">
+                Driver ID
+              </span>
+              <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+                {driver?.driverId}
+              </span>
+            </li>
+          )}
+
+          {driver && (
+            <li className="py-3 px-2 border-b w-full flex items-center justify-between">
+              <span className=" lg:text-[1.125rem] text-[.9rem] ">
+                Driver Name
+              </span>
+              <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+                {`${driver?.firstName} ${driver?.lastName}`}
+              </span>
+            </li>
+          )}
         </div>
       </ul>
 

@@ -16,10 +16,7 @@ import { useAuthContext } from "../../context/AuthProvider";
 
 const DriversPeople = () => {
   const [chatUsers, setChatUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { dispatch } = useChatContext();
-  const { chatRoomId, setSelect } = useChatContext();
-  const [active, setActive] = useState(chatRoomId);
+  const { setSelect, active, setActive, dispatch } = useChatContext();
   const { admin } = useAuthContext();
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
@@ -37,7 +34,6 @@ const DriversPeople = () => {
         });
         setChatUsers(people);
       });
-      setLoading(false);
 
       return () => unsub();
     };

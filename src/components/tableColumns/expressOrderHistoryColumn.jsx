@@ -1,3 +1,4 @@
+import { ArrowUpDown } from "lucide-react";
 import { formatPrice, formateDate } from "../../utils";
 import { Link } from "react-router-dom";
 
@@ -14,7 +15,17 @@ export const expressOrderHistoryColumn = [
   },
   {
     accessorKey: "date",
-    header: <p className="text-center">ORDER DATE</p>,
+    header: ({ column }) => {
+      return (
+        <button
+          className="flex group items-center py-1 rounded-lg px-2 hover:bg-blue-100 duration-150 transition"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          ORDER DATE
+          <ArrowUpDown className="ml-2 h-4 w-4 group-active:scale-90 transition-all duration-200" />
+        </button>
+      );
+    },
     cell: (props) => {
       const date = props.getValue();
       return (

@@ -4,6 +4,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 
 import DataTablePagination from "./ui/DataTablePagination";
@@ -11,6 +12,7 @@ import { useState } from "react";
 
 const DataTable = ({ data, columns, filter }) => {
   const [columnFilters, setColumnFilters] = useState([]);
+  const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
     data,
@@ -19,8 +21,11 @@ const DataTable = ({ data, columns, filter }) => {
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     state: {
       columnFilters,
+      sorting,
     },
   });
 
@@ -49,9 +54,14 @@ const DataTable = ({ data, columns, filter }) => {
                   return (
                     <th
                       key={i}
-                      className="lg:text-[1rem]   text-[.9rem] py-7  font-semibold"
+                      className="lg:text-[1rem]   text-[.9rem] py-5  font-semibold"
                     >
-                      {header.column.columnDef.header}
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </th>
                   );
                 })}

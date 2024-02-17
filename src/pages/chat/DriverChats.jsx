@@ -130,24 +130,31 @@ const DriverChats = () => {
           <div className="flex-grow pb-4">
             <div className="px-4 mt-2">
               <div className="flex flex-col">
-                {messages.map((chat, index) => {
-                  return (
-                    <React.Fragment key={chat.id}>
-                      {index === 0 ||
-                      !isSameDay(
-                        chat.data?.createdOn?.toDate(),
-                        messages[index - 1].data?.createdOn?.toDate()
-                      ) ? (
-                        <div className="grid place-items-center">
-                          <div className="py-1 px-3 sm:text-sm text-xs bg-neutral-200 inline-block my-3  rounded-md">
-                            {formatDate(chat?.data?.createdOn)}
+                {messages.length < 1 && (
+                  <h1 className="text-gray-500 text-center md:text-2xl text-base font-semibold  mt-14">
+                    Your messages appear here...{" "}
+                  </h1>
+                )}
+
+                {messages.length > 0 &&
+                  messages.map((chat, index) => {
+                    return (
+                      <React.Fragment key={chat.id}>
+                        {index === 0 ||
+                        !isSameDay(
+                          chat.data?.createdOn?.toDate(),
+                          messages[index - 1].data?.createdOn?.toDate()
+                        ) ? (
+                          <div className="grid place-items-center">
+                            <div className="py-1 px-3 sm:text-sm text-xs bg-neutral-200 inline-block my-3  rounded-md">
+                              {formatDate(chat?.data?.createdOn)}
+                            </div>
                           </div>
-                        </div>
-                      ) : null}
-                      <Message chat={chat} />
-                    </React.Fragment>
-                  );
-                })}
+                        ) : null}
+                        <Message chat={chat} />
+                      </React.Fragment>
+                    );
+                  })}
               </div>
             </div>
           </div>

@@ -29,10 +29,20 @@ const ChatContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ChatReducer, INITIAL_STATE);
   const [select, setSelect] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState(state.chatRoomId);
 
   return (
     <ChatContext.Provider
-      value={{ ...state, dispatch, setSelect, select, isOpen, setIsOpen }}
+      value={{
+        ...state,
+        dispatch,
+        setSelect,
+        select,
+        isOpen,
+        setIsOpen,
+        active,
+        setActive,
+      }}
     >
       {children}
     </ChatContext.Provider>

@@ -1,11 +1,27 @@
 import { doc, setDoc, getDoc, addDoc, Timestamp } from "firebase/firestore";
 import { useAuthContext } from "../../context/AuthProvider";
 import { db } from "../../firebase";
+import { useChatContext } from "../../context/ChatContext";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const ChatUserSearch = ({ user, onclick }) => {
+  const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
+
   const {
     admin: { phoneNoOrEmail: currentUid },
   } = useAuthContext();
+  const { dispatch, setSelect, setActive } = useChatContext();
+
+  // console.log(user);
+
+  const handleSelectUser = (u, id) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+    setActive(id);
+
+    if (!isMediumDevice) {
+      setSelect(true);
+    }
+  };
 
   async function handleClick() {
     const combinedId =
@@ -14,7 +30,6 @@ const ChatUserSearch = ({ user, onclick }) => {
         : user.uid + "_" + currentUid;
 
     const docRef = doc(db, "Chatrooms", combinedId);
-
     const res = await getDoc(docRef);
 
     try {
@@ -44,7 +59,11 @@ const ChatUserSearch = ({ user, onclick }) => {
             },
           ],
         });
+        console.log();
       }
+      handleSelectUser(user, combinedId);
+
+      console.log(user, combinedId);
     } catch (error) {
       console.log(error);
     }
