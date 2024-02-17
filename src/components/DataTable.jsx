@@ -10,7 +10,7 @@ import {
 import DataTablePagination from "./ui/DataTablePagination";
 import { useState } from "react";
 
-const DataTable = ({ data, columns, filter }) => {
+const DataTable = ({ data, columns, filter, condition }) => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
 
@@ -29,15 +29,17 @@ const DataTable = ({ data, columns, filter }) => {
     },
   });
 
+  const columnName = condition === "name" ? "name" : "fullName";
+
   return (
     <div className="pb-5 ">
       <div className="overflow-x-auto">
         {filter && (
           <div className="flex justify-end my-4 pr-5">
             <input
-              value={table.getColumn("name")?.getFilterValue() ?? ""}
+              value={table.getColumn(columnName)?.getFilterValue() ?? ""}
               onChange={(event) =>
-                table.getColumn("name")?.setFilterValue(event.target.value)
+                table.getColumn(columnName)?.setFilterValue(event.target.value)
               }
               type="text"
               placeholder="filter name..."

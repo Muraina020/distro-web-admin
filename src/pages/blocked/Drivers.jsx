@@ -19,7 +19,12 @@ const Drivers = () => {
 
   return (
     <Wrapper>
-      <DataTable columns={BlockedDriversColumn} filter={true} data={data} />
+      <DataTable
+        condition={"name"}
+        columns={BlockedDriversColumn}
+        filter={true}
+        data={data}
+      />
     </Wrapper>
   );
 };

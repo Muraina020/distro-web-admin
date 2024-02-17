@@ -153,7 +153,7 @@ const router = createBrowserRouter([
         element: <OrderDetails />,
       },
       {
-        path: "exprees_order pending_asign-drivers",
+        path: "assign driver",
         element: <ExpressPendingDrivers />,
       },
       {

@@ -9,6 +9,7 @@ const DataTablePagination = ({ table }) => {
   const pageCount = table.getPageCount();
   // const pageIndex = table.getState().pagination.pageIndex + 1;
   const [pageIndex, setPageIndex] = useState(1);
+  const [displayPages, setDisplayedPages] = useState([]);
 
   const pages = Array.from({ length: pageCount }, (_, index) => {
     return index + 1;
@@ -24,9 +25,20 @@ const DataTablePagination = ({ table }) => {
     const pageParams = new URLSearchParams(search);
     const page = parseInt(pageParams.get("page"), 10) || 1;
     setPageIndex(page);
-
+    updateDisplayedPages(page);
     table.setPageIndex(page - 1);
-  }, []);
+  }, [pageIndex, search]);
+
+  const updateDisplayedPages = (currentPage) => {
+    const totalPages = Math.min(5, pageCount);
+    const half = Math.floor(totalPages / 2);
+    let start = currentPage - half;
+    start = Math.max(start, 1);
+    start = Math.min(start, Math.max(1, pageCount - totalPages + 1));
+    setDisplayedPages(
+      Array.from({ length: totalPages }, (_, index) => start + index)
+    );
+  };
 
   const goToPage = (pageNumber) => {
     const newUrl = createPageUrl(pageNumber);
@@ -50,7 +62,8 @@ const DataTablePagination = ({ table }) => {
           >
             <GoChevronLeft />
           </button>
-          {pages.map((pageNumber) => {
+
+          {displayPages.map((pageNumber) => {
             return (
               <button
                 key={pageNumber}

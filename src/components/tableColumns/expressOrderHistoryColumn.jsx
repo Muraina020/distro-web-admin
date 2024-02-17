@@ -5,7 +5,19 @@ import { Link } from "react-router-dom";
 export const expressOrderHistoryColumn = [
   {
     accessorKey: "shipmentId",
-    header: "Order ID",
+    header: (props) => {
+      return (
+        <button
+          className="flex group items-center py-1 rounded-lg px-2 hover:bg-blue-100 duration-150 transition"
+          onClick={() =>
+            props.column.toggleSorting(props.column.getIsSorted() === "asc")
+          }
+        >
+          ORDER ID
+          <ArrowUpDown className="ml-2 h-4 w-4 group-active:scale-90 transition-all duration-200" />
+        </button>
+      );
+    },
 
     cell: (props) => (
       <p className="whitespace-nowrap">

@@ -12,8 +12,6 @@ const ChatUserSearch = ({ user, onclick }) => {
   } = useAuthContext();
   const { dispatch, setSelect, setActive } = useChatContext();
 
-  // console.log(user);
-
   const handleSelectUser = (u, id) => {
     dispatch({ type: "CHANGE_USER", payload: u });
     setActive(id);
@@ -59,7 +57,6 @@ const ChatUserSearch = ({ user, onclick }) => {
             },
           ],
         });
-        console.log();
       }
       handleSelectUser(user, combinedId);
 

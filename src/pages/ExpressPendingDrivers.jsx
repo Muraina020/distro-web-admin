@@ -1,45 +1,46 @@
-import { DataTable, Wrapper } from "../components";
+import { DataTable, TableLoading, Wrapper } from "../components";
 import { useState } from "react";
-import { activedrivers, inactivedrivers } from "../utils/data";
-import { pendingAddDriverColumn } from "../components/tableColumns/pendingAddDriversColumn";
+import { inactivedrivers } from "../utils/data";
+import { assignDriverColumn } from "../components/tableColumns/assignDriverColumn";
 import ArrowBack from "../components/ui/ArrowBack";
 import { inActiveDriversColumn } from "../components/tableColumns/InActiveDriversColumn";
-
-const miniNavlink = ["Active Drivers", "inactive Drivers"];
+import useCustomFetch from "../hooks/useCustomFetch";
 
 const ExpressPendingDrivers = () => {
-  const [active, setActive] = useState("Active Drivers");
+  const { data: _data, loading } = useCustomFetch(
+    `/drivers/active/all?PageSize=${Infinity}`
+  );
+
+  const data = _data.content || [];
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <TableLoading />
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
       <ArrowBack link={"/dashboard/orderTracking"} />
-      <nav className="text-center grid grid-cols-2 border-b border-graylight/90">
-        {miniNavlink.map((navtext) => {
-          const isActive = active === navtext;
-          return (
-            <button
-              onClick={() => setActive(navtext)}
-              key={navtext}
-              className={`relative uppercase  py-2 lg:text-[1.2625rem] text-[.9rem] leading-[2.08444rem] ${
-                isActive ? "text-primary-default" : " text-graylight"
-              }`}
-            >
-              {navtext}
-              {isActive && (
-                <span className="absolute w-full h-[0.145rem] bg-primary-default left-0 top-full" />
-              )}
-            </button>
-          );
-        })}
+      <nav className="text-center border-b border-graylight/90">
+        <h4
+          className={`relative uppercase  py-2 lg:text-[1.2625rem] text-[.9rem] leading-[2.08444rem] 
+              text-graylight"
+              `}
+        >
+          Assign a Driver
+        </h4>
       </nav>
 
       <div>
-        {active === "Active Drivers" && (
-          <DataTable columns={pendingAddDriverColumn} data={activedrivers} />
-        )}
-        {active === "inactive Drivers" && (
-          <DataTable columns={inActiveDriversColumn} data={inactivedrivers} />
-        )}
+        <DataTable
+          filter={true}
+          condition="fullName"
+          columns={assignDriverColumn}
+          data={data}
+        />
       </div>
     </Wrapper>
   );

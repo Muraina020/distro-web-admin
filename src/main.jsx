@@ -8,6 +8,7 @@ import { AuthProvider } from "./context/AuthProvider.jsx";
 import { ToastContainer } from "react-toastify";
 import ChatContextProvider from "./context/ChatContext.jsx";
 import DataImportProvider from "./context/DataImportContext.jsx";
+import { AssignOrderProvider } from "./context/AssignOrderContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,8 +17,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <DataImportProvider>
           <ChakraProvider>
             <AppProvider>
-              <App />
-              <ToastContainer position="top-right" />
+              <AssignOrderProvider>
+                <App />
+                <ToastContainer position="top-right" />
+              </AssignOrderProvider>
             </AppProvider>
           </ChakraProvider>
         </DataImportProvider>

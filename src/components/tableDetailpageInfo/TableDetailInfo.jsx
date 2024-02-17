@@ -5,6 +5,8 @@ import { doc, getDoc, setDoc, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useChatContext } from "../../context/ChatContext";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import TableDetailBtn from "../ui/TableDetailBtn";
+import { useAsiignDriverContext } from "../../context/AssignOrderContext";
 
 const TableDetailInfo = ({ data }) => {
   const {
@@ -23,18 +25,14 @@ const TableDetailInfo = ({ data }) => {
     dropOffs,
     email,
   } = data;
-
   const user = { name: senderName, uid: email };
-
-  console.log(user);
-
   const {
     admin: { phoneNoOrEmail: currentUid },
   } = useAuthContext();
+  const { setOrderId } = useAsiignDriverContext();
   const { dispatch, setSelect, setActive } = useChatContext();
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
-  console.log(data);
   const formattedColor =
     status === "Pending"
       ? "#00A69C"
@@ -54,9 +52,6 @@ const TableDetailInfo = ({ data }) => {
       setSelect(true);
     }
   };
-  const combinedId =
-    currentUid > email ? currentUid + "_" + email : email + "_" + currentUid;
-  console.log(combinedId);
 
   async function handleClick() {
     const combinedId =
@@ -282,6 +277,17 @@ const TableDetailInfo = ({ data }) => {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {!driver && (
+        <div className="text-center mt-5">
+          <TableDetailBtn
+            onclick={() => setOrderId(shipmentId)}
+            link={"/dashboard/assign driver"}
+          >
+            Assign Driver
+          </TableDetailBtn>
         </div>
       )}
     </div>

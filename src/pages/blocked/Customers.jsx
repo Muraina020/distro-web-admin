@@ -9,6 +9,8 @@ const Customers = () => {
 
   const data = _data?.content || [];
 
+  console.log(data);
+
   if (loading) {
     return (
       <Wrapper>
@@ -19,7 +21,12 @@ const Customers = () => {
 
   return (
     <Wrapper>
-      <DataTable columns={BlockedUsersColumn} filter={true} data={data} />
+      <DataTable
+        condition={"name"}
+        columns={BlockedUsersColumn}
+        filter={true}
+        data={data}
+      />
     </Wrapper>
   );
 };
