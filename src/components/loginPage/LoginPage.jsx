@@ -5,20 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./loginPage.css";
-import axios from "../../api/axiosInstance";
-import { useAuthContext } from "../../context/AuthProvider";
+import axios from '../../api/axiosInstance';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { setAdmin, admin } = useAuthContext();
-
+  const [showPassword, setShowPassword] = useState(false);
   const [credential, setCredential] = useState({
     phoneNoOrEmail: "",
     password: "",
-    accessToken: "",
+    accesToken: "",
   });
-
-  // console.log(admin, credential);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,9 +34,9 @@ const LoginPage = () => {
         accessToken,
       };
 
-      setCredential(data);
-      setAdmin(data);
       localStorage.setItem("user", JSON.stringify(data));
+      setCredential(data);
+
       toast.success("Login successful!");
 
       setTimeout(() => {
@@ -56,6 +52,10 @@ const LoginPage = () => {
     const value = e.target.value;
     const name = e.target.name;
     setCredential({ ...credential, [name]: value });
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -79,14 +79,14 @@ const LoginPage = () => {
         </div>
         <div className="second-inp">
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             onChange={handleChange}
             name="password"
             value={credential.password}
             placeholder="password"
           />
           <span className="eye-icon">
-            <RemoveRedEyeIcon />
+            <RemoveRedEyeIcon onClick={handleTogglePassword}/>
           </span>
         </div>
         <div className="remember">

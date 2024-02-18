@@ -33,3 +33,4 @@ export const generateToken = async () => {
     console.log(token);
   }
 };
+

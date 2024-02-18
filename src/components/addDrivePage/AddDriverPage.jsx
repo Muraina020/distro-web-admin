@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import {
   Table,
   Tbody,
@@ -11,19 +10,15 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-import { Avatar } from "@files-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import upload from "../../assets/img/upload.png";
 import React, { useState, useEffect } from "react";
 import { customFetch } from "../../utils";
 import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
-import { FileInputButton, FileCard } from "@files-ui/react";
 import "react-datepicker/dist/react-datepicker.css";
-// import { imgDB } from "../../components/addDrivePage/firebaseimgConfig";
-import { imgDB } from "../../firebase";
-import { v4 } from "uuid";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+// import {imgDB} from "../../components/addDrivePage/firebaseimgConfig";
+import {imgDB} from "../../firebase";
+import {v4} from "uuid";
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage";
 
 const AddDriverPage = () => {
   const [section, setSection] = useState("account");
@@ -39,12 +34,13 @@ const AddDriverPage = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [gender, setGender] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  // const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState(null);
   const [nextOfKinFirstname, setNextOfKinFirstname] = useState("");
   const [nextOfKinLastname, setNextOfKinLastname] = useState("");
   const [nextOfKinPhone, setNextOfKinPhone] = useState("");
   const [vehiclePlateNumber, setVehiclePlateNumber] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  const [userAvatar, setUserAvatar] = useState('');
   const [showPersonalInfo, setShowPersonalInfo] = useState(false);
   const [data, setData] = useState([]);
   const [vehicleType, setVehicleType] = useState("");
@@ -79,7 +75,7 @@ const AddDriverPage = () => {
       setData(response.data);
       console.log(response);
 
-      // navigate("/dashboard/success");
+      navigate("/dashboard/success");
     } catch (error) {
       console.error("Error fetching drivers:", error);
     }
@@ -112,8 +108,8 @@ const AddDriverPage = () => {
   //       // console.log(val)
   //       setUserAvatar(val)
   //     })
-  //   })
-  // }
+  //   }) 
+  // } 
 
   const handleUpload = async (e) => {
     try {
@@ -206,13 +202,14 @@ const AddDriverPage = () => {
                     marginTop="40px"
                     marginBottom="15px"
                   >
-                    {/* ... (your account information form fields) */}
                     <Input
                       placeholder="Username"
                       border="2px solid gray"
                       borderRadius="4px"
                       p="2"
                       width="330px"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
                       height="40px"
                       marginTop="40px"
                       cursor="pointer"
@@ -222,6 +219,8 @@ const AddDriverPage = () => {
                       border="2px solid gray"
                       borderRadius="4px"
                       p="2"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       width="330px"
                       height="40px"
                       marginTop="40px"
@@ -560,7 +559,7 @@ const AddDriverPage = () => {
                     marginTop="10px"
                     marginBottom="15px"
                   >
-                    <input type="file" onChange={(e) => handleUpload(e)} />
+                 <input type="file" onChange={(e)=>handleUpload(e)}/>
                   </Flex>
                 </Td>
               </Tr>

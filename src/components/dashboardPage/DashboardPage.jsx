@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ife from "../../assets/img/ife.png";
 import date1 from "../../assets/img/date1.png";
@@ -11,8 +11,8 @@ import driver1 from "../../assets/img/driver1.png";
 import or from "../../assets/img/or.png";
 import usr from "../../assets/img/usr.png";
 import hamburg from "../../assets/img/hamburg.png";
-// import customer1 from "../../assets/img/customer1.png";
 import "./dashboardPage.css";
+import { customFetch } from "../../utils";
 import RecentOrders from "./RecentOrders";
 
 const DashboardPage = () => {
@@ -28,10 +28,10 @@ const DashboardPage = () => {
   const [timeDurationCard2, setTimeDurationCard2] = useState("daily");
   const [timeDurationCard3, setTimeDurationCard3] = useState("daily");
   const [timeDurationCard4, setTimeDurationCard4] = useState("daily");
-  const [prizeCard1, setPrizeCard1] = useState("$30.5k"); // Default prize
-  const [prizeCard2, setPrizeCard2] = useState("$30.5k");
-  const [prizeCard3, setPrizeCard3] = useState("$30.5k");
-  const [prizeCard4, setPrizeCard4] = useState("$30.5k");
+  const [prizeCard1, setPrizeCard1] = useState(null);
+  const [prizeCard2, setPrizeCard2] = useState(null);
+  const [prizeCard3, setPrizeCard3] = useState(null);
+  const [prizeCard4, setPrizeCard4] = useState(null);
 
   const apiEndpoints = {
     card1: "https://apps-1.lampnets.com/distro/orders/sum",
@@ -40,54 +40,53 @@ const DashboardPage = () => {
     card4: "https://apps-1.lampnets.com/distro/drivers/size",
   };
 
-  console.log(apiEndpoints);
-
   const fetchPrizeData = async (card) => {
     try {
       const response = await customFetch.get(apiEndpoints[card]);
-
+  
       switch (card) {
-        case "card1":
+        case 'card1':
           setPrizeCard1(response.data.amount);
           break;
-        case "card2":
+        case 'card2':
           setPrizeCard2(response.data.total);
           break;
-        case "card3":
+        case 'card3':
           setPrizeCard3(response.data.total);
           break;
-        case "card4":
+        case 'card4':
           setPrizeCard4(response.data.total);
           break;
         default:
           break;
       }
-
+  
       // console.log(response);
     } catch (error) {
       console.error(`Error fetching prize data for ${card}:`, error);
+     
     }
   };
-
+  
   useEffect(() => {
-    fetchPrizeData("card1");
-    fetchPrizeData("card2");
-    fetchPrizeData("card3");
-    fetchPrizeData("card4");
+    fetchPrizeData('card1');
+    fetchPrizeData('card2');
+    fetchPrizeData('card3');
+    fetchPrizeData('card4');
   }, []); // Fetch prize data on component mount
 
   const handleMoreVertClick = (card) => {
     switch (card) {
-      case "card1":
+      case 'card1':
         setDropdownOpenCard1(isDropdownOpenCard1 === true ? false : true);
         break;
-      case "card2":
+      case 'card2':
         setDropdownOpenCard2(isDropdownOpenCard2 === true ? false : true);
         break;
-      case "card3":
+      case 'card3':
         setDropdownOpenCard3(isDropdownOpenCard3 === true ? false : true);
         break;
-      case "card4":
+      case 'card4':
         setDropdownOpenCard4(isDropdownOpenCard4 === true ? false : true);
         break;
       default:
@@ -96,99 +95,81 @@ const DashboardPage = () => {
   };
 
   const handleDailyRevenue = async () => {
-    const response = await customFetch.get(
-      "https://apps-1.lampnets.com/distro/orders/sum?dateFilter=daily"
-    );
+    const response = await customFetch.get('https://apps-1.lampnets.com/distro/orders/sum?dateFilter=daily');
     setPrizeCard1(response.data.amount);
     setDropdownOpenCard1(false);
-    setTimeDurationCard1("daily");
-  };
+    setTimeDurationCard1('daily')
+  }
   const handleWeeklyRevenue = async () => {
-    const response = await customFetch.get(
-      "https://apps-1.lampnets.com/distro/orders/sum?dateFilter=weekly"
-    );
+    const response = await customFetch.get('https://apps-1.lampnets.com/distro/orders/sum?dateFilter=weekly');
     setPrizeCard1(response.data.amount);
     setDropdownOpenCard1(false);
-    setTimeDurationCard1("weekly");
-  };
+    setTimeDurationCard1('weekly')
+  }
   const handleMonthlyRevenue = async () => {
-    const response = await customFetch.get(
-      "https://apps-1.lampnets.com/distro/orders/sum?dateFilter=monthly"
-    );
+    const response = await customFetch.get('https://apps-1.lampnets.com/distro/orders/sum?dateFilter=monthly');
     setPrizeCard1(response.data.amount);
     setDropdownOpenCard1(false);
-    setTimeDurationCard1("monthly");
-  };
+    setTimeDurationCard1('monthly')
+  }
+
 
   const handleDailyOrder = async () => {
-    const response = await customFetch.get(
-      "https://apps-1.lampnets.com/distro/orders/size?dateFilter=daily"
-    );
+    const response = await customFetch.get('https://apps-1.lampnets.com/distro/orders/size?dateFilter=daily');
     setPrizeCard2(response.data.total);
     setDropdownOpenCard2(false);
-    setTimeDurationCard2("daily");
-  };
+    setTimeDurationCard2('daily')
+  }
   const handleWeeklyOrder = async () => {
-    const response = await customFetch.get(
-      "https://apps-1.lampnets.com/distro/orders/size?dateFilter=weekly"
-    );
+    const response = await customFetch.get('https://apps-1.lampnets.com/distro/orders/size?dateFilter=weekly');
     setPrizeCard2(response.data.total);
     setDropdownOpenCard2(false);
-    setTimeDurationCard2("weekly");
-  };
+    setTimeDurationCard2('weekly')
+  }
   const handleMonthlyOrder = async () => {
-    const response = await customFetch.get(
-      "https://apps-1.lampnets.com/distro/orders/size?dateFilter=monthly"
-    );
+    const response = await customFetch.get('https://apps-1.lampnets.com/distro/orders/size?dateFilter=monthly');
     setPrizeCard2(response.data.total);
     setDropdownOpenCard2(false);
-    setTimeDurationCard2("monthly");
-  };
+    setTimeDurationCard2('monthly')
+  }
+
 
   const handleDailyDriver = async () => {
-    const response = await customFetch.get("/drivers/size?currentStatus=Free");
+    const response = await customFetch.get('/drivers/size?currentStatus=Free');
     setPrizeCard3(response.data.total);
     setDropdownOpenCard3(false);
-    setTimeDurationCard3("daily");
-  };
+    setTimeDurationCard3('daily')
+  }
   const handleWeeklyDriver = async () => {
-    const response = await customFetch.get(
-      "/drivers/size?currentStatus=Occupied"
-    );
+    const response = await customFetch.get('/drivers/size?currentStatus=Occupied');
     setPrizeCard3(response.data.total);
     setDropdownOpenCard3(false);
-    setTimeDurationCard3("weekly");
-  };
+    setTimeDurationCard3('weekly')
+  }
   const handleMonthlyDriver = async () => {
-    const response = await customFetch.get(
-      "/drivers/size?currentStatus=Offline"
-    );
+    const response = await customFetch.get('/drivers/size?currentStatus=Offline');
     setPrizeCard3(response.data.total);
     setDropdownOpenCard3(false);
-    setTimeDurationCard3("monthly");
-  };
+    setTimeDurationCard3('monthly')
+  }
   const handleDailyCustomer = async () => {
-    const response = await customFetch.get("/drivers/size?currentStatus=Free");
+    const response = await customFetch.get('/drivers/size?currentStatus=Free');
     setPrizeCard4(response.data.total);
     setDropdownOpenCard4(false);
-    setTimeDurationCard4("daily");
-  };
+    setTimeDurationCard4('daily')
+  }
   const handleWeeklyCustomer = async () => {
-    const response = await customFetch.get(
-      "/drivers/size?currentStatus=Occupied"
-    );
+    const response = await customFetch.get('/drivers/size?currentStatus=Occupied');
     setPrizeCard4(response.data.total);
     setDropdownOpenCard4(false);
-    setTimeDurationCard4("weekly");
-  };
+    setTimeDurationCard4('weekly')
+  }
   const handleMonthlyCustomer = async () => {
-    const response = await customFetch.get(
-      "/drivers/size?currentStatus=Offline"
-    );
+    const response = await customFetch.get('/drivers/size?currentStatus=Offline');
     setPrizeCard4(response.data.total);
     setDropdownOpenCard4(false);
-    setTimeDurationCard4("monthly");
-  };
+    setTimeDurationCard4('monthly')
+  }
 
   return (
     <div className="bodi">
@@ -203,18 +184,16 @@ const DashboardPage = () => {
       </div>
 
       <div className="cards">
-        <div className="card">
+      <div className="card">
           <div className="rev-profit">
             <img src={ife} alt="" />
             <span>Revenue</span>
             <span className="rev-profit-text">{prizeCard1}</span>
             <span>{`${timeDurationCard1} point`}</span>
-            <span className="dots" onClick={() => handleMoreVertClick("card1")}>
-              <MoreVertIcon />
-            </span>
+            <span className='dots' onClick={() => handleMoreVertClick('card1')}><MoreVertIcon /></span>
           </div>
           {isDropdownOpenCard1 && (
-            <div className="dropdown-box">
+            <div className='dropdown-box'>
               <div onClick={() => handleDailyRevenue()}>Daily</div>
               <div onClick={() => handleWeeklyRevenue()}>Weekly</div>
               <div onClick={() => handleMonthlyRevenue()}>Monthly</div>
@@ -226,36 +205,32 @@ const DashboardPage = () => {
             <img src={or} alt="" />
             <span>Order</span>
             <span className="refund-profit-text">{prizeCard2}</span>
-            <span>{`${timeDurationCard2} point`}</span>
-            <span className="dots" onClick={() => handleMoreVertClick("card2")}>
-              <MoreVertIcon />
-            </span>
-          </div>
-          {isDropdownOpenCard2 && (
-            <div className="dropdown-box">
-              <div onClick={() => handleDailyOrder()}>Daily</div>
-              <div onClick={() => handleWeeklyOrder()}>Weekly</div>
-              <div onClick={() => handleMonthlyOrder()}>Monthly</div>
-            </div>
-          )}
+    <span>{`${timeDurationCard2} point`}</span>
+    <span className='dots' onClick={() => handleMoreVertClick('card2')}><MoreVertIcon /></span>
+  </div>
+  {isDropdownOpenCard2 && (
+    <div className='dropdown-box'>
+      <div onClick={() => handleDailyOrder()}>Daily</div>
+      <div onClick={() => handleWeeklyOrder()}>Weekly</div>
+      <div onClick={() => handleMonthlyOrder()}>Monthly</div>
+    </div>
+  )}
         </div>
         <div className="card">
           <div className="order-profit">
             <img src={driver1} alt="" />
             <span>Active Driver</span>
             <span className="order-profit-text">{prizeCard3}</span>
-            <span>{`${timeDurationCard3} point`}</span>
-            <span className="dots" onClick={() => handleMoreVertClick("card3")}>
-              <MoreVertIcon />
-            </span>
-          </div>
-          {isDropdownOpenCard3 && (
-            <div className="dropdown-box">
-              <div onClick={() => handleDailyDriver()}>Daily</div>
-              <div onClick={() => handleWeeklyDriver()}>Weekly</div>
-              <div onClick={() => handleMonthlyDriver()}>Monthly</div>
-            </div>
-          )}
+    <span>{`${timeDurationCard3} point`}</span>
+    <span className='dots' onClick={() => handleMoreVertClick('card3')}><MoreVertIcon /></span>
+  </div>
+  {isDropdownOpenCard3 && (
+    <div className='dropdown-box'>
+      <div onClick={() => handleDailyDriver()}>Daily</div>
+      <div onClick={() => handleWeeklyDriver()}>Weekly</div>
+      <div onClick={() =>  handleMonthlyDriver()}>Monthly</div>
+    </div>
+  )}
         </div>
         <div className="card">
           <div className="rev-profit">
