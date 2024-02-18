@@ -18,8 +18,6 @@ const LoginPage = () => {
     accessToken: "",
   });
 
-  // console.log(admin, credential);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { password, phoneNoOrEmail } = credential;
