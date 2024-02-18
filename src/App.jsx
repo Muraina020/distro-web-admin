@@ -10,7 +10,7 @@ import {
   OrderSharedLayout,
   OrderScheduleDelivery,
   ChatLayout,
-  DriverChats,
+  Chats,
   CustomerChats,
   ChatMobileDrivers,
   Error,
@@ -128,7 +128,7 @@ const router = createBrowserRouter([
         element: <OrderDetails />,
       },
       {
-        path: "exprees_order pending_asign-drivers",
+        path: "assign driver",
         element: <ExpressPendingDrivers />,
       },
       {
@@ -158,7 +158,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DriverChats />,
+        element: <Chats />,
       },
       {
         path: "customer",

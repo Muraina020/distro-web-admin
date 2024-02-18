@@ -1,4 +1,6 @@
 import { CheckBox } from "../../components";
+import DataCoupons from "../../components/settings/DataCoupons";
+import DataShipments from "../../components/settings/DataShipments";
 import Switch from "../../components/ui/Switch";
 import { CiTrash } from "react-icons/ci";
 
@@ -30,80 +32,11 @@ const SettingsMobiles = () => {
         </div>
       </div>
       <div className="mt-5">
-        <h1 className="text-lg bg-white py-3 px-3 w-full">Categories</h1>
-        <div className="px-3 mt-4">
-          <div className="flex justify-between">
-            <h2 className="text-base font-normal">Shipment Type Categories</h2>
-            <button className="text-sm text-primary-default underline">
-              Add
-            </button>
-          </div>
+        <div className="px-3 ">
+          <DataShipments />
 
-          <div className="mt-3 space-y-4">
-            <div className="flex items-center  gap-x-4">
-              <CheckBox id={"Computer and Appliances"} />{" "}
-              <label
-                htmlFor="Computer and Appliances"
-                className="text-graylight text-sm"
-              >
-                Computer and Appliances
-              </label>
-              <CiTrash className="ms-auto" />
-            </div>
-
-            <div className="flex items-center  gap-x-4">
-              <CheckBox id={"nFood Stuffs"} />{" "}
-              <label htmlFor="nFood Stuffs" className="text-graylight text-sm">
-                Food Stuffs
-              </label>
-              <CiTrash className="ms-auto" />
-            </div>
-            <div className="flex items-center  gap-x-4">
-              <CheckBox id={"Computer and Appliances"} />{" "}
-              <label
-                htmlFor="Computer and Appliances"
-                className="text-graylight text-sm"
-              >
-                Life Stock
-              </label>
-              <CiTrash className="ms-auto" />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between mt-5 gap-x-3">
-            <h2 className="text-base font-normal">
-              Discount & Promo Code Management
-            </h2>
-            <button className="text-sm text-primary-default underline">
-              Create
-            </button>
-          </div>
-          <div className="mt-3 space-y-4">
-            <div className="flex items-center  gap-x-4">
-              <CheckBox id={"Computer and Appliances"} />{" "}
-              <label
-                htmlFor="Computer and Appliances"
-                className="text-graylight text-sm"
-              >
-                Computer and Appliances
-              </label>
-              <CiTrash className="ms-auto" />
-            </div>
-
-            <div className="flex items-center  gap-x-4">
-              <CheckBox id={"Food Stuffs"} />{" "}
-              <label htmlFor="Food Stuffs" className="text-graylight text-sm">
-                Food Stuffs
-              </label>
-              <CiTrash className="ms-auto" />
-            </div>
-            <div className="flex items-center  gap-x-4">
-              <CheckBox id={"Life Stock"} />{" "}
-              <label htmlFor="Life Stock" className="text-graylight text-sm">
-                Life Stock
-              </label>
-              <CiTrash className="ms-auto" />
-            </div>
+          <div className="mt-3 ">
+            <DataCoupons />
           </div>
         </div>
       </div>

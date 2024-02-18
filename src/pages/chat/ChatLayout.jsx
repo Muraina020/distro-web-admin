@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ChatPeople, ChatSideBar, Container, Header } from "../../components";
 import SlideInSidebar from "../../components/sidebar/SlideInSidebar";
+import ChatHeader from "../../components/header/ChatHeader";
 
 const ChatLayout = () => {
   return (
     <>
-      <Header />
+      <ChatHeader />
       <Container>
         <ChatSideBar />
         <SlideInSidebar />

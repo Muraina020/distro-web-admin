@@ -1,10 +1,10 @@
 import { DataTable, TableLoading, Wrapper } from "../../components";
-import { expressOrderHistoryColumn } from "../../components/tableColumns/expressOrderHistoryColumn";
+import { BlockedDriversColumn } from "../../components/tableColumns/BlockedDrivers";
 import useCustomFetch from "../../hooks/useCustomFetch";
 
 const Drivers = () => {
   const { data: _data, loading } = useCustomFetch(
-    "/customers/deactivated?PageSize=1000"
+    `/drivers/deactivated?PageSize=1000${Infinity}`
   );
 
   const data = _data?.content || [];
@@ -19,7 +19,12 @@ const Drivers = () => {
 
   return (
     <Wrapper>
-      <DataTable columns={expressOrderHistoryColumn} data={data} />
+      <DataTable
+        condition={"name"}
+        columns={BlockedDriversColumn}
+        filter={true}
+        data={data}
+      />
     </Wrapper>
   );
 };

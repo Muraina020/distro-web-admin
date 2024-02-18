@@ -1,8 +1,13 @@
-const TableDetailBtn = ({ children }) => {
+import { Link } from "react-router-dom";
+
+const TableDetailBtn = ({ children, link }) => {
   return (
-    <button className="rounded-[0.625rem]  lg:px-[1.6875rem] px-[1rem] py-[0.6875rem] lg:text-[1.5625rem] text-[1rem] bg-primary-default text-white transition active:scale-95 hover:bg-primary-default/70">
+    <Link
+      to={link}
+      className="rounded-[0.625rem]  lg:px-[1rem] px-[1rem] py-[0.6875rem]  text-[1rem] bg-primary-default text-white transition active:scale-95 hover:bg-primary-default/70"
+    >
       {children}
-    </button>
+    </Link>
   );
 };
 

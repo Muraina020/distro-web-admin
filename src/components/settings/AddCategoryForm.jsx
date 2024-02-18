@@ -44,7 +44,7 @@ const AddCategoryForm = ({ requestConfig, fetchData }) => {
         }`}
       ></div>
       <div
-        className={`w-[40rem]  h-[16rem] rounded-md fixed top-1/2 left-1/2
+        className={`max-w-[40rem] w-full  h-[16rem] rounded-md fixed top-1/2 left-1/2
          transform 
         transition-all duration-300 
         -translate-x-1/2   bg-white  ${
@@ -62,7 +62,7 @@ const AddCategoryForm = ({ requestConfig, fetchData }) => {
             <Cancel />
           </button>
         </div>
-        <form onSubmit={handleCouponSubmit} className="px-12 py-5 mt-5">
+        <form onSubmit={handleCouponSubmit} className="sm:px-12 px-5 py-5 mt-5">
           <input
             type="text"
             value={inputValue}

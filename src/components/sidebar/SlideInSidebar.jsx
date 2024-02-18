@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { useAppContext } from "../../context/AppContext";
+import { LogOut } from "lucide-react";
+import LogoutBtn from "./LogoutBtn";
 
 const SlideInSidebar = () => {
   const { closeSidebar, isSidebarOpen } = useAppContext();
@@ -39,8 +41,8 @@ const SlideInSidebar = () => {
           </figure>
 
           <div>
-            <h2 className="text-base font-medium">John Jonson</h2>
-            <p className="text-xs text-graylight">Driver</p>
+            <h2 className="text-base font-medium">Distro support</h2>
+            <p className="text-xs text-graylight">Admin</p>
           </div>
         </div>
 
@@ -349,6 +351,9 @@ const SlideInSidebar = () => {
               Schedule Order History
             </Link>
           </li>
+          <div onClick={closeSidebar}>
+            <LogoutBtn />
+          </div>
         </ul>
       </aside>
     </div>

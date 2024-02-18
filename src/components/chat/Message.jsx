@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const style = {
   message: `flex items-center shadow-xl m-4 py-2 px-3 rounded-tl-full rounded-tr-full`,
@@ -9,24 +10,21 @@ const style = {
 
 const Message = ({ chat }) => {
   const inViewRef = useRef();
+  const {
+    admin: { phoneNoOrEmail: CurrentUid },
+  } = useAuthContext();
 
   useEffect(() => {
     inViewRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
   const messageClass =
-    chat.data.senderId === "support@distro.com.ng"
-      ? `${style.sent}`
-      : `${style.received}`;
+    chat.data.senderId === CurrentUid ? `${style.sent}` : `${style.received}`;
 
   const time =
-    chat.data.senderId === "support@distro.com.ng"
-      ? "-ml-16 left-0"
-      : "-mr-16 right-0";
+    chat.data.senderId === CurrentUid ? "-ml-16 left-0" : "-mr-16 right-0";
   const float =
-    chat.data.senderId === "support@distro.com.ng"
-      ? "float-right"
-      : "float-left";
+    chat.data.senderId === CurrentUid ? "float-right" : "float-left";
 
   const convertTimestampToTime = (timestamp) => {
     if (!timestamp) {
@@ -50,13 +48,10 @@ const Message = ({ chat }) => {
   return (
     <div ref={inViewRef}>
       {code == "TXT" && (
-        <div className={` ${style.message} ${messageClass} relative `}>
-          <h1 className={style.name}>
-            {chat.name}
-            {/* <span className="xl:text-[0.775rem] text-xs text-graylight ml-1.5">
-            {chat.time}
-          </span> */}
-          </h1>
+        <div
+          className={` ${style.message} ${messageClass} relative  max-w-[34rem]`}
+        >
+          <h1 className={style.name}>{chat.name}</h1>
           <span className={`absolute text-gray-400 text-sm  ${time}`}>
             {convertTimestampToTime(chat.data.createdOn?.toDate())}
           </span>

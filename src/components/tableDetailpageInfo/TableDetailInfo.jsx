@@ -1,7 +1,11 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthProvider";
 import { formatPrice, formateDate } from "../../utils";
-import { Star, StarBorderOutlined, StarHalf } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { doc, getDoc, setDoc, addDoc, Timestamp } from "firebase/firestore";
+import { db } from "../../firebase";
+import { useChatContext } from "../../context/ChatContext";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import TableDetailBtn from "../ui/TableDetailBtn";
 
 const TableDetailInfo = ({ data }) => {
   const {
@@ -18,9 +22,14 @@ const TableDetailInfo = ({ data }) => {
     senderAddress,
     driver,
     dropOffs,
+    email,
   } = data;
-
-  console.log(driver);
+  const user = { name: senderName, uid: email };
+  const {
+    admin: { phoneNoOrEmail: currentUid },
+  } = useAuthContext();
+  const { dispatch, setSelect, setActive, token } = useChatContext();
+  const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
   const formattedColor =
     status === "Pending"
@@ -33,24 +42,56 @@ const TableDetailInfo = ({ data }) => {
       ? "#2593F0"
       : "#FF3838";
 
-  const renderStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
+  const handleSelectUser = (u, id) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+    setActive(id);
 
-    for (let i = 1; i <= 5; i++) {
-      if (i <= fullStars) {
-        stars.push(<Star className="text-primary-default" />);
-      } else if (hasHalfStar && i === fullStars + 1) {
-        stars.push(<StarHalf className="text-primary-default" />);
-      } else {
-        stars.push(<StarBorderOutlined className="text-primary-default" />);
-      }
+    if (!isMediumDevice) {
+      setSelect(true);
     }
-    // console.log(stars);
-
-    return stars.slice(0, 5);
   };
+
+  async function handleClick() {
+    const combinedId =
+      currentUid > email ? currentUid + "_" + email : email + "_" + currentUid;
+
+    const docRef = doc(db, "Chatrooms", combinedId);
+    const res = await getDoc(docRef);
+
+    try {
+      if (!res.exists()) {
+        console.log("reached");
+        await setDoc(doc(db, "Chatrooms", combinedId), {
+          chatRoomId: combinedId,
+          isRequestSent: false,
+          lastMessage: "",
+          lastMessageSenderId: "",
+          lastMessageTime: "",
+          unreadMessageCount: 0,
+          userIds: [currentUid, email],
+          users: [
+            {
+              deletedAt: Timestamp.now(),
+              name: senderName,
+              profileUrl: null,
+              uid: email,
+              fcmToken: token,
+            },
+            {
+              deletedAt: Timestamp.now(),
+              name: "Distro Support",
+              profileUrl: null,
+              uid: currentUid,
+              fcmToken: "",
+            },
+          ],
+        });
+      }
+      handleSelectUser(user, combinedId);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -89,9 +130,17 @@ const TableDetailInfo = ({ data }) => {
           <h5 className="lg:text-[1.5625rem] text-[1.1rem] font-semibold leading-[-0.05875rem]">
             {formatPrice(price)}
           </h5>
-          <span className="inline-block rounded-[0.40475rem] lg:text-[1.48144rem] text-[1rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
+          <span className="block rounded-[0.40475rem]  text-[1rem] text-primary-default px-[1.11013rem] bg-[#F1FEFD]">
             {payment}
           </span>
+
+          <Link
+            onClick={handleClick}
+            to={"/chat"}
+            className=" rounded-lg bg-primary-default text-white p-2  block text-center text-sm hover:bg-primary-default/90 transition duration-300 mt-2"
+          >
+            Message customer
+          </Link>
         </div>
       </div>
 
@@ -176,20 +225,27 @@ const TableDetailInfo = ({ data }) => {
           </span>
         </li>
         <div className="grid grid-cols-2 items-center   gap-x-[5rem] gap-y-8 mt-5">
-          <li className="py-3 px-2 border-b w-full flex items-center justify-between">
-            <span className=" lg:text-[1.125rem] text-[.9rem] ">Driver ID</span>
-            <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-              {driver?.driverId}
-            </span>
-          </li>
-          <li className="py-3 px-2 border-b w-full flex items-center justify-between">
-            <span className=" lg:text-[1.125rem] text-[.9rem] ">
-              Driver Name
-            </span>
-            <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
-              {`${driver?.firstName} ${driver?.lastName}`}
-            </span>
-          </li>
+          {driver && (
+            <li className="py-3 px-2 border-b w-full flex items-center justify-between">
+              <span className=" lg:text-[1.125rem] text-[.9rem] ">
+                Driver ID
+              </span>
+              <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+                {driver?.driverId}
+              </span>
+            </li>
+          )}
+
+          {driver && (
+            <li className="py-3 px-2 border-b w-full flex items-center justify-between">
+              <span className=" lg:text-[1.125rem] text-[.9rem] ">
+                Driver Name
+              </span>
+              <span className=" lg:text-[1.125rem] text-[.9rem] text-graylight">
+                {`${driver?.firstName} ${driver?.lastName}`}
+              </span>
+            </li>
+          )}
         </div>
       </ul>
 
@@ -218,13 +274,17 @@ const TableDetailInfo = ({ data }) => {
                 <h6 className="text-gray-500"> {formateDate(date)}</h6>
               </div>
             </div>
-
-            <div className="">
-              {driver?.ratings.map((item) => (
-                <Star className="text-primary-default" />
-              ))}
-            </div>
           </div>
+        </div>
+      )}
+
+      {!driver && (
+        <div className="text-center mt-5">
+          <TableDetailBtn
+            link={`/dashboard/assign driver?orderId=${shipmentId}`}
+          >
+            Assign Driver
+          </TableDetailBtn>
         </div>
       )}
     </div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { chatMsg } from "../../utils/data";
 import {
   collection,
   onSnapshot,
@@ -15,8 +14,8 @@ import { useChatContext } from "../../context/ChatContext";
 import Message from "../../components/chat/Message";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-const DriverChats = () => {
-  const { user, chatRoomId, setSelect, select } = useChatContext();
+const Chats = () => {
+  const { chatRoomId, setSelect, select, user } = useChatContext();
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -114,7 +113,7 @@ const DriverChats = () => {
               />
             </div>
             <div>
-              <h1 className="xl:text-[1.2rem] md:text-[1.1rem] text-base leading-[1.32213rem]  text-primary-black font-semibold">
+              <h1 className="xl:text-[1.2rem] capitalize md:text-[1.1rem] text-base leading-[1.32213rem]  text-primary-black font-semibold">
                 {user.name}
               </h1>
               <h6 className="text-primary-default xl:text-[1rem] mt-1 text-sm font-medium">
@@ -131,24 +130,31 @@ const DriverChats = () => {
           <div className="flex-grow pb-4">
             <div className="px-4 mt-2">
               <div className="flex flex-col">
-                {messages.map((chat, index) => {
-                  return (
-                    <React.Fragment key={chat.id}>
-                      {index === 0 ||
-                      !isSameDay(
-                        chat.data?.createdOn?.toDate(),
-                        messages[index - 1].data?.createdOn?.toDate()
-                      ) ? (
-                        <div className="grid place-items-center">
-                          <div className="py-1 px-3 sm:text-sm text-xs bg-neutral-200 inline-block my-3  rounded-md">
-                            {formatDate(chat?.data?.createdOn)}
+                {messages.length < 1 && (
+                  <h1 className="text-gray-500 text-center md:text-2xl text-base font-semibold  mt-14">
+                    Your messages appear here...{" "}
+                  </h1>
+                )}
+
+                {messages.length > 0 &&
+                  messages.map((chat, index) => {
+                    return (
+                      <React.Fragment key={chat.id}>
+                        {index === 0 ||
+                        !isSameDay(
+                          chat.data?.createdOn?.toDate(),
+                          messages[index - 1].data?.createdOn?.toDate()
+                        ) ? (
+                          <div className="grid place-items-center">
+                            <div className="py-1 px-3 sm:text-sm text-xs bg-neutral-200 inline-block my-3  rounded-md">
+                              {formatDate(chat?.data?.createdOn)}
+                            </div>
                           </div>
-                        </div>
-                      ) : null}
-                      <Message chat={chat} />
-                    </React.Fragment>
-                  );
-                })}
+                        ) : null}
+                        <Message chat={chat} />
+                      </React.Fragment>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -160,4 +166,4 @@ const DriverChats = () => {
     </>
   );
 };
-export default DriverChats;
+export default Chats;

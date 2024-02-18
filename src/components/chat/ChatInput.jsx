@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db, storage } from "../../firebase";
+import { db, sendNotification, storage } from "../../firebase";
 import {
   collection,
   addDoc,
@@ -11,11 +11,16 @@ import {
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useChatContext } from "../../context/ChatContext";
 import { v4 as uuid } from "uuid";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const ChatInput = () => {
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
-  const { chatRoomId } = useChatContext();
+  const { chatRoomId, token } = useChatContext();
+
+  const {
+    admin: { phoneNoOrEmail: CurrentUid },
+  } = useAuthContext();
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -34,20 +39,31 @@ const ChatInput = () => {
     } else {
       return;
     }
+
     // Add message to Firestore
     await addDoc(collection(db, "Chatrooms", chatRoomId, "Messages"), {
       code,
       content,
       createdOn: serverTimestamp(),
-      senderId: "support@distro.com.ng",
+      senderId: CurrentUid,
       id: uuid(),
       isMessageRead: false,
     });
 
+    // Send notification if token is available
+    if (token) {
+      const notification = {
+        title: "New Message",
+        body: "You have received a new message.",
+        click_action: "/dashboard/chat", // Route to navigate when notification clicked
+      };
+      sendNotification(token, notification);
+    }
+
     // Update chatroom properties
     const chatRoomRef = doc(db, "Chatrooms", chatRoomId);
     await updateDoc(chatRoomRef, {
-      lastMessageSenderId: "support@distro.com.ng",
+      lastMessageSenderId: CurrentUid,
       lastMessageTime: Timestamp.now(),
       lastMessage: content,
     });

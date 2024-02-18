@@ -11,22 +11,20 @@ import {
 import { db } from "../../firebase";
 import { useEffect, useState } from "react";
 import { useChatContext } from "../../context/ChatContext";
-import SkeletonLoader from "../ui/SkeletonLoader";
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { useAuthContext } from "../../context/AuthProvider";
 
 const DriversPeople = () => {
   const [chatUsers, setChatUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const { dispatch } = useChatContext();
-  const { chatRoomId, setSelect } = useChatContext();
-  const [active, setActive] = useState(chatRoomId);
+  const { setSelect, active, setActive, dispatch } = useChatContext();
+  const { admin } = useAuthContext();
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
   useEffect(() => {
     const fetchPeople = () => {
       const q = query(
         collection(db, "Chatrooms"),
-        where("userIds", "array-contains", "support@distro.com.ng"),
+        where("userIds", "array-contains", admin.phoneNoOrEmail),
         orderBy("lastMessageTime", "desc")
       );
       const unsub = onSnapshot(q, (querySnapShot) => {
@@ -36,7 +34,6 @@ const DriversPeople = () => {
         });
         setChatUsers(people);
       });
-      setLoading(false);
 
       return () => unsub();
     };
@@ -52,6 +49,16 @@ const DriversPeople = () => {
       setSelect(true);
     }
   };
+
+  if (chatUsers.length < 1) {
+    return (
+      <div className="">
+        <h1 className="text-gray-400 text-base mt-40 text-center">
+          Your Chat History appears here
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <ul className="space-y-5 ">

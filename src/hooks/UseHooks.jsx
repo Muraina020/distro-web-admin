@@ -20,7 +20,6 @@ export const UsePendingRecentOrder = () => {
 
       const data = response.data.content;
       const recentData = getRecentOrdersById(data);
-      console.log(recentData);
       setData(recentData);
     } catch (error) {
       if (error.response.status === 401) {

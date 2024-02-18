@@ -1,9 +1,13 @@
+import { useAuthContext } from "../../context/AuthProvider";
+
 const ChatUser = ({ person, onclick, active }) => {
   const { users } = person;
 
-  const filteredUsers = users.filter(
-    (user) => user.uid !== "support@distro.com"
-  );
+  const {
+    admin: { phoneNoOrEmail: currentUid },
+  } = useAuthContext();
+
+  const filteredUsers = users.filter((user) => user.uid !== currentUid);
 
   const handleActiveUser = () => {
     onclick(users?.[0], person.chatRoomId);
@@ -29,56 +33,16 @@ const ChatUser = ({ person, onclick, active }) => {
                 alt={filteredUsers?.[0]?.name}
                 className="w-full h-full object-contain rounded-full"
               />
-
-              {/* {person.online ? (
-            <span className="absolute z-10 xl:-bottom-1 -bottom-2 xl:right-0 -right-1">
-              <svg
-                className="xl:w-[22px] w-[13px]"
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="15"
-                viewBox="0 0 22 22"
-                fill="none"
-              >
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="10"
-                  fill="#46B04C"
-                  stroke="#EFF6FF"
-                  strokeWidth="2"
-                />
-              </svg>
-            </span>
-          ) : (
-            <span className="absolute z-10 xl:-bottom-1 -bottom-2 xl:right-0 -right-1">
-              <svg
-                className="xl:w-[22px] w-[13px]"
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="15"
-                viewBox="0 0 22 22"
-                fill="none"
-              >
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="10"
-                  fill="#868686"
-                  stroke="#EFF6FF"
-                  strokeWidth="2"
-                />
-              </svg>
-            </span>
-          )} */}
             </div>
             <div className="">
               <h1 className="text-primary-black xl:text-[1rem] text-base font-semibold">
                 {filteredUsers?.[0]?.name}
               </h1>
-              <p className="text-graylight xl:text-[.6rem] text-xs  line-clamp-1  font-medium">
-                {person?.lastMessage}
-              </p>
+              {person?.lastMessage && (
+                <p className="text-graylight capitalize xl:text-[.6rem] text-xs  line-clamp-1  font-medium">
+                  {person?.lastMessage}
+                </p>
+              )}
             </div>
           </div>
         </li>

@@ -33,8 +33,7 @@ const Profile = () => {
             <input
               id="email"
               type="text"
-              // onChange={() => {}}
-              // value={admin?.phoneNoOrEmail}
+              defaultValue={admin?.phoneNoOrEmail}
               placeholder="admin@distro.com"
               className="p-2 outline-none lg:w-[72%] bg-transparent"
             />
@@ -48,8 +47,7 @@ const Profile = () => {
               id="password"
               type="password"
               placeholder="*************"
-              // onChange={() => {}}
-              // value={admin?.password}
+              defaultValue={admin?.password}
               className="p-2 outline-none lg:basis-[65%] w-full bg-transparent"
             />
             <button className="text-primary-default  sm:text-[1.125rem] text-sm">

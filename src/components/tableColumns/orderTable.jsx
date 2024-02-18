@@ -1,20 +1,45 @@
 import { Link } from "react-router-dom";
 import { formatPrice, formateDate } from "../../utils";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 export const orderColumn = [
   {
     accessorKey: "shipmentId",
-    header: "ORDER ID",
+    header: (props) => {
+      return (
+        <button
+          className="flex group items-center py-1 rounded-lg px-2 hover:bg-blue-100 duration-150 transition"
+          onClick={() =>
+            props.column.toggleSorting(props.column.getIsSorted() === "asc")
+          }
+        >
+          ORDER ID
+          <ArrowUpDown className="ml-2 h-4 w-4 group-active:scale-90 transition-all duration-200" />
+        </button>
+      );
+    },
     cell: (props) => (
       <p className="text-graylight">
         {!props.getValue() ? "..." : props.getValue()}
       </p>
     ),
   },
-
   {
     accessorKey: "date",
-    header: "ORDER DATE",
+    header: (props) => {
+      return (
+        <button
+          className="flex group items-center py-1 rounded-lg px-2 hover:bg-blue-100 duration-150 transition"
+          onClick={() =>
+            props.column.toggleSorting(props.column.getIsSorted() === "asc")
+          }
+        >
+          ORDER DATE
+          <ArrowUpDown className="ml-2 h-4 w-4 group-active:scale-90 transition-all dura" />
+        </button>
+      );
+    },
+
     cell: (props) => {
       const date = props.getValue();
       return (
@@ -48,7 +73,7 @@ export const orderColumn = [
     cell: (props) => {
       const status = props.getValue();
       const formatedColor =
-        status === "paid"
+        status === "Paid"
           ? "#00A69C"
           : status === "Pay on Delivery"
           ? "#F9BF42"

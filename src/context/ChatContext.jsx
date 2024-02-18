@@ -1,32 +1,62 @@
 import { createContext, useContext, useReducer, useState } from "react";
+import { requestNotificationPermission, sendNotification } from "../firebase";
+import { useEffect } from "react";
 
 const ChatContext = createContext(null);
 
-const chatReducer = (state, action) => {
+const ChatReducer = (state, action) => {
+  const { phoneNoOrEmail: currentUid } = JSON.parse(
+    localStorage.getItem("user")
+  );
+
   switch (action.type) {
     case "CHANGE_USER":
       return {
         user: action.payload,
         chatRoomId:
-          "support@distro.com.ng" > action.payload.uid
-            ? "support@distro.com.ng" + "_" + action.payload.uid
-            : action.payload.uid + "_" + "support@distro.com.ng",
+          currentUid > action.payload.uid
+            ? currentUid + "_" + action.payload.uid
+            : action.payload.uid + "_" + currentUid,
       };
     default:
       return state;
   }
 };
 
+const INITIAL_STATE = {
+  chatRoomId: null,
+  user: {},
+};
+
 const ChatContextProvider = ({ children }) => {
-  const INITIAL_STATE = {
-    chatRoomId: null,
-    user: {},
-  };
-  const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(ChatReducer, INITIAL_STATE);
   const [select, setSelect] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState(state.chatRoomId);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const initNofication = async () => {
+      const newToken = await requestNotificationPermission();
+      setToken(newToken);
+    };
+    initNofication();
+  }, []);
 
   return (
-    <ChatContext.Provider value={{ ...state, dispatch, setSelect, select }}>
+    <ChatContext.Provider
+      value={{
+        ...state,
+        dispatch,
+        setSelect,
+        select,
+        isOpen,
+        setIsOpen,
+        active,
+        setActive,
+        token,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );
