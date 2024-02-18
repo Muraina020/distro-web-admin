@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./driverPage.css";
+
 import {
   Table,
   Thead,
@@ -11,56 +11,52 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { customFetch } from "../../utils";
 
 const DriverPage = () => {
   const [data, setData] = useState([]);
   const [activeHeader, setActiveHeader] = useState("ACTIVE");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); 
+  const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDrivers = async () => {
       let endpoint;
       if (activeHeader === "ACTIVE") {
-        endpoint = "/drivers/active/all";
+        endpoint = `/drivers/active/all?pageNo=${currentPage - 1}&pageSize=${itemsPerPage}`;
       } else if (activeHeader === "INACTIVE") {
-        endpoint = "/drivers/offline/all";
+        endpoint = `/drivers/offline/all?pageNo=${currentPage - 1}&pageSize=${itemsPerPage}`;
       } else if (activeHeader === "UNIFIED") {
-        endpoint = "/drivers/unverified/all";
+        endpoint = `/drivers/unverified/all?pageNo=${currentPage - 1}&pageSize=${itemsPerPage}`;
       }
 
-      const response = await customFetch(endpoint, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJBZG1pbjEiLCJpYXQiOjE3MDQ0OTMwMjIsImV4cCI6MTcwNDU3OTQyMn0.VYr9ZWJrgWws3WQQo1BTQ09ek2lQSTHZXGfLOm11RE9jxKl_UAkKdxOuUQoC-_66`,
-        },
-      });
-
-      const driversData = response.data.content;
-      setData(driversData);
+      try {
+        const response = await customFetch(endpoint);
+        const driversData = response.data.content;
+        setData(driversData);
+        setTotalPages(Math.ceil(response.data.totalElements / itemsPerPage));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchDrivers(activeHeader);
-  }, [activeHeader]);
+  }, [activeHeader, currentPage, itemsPerPage]);
 
   const handleHeaderClick = (header) => {
     setActiveHeader(header);
   };
 
-  const handleRowClick = (status) => {
-    if (activeHeader === "ACTIVE") {
-      navigate("/dashboard/online");
-    } else if (activeHeader === "INACTIVE") {
-      navigate("/dashboard/offline");
-    } else if (activeHeader === "UNIFIED") {
-      navigate("/dashboard/unverify");
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
     <div>
       <TableContainer
-        className="table-container-mobile"
         bg="white"
         fontSize="18px"
         paddingBottom="30px"
@@ -133,9 +129,12 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
+                  
                     <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                    <Td className="email-column">{item?.email}</Td>
+                   <Link to={`/dashboard/drivers/${item?.email}`}>
+                     <Td className="email-column">{item?.email}</Td>
+                   </Link>
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div
@@ -163,11 +162,11 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td onClick={() => handleRowClick(item.status)}>
-                      {item?.driverId}
-                    </Td>
+                    <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                    <Td className="email-column">{item?.email}</Td>
+                    <Link to={`/dashboard/drivers/${item?.email}`}>
+                     <Td className="email-column">{item?.email}</Td>
+                   </Link>
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div
@@ -195,11 +194,11 @@ const DriverPage = () => {
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
                   >
-                    <Td onClick={() => handleRowClick(item.status)}>
-                      {item?.driverId}
-                    </Td>
+                    <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                    <Td className="email-column">{item?.email}</Td>
+                  
+                     <Td className="email-column">{item?.email}</Td>
+               
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div
@@ -221,7 +220,7 @@ const DriverPage = () => {
           </Tbody>
         </Table>
 
-        <Flex justifyContent="center" marginTop="10" alignItems="center">
+        {/* <Flex justifyContent="center" marginTop="10" alignItems="center">
           <FaChevronLeft />
           <span style={{ margin: "0 10px", color: "#00A69C" }}>1</span>
           <span style={{ margin: "0 10px" }}>2</span>
@@ -229,7 +228,25 @@ const DriverPage = () => {
           <span style={{ margin: "0 10px" }}>4</span>
           <span style={{ margin: "0 10px" }}>5</span>
           <FaChevronRight />
-        </Flex>
+        </Flex> */}
+
+<Flex justifyContent="center" marginTop="10" alignItems="center">
+            <FaChevronLeft onClick={() => handlePageChange(currentPage - 1)} />
+            {[...Array(totalPages)].map((_, index) => (
+              <span
+                key={index}
+                style={{
+                  margin: "0 10px",
+                  color: index + 1 === currentPage ? "#00A69C" : "black",
+                  cursor: "pointer",
+                }}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </span>
+            ))}
+            <FaChevronRight onClick={() => handlePageChange(currentPage + 1)} />
+          </Flex>
       </TableContainer>
     </div>
   );

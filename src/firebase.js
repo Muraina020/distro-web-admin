@@ -60,3 +60,4 @@ export const sendNotification = async (token, notification) => {
     console.error("Error sending notification:", error);
   }
 };
+
