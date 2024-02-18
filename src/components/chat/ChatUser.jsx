@@ -38,9 +38,11 @@ const ChatUser = ({ person, onclick, active }) => {
               <h1 className="text-primary-black xl:text-[1rem] text-base font-semibold">
                 {filteredUsers?.[0]?.name}
               </h1>
-              <p className="text-graylight xl:text-[.6rem] text-xs  line-clamp-1  font-medium">
-                {person?.lastMessage}
-              </p>
+              {person?.lastMessage && (
+                <p className="text-graylight capitalize xl:text-[.6rem] text-xs  line-clamp-1  font-medium">
+                  {person?.lastMessage}
+                </p>
+              )}
             </div>
           </div>
         </li>

@@ -10,7 +10,7 @@ const ChatUserSearch = ({ user, onclick }) => {
   const {
     admin: { phoneNoOrEmail: currentUid },
   } = useAuthContext();
-  const { dispatch, setSelect, setActive } = useChatContext();
+  const { dispatch, setSelect, setActive, token } = useChatContext();
 
   const handleSelectUser = (u, id) => {
     dispatch({ type: "CHANGE_USER", payload: u });
@@ -39,14 +39,14 @@ const ChatUserSearch = ({ user, onclick }) => {
           lastMessageSenderId: "",
           lastMessageTime: "",
           unreadMessageCount: 0,
-          userIds: [user.uid, currentUid],
+          userIds: [currentUid, user.uid],
           users: [
             {
               deletedAt: Timestamp.now(),
               name: user.name,
               profileUrl: null,
               uid: user.uid,
-              fcmToken: "",
+              fcmToken: token,
             },
             {
               deletedAt: Timestamp.now(),
@@ -59,17 +59,17 @@ const ChatUserSearch = ({ user, onclick }) => {
         });
       }
       handleSelectUser(user, combinedId);
-
-      console.log(user, combinedId);
     } catch (error) {
       console.log(error);
     }
-    onclick();
   }
 
   return (
     <li
-      onClick={handleClick}
+      onClick={() => {
+        onclick();
+        handleClick();
+      }}
       className="py-3 px-3 hover:bg-neutral-100 duration-300 cursor-pointer rounded-md"
     >
       <div className="flex items-center gap-x-8">

@@ -1,7 +1,8 @@
 import { ArrowUpDown } from "lucide-react";
-import { useAsiignDriverContext } from "../../context/AssignOrderContext";
 import { customFetch } from "../../utils";
 import { useAuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 export const assignDriverColumn = [
   {
@@ -56,13 +57,16 @@ export const assignDriverColumn = [
     cell: ({ row }) => {
       const status = row.original.currentStatus;
       const isFree = status === "Free";
-      const { orderId } = useAsiignDriverContext();
+      const { search } = useLocation();
+      const searchParam = new URLSearchParams(search);
+      const orderId = searchParam.get("orderId");
+
       const { admin } = useAuthContext();
       const driverId = row.original.driverId;
 
       const handleAssignDriver = async () => {
         try {
-          const resp = customFetch.post(
+          const resp = await customFetch.post(
             "/pickuporders/add-driver",
             {
               driverId: driverId,
@@ -70,6 +74,7 @@ export const assignDriverColumn = [
             },
             { headers: { Authorization: `Bearer ${admin.accessToken}` } }
           );
+          toast.success(resp.data);
         } catch (error) {
           console.log(error);
         }

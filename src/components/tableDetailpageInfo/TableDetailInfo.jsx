@@ -1,12 +1,11 @@
 import { useAuthContext } from "../../context/AuthProvider";
 import { formatPrice, formateDate } from "../../utils";
 import { Link } from "react-router-dom";
-import { doc, getDoc, setDoc, addDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useChatContext } from "../../context/ChatContext";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import TableDetailBtn from "../ui/TableDetailBtn";
-import { useAsiignDriverContext } from "../../context/AssignOrderContext";
 
 const TableDetailInfo = ({ data }) => {
   const {
@@ -29,8 +28,7 @@ const TableDetailInfo = ({ data }) => {
   const {
     admin: { phoneNoOrEmail: currentUid },
   } = useAuthContext();
-  const { setOrderId } = useAsiignDriverContext();
-  const { dispatch, setSelect, setActive } = useChatContext();
+  const { dispatch, setSelect, setActive, token } = useChatContext();
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
   const formattedColor =
@@ -70,17 +68,17 @@ const TableDetailInfo = ({ data }) => {
           lastMessageSenderId: "",
           lastMessageTime: "",
           unreadMessageCount: 0,
-          userIds: [email, currentUid],
+          userIds: [currentUid, email],
           users: [
             {
-              deletedAt: "",
+              deletedAt: Timestamp.now(),
               name: senderName,
               profileUrl: null,
               uid: email,
-              fcmToken: "",
+              fcmToken: token,
             },
             {
-              deletedAt: "",
+              deletedAt: Timestamp.now(),
               name: "Distro Support",
               profileUrl: null,
               uid: currentUid,
@@ -283,8 +281,7 @@ const TableDetailInfo = ({ data }) => {
       {!driver && (
         <div className="text-center mt-5">
           <TableDetailBtn
-            onclick={() => setOrderId(shipmentId)}
-            link={"/dashboard/assign driver"}
+            link={`/dashboard/assign driver?orderId=${shipmentId}`}
           >
             Assign Driver
           </TableDetailBtn>

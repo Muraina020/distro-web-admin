@@ -50,6 +50,16 @@ const DriversPeople = () => {
     }
   };
 
+  if (chatUsers.length < 1) {
+    return (
+      <div className="">
+        <h1 className="text-gray-400 text-base mt-40 text-center">
+          Your Chat History appears here
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <ul className="space-y-5 ">
       {chatUsers.map((person) => {

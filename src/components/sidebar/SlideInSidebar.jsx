@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { useAppContext } from "../../context/AppContext";
+import { LogOut } from "lucide-react";
+import LogoutBtn from "./LogoutBtn";
 
 const SlideInSidebar = () => {
   const { closeSidebar, isSidebarOpen } = useAppContext();
@@ -349,6 +351,9 @@ const SlideInSidebar = () => {
               Schedule Order History
             </Link>
           </li>
+          <div onClick={closeSidebar}>
+            <LogoutBtn />
+          </div>
         </ul>
       </aside>
     </div>

@@ -48,13 +48,10 @@ const Message = ({ chat }) => {
   return (
     <div ref={inViewRef}>
       {code == "TXT" && (
-        <div className={` ${style.message} ${messageClass} relative `}>
-          <h1 className={style.name}>
-            {chat.name}
-            {/* <span className="xl:text-[0.775rem] text-xs text-graylight ml-1.5">
-            {chat.time}
-          </span> */}
-          </h1>
+        <div
+          className={` ${style.message} ${messageClass} relative  max-w-[34rem]`}
+        >
+          <h1 className={style.name}>{chat.name}</h1>
           <span className={`absolute text-gray-400 text-sm  ${time}`}>
             {convertTimestampToTime(chat.data.createdOn?.toDate())}
           </span>

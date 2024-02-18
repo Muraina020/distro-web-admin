@@ -14,8 +14,8 @@ import { useChatContext } from "../../context/ChatContext";
 import Message from "../../components/chat/Message";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-const DriverChats = () => {
-  const { user, chatRoomId, setSelect, select } = useChatContext();
+const Chats = () => {
+  const { chatRoomId, setSelect, select, user } = useChatContext();
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -166,4 +166,4 @@ const DriverChats = () => {
     </>
   );
 };
-export default DriverChats;
+export default Chats;

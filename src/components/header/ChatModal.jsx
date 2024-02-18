@@ -1,5 +1,3 @@
-import { getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
 import ChatUserSearch from "./ChatUserSearch";
 
 const ChatModal = ({ data, searchValue, handleSearchModal }) => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db, storage } from "../../firebase";
+import { db, sendNotification, storage } from "../../firebase";
 import {
   collection,
   addDoc,
@@ -16,7 +16,7 @@ import { useAuthContext } from "../../context/AuthProvider";
 const ChatInput = () => {
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
-  const { chatRoomId } = useChatContext();
+  const { chatRoomId, token } = useChatContext();
 
   const {
     admin: { phoneNoOrEmail: CurrentUid },
@@ -50,7 +50,15 @@ const ChatInput = () => {
       isMessageRead: false,
     });
 
-    // console.log("i was");
+    // Send notification if token is available
+    if (token) {
+      const notification = {
+        title: "New Message",
+        body: "You have received a new message.",
+        click_action: "/dashboard/chat", // Route to navigate when notification clicked
+      };
+      sendNotification(token, notification);
+    }
 
     // Update chatroom properties
     const chatRoomRef = doc(db, "Chatrooms", chatRoomId);
@@ -62,7 +70,6 @@ const ChatInput = () => {
 
     // Reset input fields
     setText("");
-    console.log("i waset reached");
     setImage(null);
   };
 

@@ -10,7 +10,7 @@ import {
   OrderSharedLayout,
   OrderScheduleDelivery,
   ChatLayout,
-  DriverChats,
+  Chats,
   CustomerChats,
   ChatMobileDrivers,
   Error,
@@ -35,11 +35,9 @@ import ActiveR from "./pages/rating/ActiveR";
 import CustomerAccount from "./pages/customer/CustomerAccount";
 import CustomerRatin from "./pages/customer/CustomerRatin";
 
-// loaders
 import OTPInput from "./components/resetPasswordPage/OTPInput";
 import Reset from "./components/resetPasswordPage/Reset";
 import Recovered from "./components/resetPasswordPage/Recovered";
-// actions
 
 const router = createBrowserRouter([
   {
@@ -183,7 +181,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DriverChats />,
+        element: <Chats />,
       },
       {
         path: "customer",

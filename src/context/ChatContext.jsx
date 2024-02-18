@@ -1,4 +1,6 @@
 import { createContext, useContext, useReducer, useState } from "react";
+import { requestNotificationPermission, sendNotification } from "../firebase";
+import { useEffect } from "react";
 
 const ChatContext = createContext(null);
 
@@ -21,15 +23,25 @@ const ChatReducer = (state, action) => {
   }
 };
 
+const INITIAL_STATE = {
+  chatRoomId: null,
+  user: {},
+};
+
 const ChatContextProvider = ({ children }) => {
-  const INITIAL_STATE = {
-    chatRoomId: null,
-    user: {},
-  };
   const [state, dispatch] = useReducer(ChatReducer, INITIAL_STATE);
   const [select, setSelect] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState(state.chatRoomId);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const initNofication = async () => {
+      const newToken = await requestNotificationPermission();
+      setToken(newToken);
+    };
+    initNofication();
+  }, []);
 
   return (
     <ChatContext.Provider
@@ -42,6 +54,7 @@ const ChatContextProvider = ({ children }) => {
         setIsOpen,
         active,
         setActive,
+        token,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ export { default as OrderExpressDelivery } from "./order/OrderExpressDelivery";
 export { default as OrderScheduleDelivery } from "./order/OrderScheduleDelivery";
 export { default as ChatLayout } from "./chat/ChatLayout";
 export { default as CustomerChats } from "./chat/CustomerChats";
-export { default as DriverChats } from "./chat/DriverChats";
+export { default as Chats } from "./chat/Chats";
 export { default as ChatMobileDrivers } from "./chat/ChatMobileDrivers";
 export { default as BlockedCustomers } from "./blocked/Customers";
 export { default as BlockedDrivers } from "./blocked/Drivers";
