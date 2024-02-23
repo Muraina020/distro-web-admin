@@ -54,6 +54,10 @@ const DriverPage = () => {
     setCurrentPage(page);
   };
 
+   const handleRowClick = (email) => {
+    navigate(`/dashboard/drivers/${email}`);
+  };
+
   return (
     <div>
       <TableContainer
@@ -189,31 +193,30 @@ const DriverPage = () => {
             {activeHeader === "UNIFIED" && (
               <>
                 {data.map((item, index) => (
-                  <Tr
-                    key={index}
-                    borderBottom="2px solid lightgray"
-                    style={{ color: "#696969", cursor: "pointer" }}
-                  >
-                    <Td>{item?.driverId}</Td>
-                    <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                  
-                     <Td className="email-column">{item?.email}</Td>
-               
-                    <Td isNumeric>{item?.phoneNumber}</Td>
-                    <Td>
-                      <div
-                        style={{
-                          display: "inline-block",
-                          backgroundColor: "#F9BF42",
-                          color: "white",
-                          padding: "5px",
-                          borderRadius: "8px",
-                        }}
-                      >
-                        {item?.currentStatus}
-                      </div>
-                    </Td>
-                  </Tr>
+                   <Tr
+                   key={index}
+                   borderBottom="2px solid lightgray"
+                   style={{ color: "#696969", cursor: "pointer" }}
+                   onClick={() => handleRowClick(item?.email)} // Handle navigation on row click
+                 >
+                   <Td>{item?.driverId}</Td>
+                   <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
+                   <Td className="email-column">{item?.email}</Td>
+                   <Td isNumeric>{item?.phoneNumber}</Td>
+                   <Td>
+                     <div
+                       style={{
+                         display: "inline-block",
+                         backgroundColor: item?.currentStatus === "ACTIVE" ? "green" : "#F9BF42",
+                         color: "white",
+                         padding: "5px",
+                         borderRadius: "8px",
+                       }}
+                     >
+                       {item?.currentStatus}
+                     </div>
+                   </Td>
+                 </Tr>
                 ))}
               </>
             )}

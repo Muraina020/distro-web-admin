@@ -6,9 +6,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./loginPage.css";
 import axios from '../../api/axiosInstance';
+import { useAuthContext } from "../../context/AuthProvider";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { setAdmin, admin } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
   const [credential, setCredential] = useState({
     phoneNoOrEmail: "",
