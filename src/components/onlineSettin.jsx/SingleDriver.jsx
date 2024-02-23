@@ -31,6 +31,7 @@ const SingleDriver = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
+  const [isActive, setIsActive] = useState(true);
 
   const fetchDriverProfile = async () => {
     try {
@@ -64,6 +65,22 @@ const SingleDriver = () => {
   }, [email, pageState,currentPage, itemsPerPage]);
   console.log(data);
 
+
+  const handleActivation = async () => {
+    try {
+      // Make an API call to activate or deactivate the driver based on current state
+      if (isActive) {
+        await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/activate?email=${email}`);
+      } else {
+        await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/deactivate?email=${email}`);
+      }
+      // Update the activation status based on the API response
+      setIsActive(!isActive); // Toggle the state
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   const handleDetails = () => {
     setPageState("details");
   };
@@ -77,6 +94,8 @@ const SingleDriver = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  
   return (
     <div style={{ position: "relative" }}>
       <IconButton
@@ -343,7 +362,7 @@ const SingleDriver = () => {
               </Tr>
             </Tbody>
           </Table>
-          <Flex
+          {/* <Flex
             justifyContent="space-between"
             alignItems="center"
             marginTop="70px"
@@ -365,7 +384,16 @@ const SingleDriver = () => {
             <Button size="lg" colorScheme="red" marginTop="5">
               Deactivate
             </Button>
-          </Flex>
+          </Flex> */}
+           <Flex justifyContent="space-between" alignItems="center" marginTop="70px" direction="column">
+      <Flex>
+        <Button colorScheme="#00A69C" bg="#00A69C" marginRight="4">Edit</Button>
+        <Button colorScheme="white" color="#00A69C" border="2px solid #00A69C">Message</Button>
+      </Flex>
+      <Button size="lg" colorScheme={isActive ? "red" : "green"} marginTop="5" onClick={handleActivation}>
+        {isActive ? "Deactivate" : "Activate"}
+      </Button>
+    </Flex>
         </TableContainer>
       ) : null}
       
