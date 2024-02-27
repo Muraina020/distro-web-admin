@@ -1,13 +1,7 @@
 import useClickOutside from "../../hooks/useClickOutside";
 import { useState } from "react";
 import ChatModal from "./ChatModal";
-import {
-  collection,
-  collectionGroup,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useEffect } from "react";
 import ChatSearchMobile from "./ChatSearchMobile";
