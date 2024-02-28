@@ -31,7 +31,8 @@ const SingleDriver = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(null);
+    const [activationMessage, setActivationMessage] = useState('');
 
   const fetchDriverProfile = async () => {
     try {
@@ -60,6 +61,7 @@ const SingleDriver = () => {
   useEffect(() => {
     fetchDriverProfile();
     fetchDriverOrders();
+    setIsActive(data.currentStatus);
     console.log(pageState);
     console.log(orderData);
   }, [email, pageState,currentPage, itemsPerPage]);
@@ -68,14 +70,22 @@ const SingleDriver = () => {
 
   const handleActivation = async () => {
     try {
-      // Make an API call to activate or deactivate the driver based on current state
-      if (isActive) {
-        await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/activate?email=${email}`);
+      if (isActive === false) {
+        const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/deactivate?email=${email}`);
+        console.log(response)
+        console.log(response.data)
+        setIsActive(response.data)
       } else {
-        await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/deactivate?email=${email}`);
+        const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/activate?email=${email}`);
+        console.log(response)
+        console.log(response.data)
+        setIsActive(response.data)
       }
-      // Update the activation status based on the API response
-      setIsActive(!isActive); // Toggle the state
+      setActivationMessage('Do you want to deactivate ? Click again');
+      setTimeout(() => {
+        setActivationMessage('');
+        navigate('/dashboard/driver'); 
+      }, 3000);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -138,7 +148,7 @@ const SingleDriver = () => {
                   >
                     <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
                     <Box mt="2">{data?.driverId}</Box>
-                    <Td>
+                    {/* <Td>
                       <div
                         className={`${
                           data?.currentStatus === "active"
@@ -154,7 +164,7 @@ const SingleDriver = () => {
                           ? "offline"
                           : "unverified"}
                       </div>
-                    </Td>
+                    </Td> */}
                   </Flex>
                 </Td>
               </Tr>
@@ -390,9 +400,15 @@ const SingleDriver = () => {
         <Button colorScheme="#00A69C" bg="#00A69C" marginRight="4">Edit</Button>
         <Button colorScheme="white" color="#00A69C" border="2px solid #00A69C">Message</Button>
       </Flex>
-      <Button size="lg" colorScheme={isActive ? "red" : "green"} marginTop="5" onClick={handleActivation}>
+       <Button
+        size="lg"
+        colorScheme={isActive ? "red" : "green"}
+        marginTop="5"
+        onClick={handleActivation}
+      >
         {isActive ? "Deactivate" : "Activate"}
       </Button>
+      {activationMessage && <div>{activationMessage}</div>}
     </Flex>
         </TableContainer>
       ) : null}

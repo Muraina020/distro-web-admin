@@ -32,6 +32,7 @@ const SingleCustomer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
+  //  const [isActive, setIsActive] = useState(true);
 
   const fetchDriverProfile = async () => {
     try {

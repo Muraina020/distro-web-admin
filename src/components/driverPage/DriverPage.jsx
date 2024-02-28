@@ -132,6 +132,7 @@ const DriverPage = () => {
                     key={index}
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
+                    onClick={() => handleRowClick(item?.email)}
                   >
                   
                     <Td>{item?.driverId}</Td>
@@ -165,6 +166,7 @@ const DriverPage = () => {
                     key={index}
                     borderBottom="2px solid lightgray"
                     style={{ color: "#696969", cursor: "pointer" }}
+                    onClick={() => handleRowClick(item?.email)}
                   >
                     <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
