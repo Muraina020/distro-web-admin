@@ -18,11 +18,15 @@ export const orderColumn = [
         </button>
       );
     },
-    cell: (props) => (
-      <p className="text-graylight">
-        {!props.getValue() ? "..." : props.getValue()}
-      </p>
-    ),
+    cell: (props) => {
+      const id = props.row.original.id;
+
+      return (
+        <Link to={`/dashboard/orderTracking/${id}`} className="text-graylight">
+          {!props.getValue() ? "..." : props.getValue()}
+        </Link>
+      );
+    },
   },
   {
     accessorKey: "date",
@@ -42,10 +46,15 @@ export const orderColumn = [
 
     cell: (props) => {
       const date = props.getValue();
+      const id = props.row.original.id;
+
       return (
-        <p className="sm:w-[9.8125rem] mx-auto w-[6rem] leading-[1.5rem] text-graylight text-center">
+        <Link
+          to={`/dashboard/orderTracking/${id}`}
+          className="sm:w-[9.8125rem] mx-auto w-[6rem] leading-[1.5rem] text-graylight text-center"
+        >
           {!formateDate(date) ? "..." : formateDate(date)}
-        </p>
+        </Link>
       );
     },
   },

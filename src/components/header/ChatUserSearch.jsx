@@ -46,14 +46,14 @@ const ChatUserSearch = ({ user, onclick }) => {
               name: user.name,
               profileUrl: null,
               uid: user.uid,
-              fcmToken: token,
+              fcmToken: "",
             },
             {
               deletedAt: Timestamp.now(),
               name: "Distro Support",
               profileUrl: null,
               uid: currentUid,
-              fcmToken: "",
+              fcmToken: token,
             },
           ],
         });

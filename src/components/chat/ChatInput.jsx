@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db, sendNotification, storage } from "../../firebase";
+import { db, storage } from "../../firebase";
 import {
   collection,
   addDoc,
@@ -50,17 +50,8 @@ const ChatInput = () => {
       isMessageRead: false,
     });
 
-    // Send notification if token is available
-    if (token) {
-      const notification = {
-        title: "New Message",
-        body: "You have received a new message.",
-        click_action: "/dashboard/chat", // Route to navigate when notification clicked
-      };
-      sendNotification(token, notification);
-    }
-
     // Update chatroom properties
+
     const chatRoomRef = doc(db, "Chatrooms", chatRoomId);
     await updateDoc(chatRoomRef, {
       lastMessageSenderId: CurrentUid,
