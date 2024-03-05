@@ -61,35 +61,63 @@ const SingleDriver = () => {
   useEffect(() => {
     fetchDriverProfile();
     fetchDriverOrders();
-    setIsActive(data.currentStatus);
+    // setIsActive(data.currentStatus);
     console.log(pageState);
     console.log(orderData);
   }, [email, pageState,currentPage, itemsPerPage]);
   console.log(data);
 
 
+  // const handleActivation = async () => {
+  //   try {
+  //     if (isActive === false) {
+  //       const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/deactivate?email=${email}`);
+  //       console.log(response)
+  //       console.log(response.data)
+  //       setIsActive(response.data)
+  //     } else {
+  //       const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/activate?email=${email}`);
+  //       console.log(response)
+  //       console.log(response.data)
+  //       setIsActive(response.data)
+  //     }
+  //     setActivationMessage('Do you want to deactivate ? Click again');
+  //     setTimeout(() => {
+  //       setActivationMessage('');
+  //       // navigate('/dashboard/driver'); 
+  //     }, 3000);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // }
+  
   const handleActivation = async () => {
     try {
-      if (isActive === false) {
-        const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/deactivate?email=${email}`);
-        console.log(response)
-        console.log(response.data)
-        setIsActive(response.data)
+      if (data.status === "Active") {
+        const response = await customFetch.post(`/drivers/deactivate?email=${email}`);
+        console.log(response);
+        console.log(response.data);
+        setActivationMessage("Driver deactivated successfully.");
+        // Set isActive to null to hide the button
+        setIsActive(null);
       } else {
-        const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/activate?email=${email}`);
-        console.log(response)
-        console.log(response.data)
-        setIsActive(response.data)
+        const response = await customFetch.post(`/drivers/activate?email=${email}`);
+        console.log(response);
+        console.log(response.data);
+        setActivationMessage("Driver activated successfully.");
+        // Set isActive to true to show the "Deactivate" button
+        setIsActive(true);
       }
-      setActivationMessage('Do you want to deactivate ? Click again');
       setTimeout(() => {
-        setActivationMessage('');
+        setActivationMessage("");
         navigate('/dashboard/driver'); 
-      }, 3000);
+      }, 2000);
     } catch (error) {
       console.error("Error:", error);
     }
-  }
+  };
+  
+  
 
   const handleDetails = () => {
     setPageState("details");
@@ -372,35 +400,15 @@ const SingleDriver = () => {
               </Tr>
             </Tbody>
           </Table>
-          {/* <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            marginTop="70px"
-            direction="column"
-          >
-            <Flex>
-              <Button colorScheme="#00A69C" bg="#00A69C" marginRight="4">
-                Edit
-              </Button>
-              <Button
-                colorScheme="white"
-                color="#00A69C"
-                border="2px solid #00A69C"
-              >
-                Message
-              </Button>
-            </Flex>
-
-            <Button size="lg" colorScheme="red" marginTop="5">
-              Deactivate
-            </Button>
-          </Flex> */}
+        
            <Flex justifyContent="space-between" alignItems="center" marginTop="70px" direction="column">
       <Flex>
+      <Link to={`/dashboard/edit/${email}`}>
         <Button colorScheme="#00A69C" bg="#00A69C" marginRight="4">Edit</Button>
+        </Link>
         <Button colorScheme="white" color="#00A69C" border="2px solid #00A69C">Message</Button>
       </Flex>
-       <Button
+       {/* <Button
         size="lg"
         colorScheme={isActive ? "red" : "green"}
         marginTop="5"
@@ -408,7 +416,17 @@ const SingleDriver = () => {
       >
         {isActive ? "Deactivate" : "Activate"}
       </Button>
-      {activationMessage && <div>{activationMessage}</div>}
+      {activationMessage && <div>{activationMessage}</div>} */}
+      <Button
+  size="lg"
+  colorScheme={data.status === "Active" ? "red" : "green"} // Use data.status to determine color scheme
+  marginTop="5"
+  onClick={handleActivation}
+>
+  {data.status === "Active" ? "Deactivate" : "Activate"} {/* Use data.status to determine button label */}
+</Button>
+{activationMessage && <div style={{ color: "black" }}>{activationMessage}</div>} 
+
     </Flex>
         </TableContainer>
       ) : null}
@@ -440,7 +458,7 @@ const SingleDriver = () => {
                   >
                     <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
                     <Box mt="2"> {data?.driverId}</Box>
-                    <Td>
+                    {/* <Td>
                       <div
                         className={`${
                           data?.currentStatus === "active"
@@ -456,7 +474,7 @@ const SingleDriver = () => {
                           ? "offline"
                           : "unverified"}
                       </div>
-                    </Td>
+                    </Td> */}
                   </Flex>
                 </Td>
               </Tr>

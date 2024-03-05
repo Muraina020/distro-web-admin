@@ -34,6 +34,7 @@ import ResetPassword from "./pages/resetPassword/ResetPassword";
 import SingleDriver from "./components/onlineSettin.jsx/SingleDriver";
 import OrderId from "./components/onlineSettin.jsx/OrderId";
 import SingleCustomer from "./components/customerPage/SingleCustomer";
+import EditDriver from "./components/onlineSettin.jsx/EditDriver";
 // actions
 
 const router = createBrowserRouter([
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/drivers/:email",
         element: <SingleDriver />,
+      },
+      {
+        path:"/dashboard/edit/:email",
+        element: <EditDriver />,
       },
       {
         path:"/dashboard/order/:orderId",

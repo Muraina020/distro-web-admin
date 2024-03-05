@@ -137,9 +137,9 @@ const DriverPage = () => {
                   
                     <Td>{item?.driverId}</Td>
                     <Td>{item?.fullName ? item.fullName : "N/A"}</Td>
-                   <Link to={`/dashboard/drivers/${item?.email}`}>
+                   
                      <Td className="email-column">{item?.email}</Td>
-                   </Link>
+                   
                     <Td isNumeric>{item?.phoneNumber}</Td>
                     <Td>
                       <div

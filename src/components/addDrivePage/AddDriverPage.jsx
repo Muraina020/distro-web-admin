@@ -123,6 +123,10 @@ const AddDriverPage = () => {
     }
   };
 
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
+  };
+
   return (
     <div>
       <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
@@ -413,7 +417,7 @@ const AddDriverPage = () => {
                         margin="0 10px 0 0"
                         cursor="pointer"
                       />
-                      <Input
+                      {/* <Input
                         className="responsive-input"
                         placeholder="Gender"
                         border="2px solid gray"
@@ -425,7 +429,26 @@ const AddDriverPage = () => {
                         height="40px"
                         margin="0 0 0 10px"
                         cursor="pointer"
-                      />
+                      /> */}
+                       <select
+        className="responsive-input"
+        value={gender}
+        onChange={handleGenderChange}
+        style={{
+          border: "2px solid gray",
+          borderRadius: "4px",
+          padding: "8px",
+          width: "330px",
+          height: "40px",
+          color: "zinc",
+          fontWeight: "300",
+          cursor: "pointer",
+        }}
+      >
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
                     </Flex>
                   </Td>
                 </Tr>
