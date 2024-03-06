@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 const EditDriver = () => {
     const [data, setData] = useState({});
     const [editedData, setEditedData] = useState({});
+    const [activationMessage, setActivationMessage] = useState('');
   const navigate = useNavigate();
     const { email } = useParams();
     // console.log(email);
@@ -67,6 +68,11 @@ const handleSave = async () => {
       const response = await customFetch.put(`/profiles/driver/edit?email=${email}`, editedData);
       setData(response.data);
       console.log("Profile updated successfully:", response);
+      setActivationMessage("Driver edited successfully.");
+      setTimeout(() => {
+        setActivationMessage("");
+        navigate('/dashboard/driver'); 
+      }, 2000);
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -83,7 +89,7 @@ const handleSave = async () => {
                             <Box mr="2">Name:</Box>
                             <Input
                                 name="name"
-                                value={editedData.name || ""}
+                                value={editedData.name}
                                 onChange={handleChange}
                             />
                         </Flex>
@@ -212,9 +218,13 @@ const handleSave = async () => {
       </Tbody>
     </Table>
   
-    <Flex justifyContent="center" marginTop="20px">
-            <Button onClick={handleSave}>Save</Button>
+    <Flex flexDirection="column" alignItems="center" marginTop="20px">
+        <Flex justifyContent="center">
+          <Button size="lg" colorScheme="green" onClick={handleSave}>Save</Button>
         </Flex>
+        {activationMessage && <div style={{ color: "black", marginTop: "10px" }}>{activationMessage}</div>}
+      </Flex>
+        
   </TableContainer>
   )
 }

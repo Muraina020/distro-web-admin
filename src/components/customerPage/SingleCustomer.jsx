@@ -32,6 +32,7 @@ const SingleCustomer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
+  const [activationMessage, setActivationMessage] = useState('');
   //  const [isActive, setIsActive] = useState(true);
 
   const fetchDriverProfile = async () => {
@@ -65,6 +66,25 @@ const SingleCustomer = () => {
     console.log(orderData);
   }, [email, pageState,currentPage, itemsPerPage]);
   console.log(data);
+
+  const handleActivation = async () => {
+    try {
+       {
+        const response = await customFetch.post(`/drivers/deactivate?email=${email}`);
+        console.log(response);
+        console.log(response.data);
+        setActivationMessage("Driver deactivated successfully.");
+        // Set isActive to null to hide the button
+        setIsActive(null);
+      }
+      setTimeout(() => {
+        setActivationMessage("");
+        // navigate('/dashboard/driver'); 
+      }, 2000);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handleDetails = () => {
     setPageState("details");
@@ -328,9 +348,12 @@ return (
           </Button>
         </Flex>
 
-        <Button size="lg" colorScheme="red" marginTop="5">
+        <Button 
+        size="lg" colorScheme="red" marginTop="5"
+        onClick={handleActivation}>
           Deactivate
         </Button>
+        {activationMessage && <div style={{ color: "black" }}>{activationMessage}</div>} 
       </Flex>
     </TableContainer>
   ) : null}

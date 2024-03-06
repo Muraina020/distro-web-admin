@@ -15,7 +15,7 @@ import {
 import { FaArrowLeft } from "react-icons/fa";
 import { BsStarHalf, BsStarFill, BsStar } from "react-icons/bs";
 import cube from "../../assets/img/cube.png";
-import man from "../../assets/img/man.png";
+// import man from "../../assets/img/man.png";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
