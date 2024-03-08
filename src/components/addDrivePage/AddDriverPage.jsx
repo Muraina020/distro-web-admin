@@ -127,6 +127,10 @@ const AddDriverPage = () => {
     setGender(e.target.value);
   };
 
+  const handleVehicleTypeChange = (e) => {
+    setVehicleType(e.target.value);
+  };
+
   return (
     <div>
       <TableContainer bg="white" fontSize="18px" paddingBottom="50px">
@@ -519,6 +523,7 @@ const AddDriverPage = () => {
                         placeholder="Date of birth (YYY-MM-DD)"
                         border="2px solid gray"
                         borderRadius="4px"
+                        type="date"
                         value={dateOfBirth}
                         onChange={(e) => setDateOfBirth(e.target.value)}
                         p="2"
@@ -558,7 +563,7 @@ const AddDriverPage = () => {
                       cursor="pointer"
                       marginRight="5px"
                     />
-                    <Input
+                    {/* <Input
                       className="responsive-input"
                       placeholder="vehicleType"
                       border="2px solid gray"
@@ -570,7 +575,27 @@ const AddDriverPage = () => {
                       height="40px"
                       margin="0 10px 0 0"
                       cursor="pointer"
-                    />
+                    /> */}
+                      <select
+        className="responsive-input"
+        value={vehicleType}
+        onChange={handleVehicleTypeChange}
+        style={{
+          border: "2px solid gray",
+          borderRadius: "4px",
+          padding: "8px",
+          width: "330px",
+          height: "40px",
+          color: "zinc",
+          fontWeight: "300",
+          cursor: "pointer",
+        }}
+      >
+        <option value="">Select VehicleType</option>
+        <option value="Truck">1 Ton Truck</option>
+        <option value="Car">1O Ton Truck</option>
+        <option value="Motorcycle">3O Ton Truck</option>
+      </select>
                   </Flex>
                 </Td>
 

@@ -33,7 +33,7 @@ const SingleCustomer = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
   const [activationMessage, setActivationMessage] = useState('');
-  //  const [isActive, setIsActive] = useState(true);
+ 
 
   const fetchDriverProfile = async () => {
     try {
@@ -67,24 +67,26 @@ const SingleCustomer = () => {
   }, [email, pageState,currentPage, itemsPerPage]);
   console.log(data);
 
-  const handleActivation = async () => {
+  const handleDeactivation = async () => {
     try {
-       {
-        const response = await customFetch.post(`/drivers/deactivate?email=${email}`);
-        console.log(response);
-        console.log(response.data);
-        setActivationMessage("Driver deactivated successfully.");
-        // Set isActive to null to hide the button
-        setIsActive(null);
+      const response = await customFetch.post(`/profiles/user/deactivate-account?email=${email}`);
+      console.log(response);
+      if (response.data === true) {
+        setActivationMessage("Deactivated successfully.");
+        setTimeout(() => {
+          setActivationMessage("");
+          navigate('/dashboard/customer'); 
+        }, 2000);
+      } else {
+        setActivationMessage("Deactivation failed."); 
       }
-      setTimeout(() => {
-        setActivationMessage("");
-        // navigate('/dashboard/driver'); 
-      }, 2000);
     } catch (error) {
       console.error("Error:", error);
+      setActivationMessage("Deactivation failed."); // Handle error case
     }
   };
+  
+  
 
   const handleDetails = () => {
     setPageState("details");
@@ -336,9 +338,11 @@ return (
         direction="column"
       >
         <Flex>
+        <Link to={`/dashboard/customer/edit/${email}`}>
           <Button colorScheme="#00A69C" bg="#00A69C" marginRight="4">
             Edit
           </Button>
+          </Link>
           <Button
             colorScheme="white"
             color="#00A69C"
@@ -350,7 +354,7 @@ return (
 
         <Button 
         size="lg" colorScheme="red" marginTop="5"
-        onClick={handleActivation}>
+        onClick={handleDeactivation}>
           Deactivate
         </Button>
         {activationMessage && <div style={{ color: "black" }}>{activationMessage}</div>} 

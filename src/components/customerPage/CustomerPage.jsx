@@ -46,6 +46,10 @@ const CustomerPage = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  const handleRowClick = (email) => {
+    navigate(`/dashboard/customers/${email}`);
+  };
   return (
     <div>
       <TableContainer bg="white"  fontSize="18px" paddingBottom="30px">
@@ -61,7 +65,8 @@ const CustomerPage = () => {
           </Thead>
           <Tbody>
             {data.map((item, index) => (
-              <Tr key={index} borderBottom="2px solid lightgray" color='#696969' >
+              <Tr key={index} borderBottom="2px solid lightgray" color='#696969' 
+              onClick={() => handleRowClick(item?.email)}>
                 <Td onClick={handleOrder} cursor='pointer'>{item?.customerId}</Td>
                 <Td>{item?.name}</Td>
 

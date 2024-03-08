@@ -35,6 +35,7 @@ import SingleDriver from "./components/onlineSettin.jsx/SingleDriver";
 import OrderId from "./components/onlineSettin.jsx/OrderId";
 import SingleCustomer from "./components/customerPage/SingleCustomer";
 import EditDriver from "./components/onlineSettin.jsx/EditDriver";
+import EditCustomer from "./components/customerPage/EditCustomer";
 // actions
 
 const router = createBrowserRouter([
@@ -106,6 +107,11 @@ const router = createBrowserRouter([
       {
         path:"/dashboard/customers/:email",
         element: <SingleCustomer />,
+      },
+
+      {
+        path:"/dashboard/customer/edit/:email",
+        element: <EditCustomer />,
       },
      
      {
