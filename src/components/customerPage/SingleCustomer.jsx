@@ -211,7 +211,7 @@ return (
             >
               <Flex alignItems="" borderBottom="1px solid lightgray">
                 <Td fontSize="md">
-                  <b>Phone</b>
+                  <b>Phone No</b>
                 </Td>
                 <Td fontSize="md">{data?.phone}</Td>
               </Flex>
@@ -237,7 +237,7 @@ return (
             >
              
             </Flex>
-            <Flex
+            {/* <Flex
               justifyContent=""
               gap="150px"
               width="100%"
@@ -264,7 +264,7 @@ return (
                   {data?.nextOfKinPhone ? data.nextOfKinPhone : "N/A"}
                 </Td>
               </Flex>
-            </Flex>
+            </Flex> */}
             <Flex
               justifyContent=""
               gap="150px"
@@ -298,7 +298,7 @@ return (
                 </Td>
               </Flex>
             </Flex>
-            <Flex
+            {/* <Flex
               justifyContent=""
               gap="150px"
               width="100%"
@@ -327,7 +327,7 @@ return (
                   {data?.averageRatings}
                 </Td>
               </Flex>
-            </Flex>
+            </Flex> */}
           </Tr>
         </Tbody>
       </Table>

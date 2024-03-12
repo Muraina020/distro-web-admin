@@ -89,7 +89,7 @@ const handleSave = async () => {
                 <Tr>
                     <Td>
                         <Flex alignItems="center">
-                            <Box mr="2">Phone:</Box>
+                            <Box mr="2">Phone No:</Box>
                             <Input
                                 name="phone"
                                 value={editedData.phone || ""}
@@ -111,91 +111,26 @@ const handleSave = async () => {
                 <Tr>
                     <Td>
                         <Flex alignItems="center">
-                            <Box mr="2">Address:</Box>
+                            <Box mr="2">Date of Birth:</Box>
                             <Input
                                 name="address"
-                                value={editedData.address || ""}
+                                value={editedData.dateofbirth || ""}
                                 onChange={handleChange}
                             />
                         </Flex>
                     </Td>
                     <Td>
                         <Flex alignItems="center">
-                            <Box mr="2">State:</Box>
+                            <Box mr="2">Date Joined:</Box>
                             <Input
                                 name="state"
-                                value={editedData.state || ""}
+                                value={editedData.dateJoined || ""}
                                 onChange={handleChange}
                             />
                         </Flex>
                     </Td>
                 </Tr>
-                <Tr>
-                    <Td>
-                        <Flex alignItems="center">
-                            <Box mr="2">Next of Kin Name:</Box>
-                            <Input
-                                name="nextOfKinName"
-                                value={editedData.nextOfKinName || ""}
-                                onChange={handleChange}
-                            />
-                        </Flex>
-                    </Td>
-                    <Td>
-                        <Flex alignItems="center">
-                            <Box mr="2">Next of Kin Phone:</Box>
-                            <Input
-                                name="nextOfKinPhone"
-                                value={editedData.nextOfKinPhone || ""}
-                                onChange={handleChange}
-                            />
-                        </Flex>
-                    </Td>
-                </Tr>
-                <Tr>
-                    <Td>
-                        <Flex alignItems="center">
-                            <Box mr="2">Vehicle Type:</Box>
-                            <Input
-                                name="vehicleType"
-                                value={editedData.vehicleType || ""}
-                                onChange={handleChange}
-                            />
-                        </Flex>
-                    </Td>
-                    <Td>
-                        <Flex alignItems="center">
-                            <Box mr="2">Vehicle Plate Number:</Box>
-                            <Input
-                                name="vehiclePlateNumber"
-                                value={editedData.vehiclePlateNumber || ""}
-                                onChange={handleChange}
-                            />
-                        </Flex>
-                    </Td>
-                </Tr>
-                <Tr>
-                    <Td>
-                        <Flex alignItems="center">
-                            <Box mr="2">Driver's Licence:</Box>
-                            <Input
-                                name="driversLicence"
-                                value={editedData.driversLicence || ""}
-                                onChange={handleChange}
-                            />
-                        </Flex>
-                    </Td>
-                    <Td>
-                        <Flex alignItems="center">
-                            <Box mr="2">Average Ratings:</Box>
-                            <Input
-                                name="averageRatings"
-                                value={editedData.averageRatings || ""}
-                                onChange={handleChange}
-                            />
-                        </Flex>
-                    </Td>
-                </Tr>
+  
       </Tbody>
     </Table>
   

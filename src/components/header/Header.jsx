@@ -104,7 +104,7 @@ const Header = () => {
               className="w-full outline-none p-2 rounded-[48px]"
             />
          </div>
-          <div className="max-w-[266px] flex flex-col items-center bg-white rounded-[5px] p-1 pr-3">
+          <div className="max-w-[266px] flex flex-col items-center bg-white rounded-[10px] cursor-pointer p-0 pr-3">
            <ResultList results={results}/>
           </div>
           </div>

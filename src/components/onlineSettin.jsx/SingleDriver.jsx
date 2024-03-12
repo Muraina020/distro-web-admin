@@ -1,3 +1,4 @@
+
 import {
   Table,
   Thead,
@@ -19,6 +20,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { customFetch } from "../../utils";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { doc, getDoc, setDoc, addDoc, Timestamp } from "firebase/firestore";
+import { db } from "../../firebase";
+import { useChatContext } from "../../context/ChatContext";
+import AuthContext, { useAuthContext } from "../../context/AuthProvider";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const SingleDriver = () => {
   const navigate = useNavigate();
@@ -33,6 +39,7 @@ const SingleDriver = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isActive, setIsActive] = useState(null);
   const [activationMessage, setActivationMessage] = useState('');
+  const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
   const fetchDriverProfile = async () => {
     try {
@@ -51,7 +58,7 @@ const SingleDriver = () => {
 
       setOrderData(response.data);
       setTotalPages(Math.ceil(response.data.totalElements / itemsPerPage));
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.error("Error fetching driver order:", error);
       // Handle the error as needed
@@ -65,31 +72,7 @@ const SingleDriver = () => {
     console.log(pageState);
     console.log(orderData);
   }, [email, pageState,currentPage, itemsPerPage]);
-  console.log(data);
-
-
-  // const handleActivation = async () => {
-  //   try {
-  //     if (isActive === false) {
-  //       const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/deactivate?email=${email}`);
-  //       console.log(response)
-  //       console.log(response.data)
-  //       setIsActive(response.data)
-  //     } else {
-  //       const response = await customFetch.post(`https://apps-1.lampnets.com/distro/drivers/activate?email=${email}`);
-  //       console.log(response)
-  //       console.log(response.data)
-  //       setIsActive(response.data)
-  //     }
-  //     setActivationMessage('Do you want to deactivate ? Click again');
-  //     setTimeout(() => {
-  //       setActivationMessage('');
-  //       // navigate('/dashboard/driver'); 
-  //     }, 3000);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // }
+  // console.log(data);
   
   const handleActivation = async () => {
     try {
@@ -117,8 +100,6 @@ const SingleDriver = () => {
     }
   };
   
-  
-
   const handleDetails = () => {
     setPageState("details");
   };
@@ -134,6 +115,71 @@ const SingleDriver = () => {
   };
 
   
+
+  const handleSelectUser = (u, id) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+    setActive(id);
+   
+
+    if (!isMediumDevice) {
+      setSelect(true);
+    }
+  };
+
+  const user = { name: data.name, uid: data.email };
+   // Fetching token from useChatContext hook
+   const { dispatch, setSelect, setActive, token } = useChatContext();
+   const {
+    admin: { phoneNoOrEmail: currentUid },
+  } = useAuthContext();
+   
+   
+   async function handleClick() {
+  const combinedId =
+    currentUid > data.email
+      ? currentUid + "_" + data.email
+      : data.email + "_" + currentUid;
+
+  const docRef = doc(db, "Chatrooms", combinedId);
+  const res = await getDoc(docRef);
+    console.log(combinedId)
+    console.log(currentUid)
+  try {
+    if (!res.exists()) {
+      console.log("reached");
+      await setDoc(doc(db, "Chatrooms", combinedId), {
+        chatRoomId: combinedId,
+        isRequestSent: false,
+        lastMessage: "",
+        lastMessageSenderId: "",
+        lastMessageTime: "",
+        unreadMessageCount: 0,
+        userIds: [currentUid, data.email],
+        users: [
+          {
+            deletedAt: Timestamp.now(),
+            name: data.name,
+            profileUrl: null,
+            uid: data.email,
+            fcmToken: token,
+          },
+          {
+            deletedAt: Timestamp.now(),
+            name: "Distro Support",
+            profileUrl: null,
+            uid: currentUid,
+            fcmToken: "",
+          },
+        ],
+      });
+    }
+    handleSelectUser(user, combinedId);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
   return (
     <div style={{ position: "relative" }}>
       <IconButton
@@ -406,7 +452,11 @@ const SingleDriver = () => {
       <Link to={`/dashboard/edit/${email}`}>
         <Button colorScheme="#00A69C" bg="#00A69C" marginRight="4">Edit</Button>
         </Link>
-        <Button colorScheme="white" color="#00A69C" border="2px solid #00A69C">Message</Button>
+        
+        <Link  onClick={handleClick} to={"/chat"}  >
+        <Button 
+         colorScheme="white" color="#00A69C" border="2px solid #00A69C">Message</Button>
+        </Link>
       </Flex>
        {/* <Button
         size="lg"
