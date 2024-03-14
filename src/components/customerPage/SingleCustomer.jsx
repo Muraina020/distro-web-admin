@@ -19,12 +19,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { customFetch } from "../../utils";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { doc, getDoc, setDoc, addDoc, Timestamp } from "firebase/firestore";
+import { db } from "../../firebase";
+import { useChatContext } from "../../context/ChatContext";
+import AuthContext, { useAuthContext } from "../../context/AuthProvider";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const SingleCustomer = () => {
 
   const navigate = useNavigate();
   const { email } = useParams();
-  console.log(email);
+  // console.log(email);
 
   const [pageState, setPageState] = useState("details");
   const [data, setData] = useState([]);
@@ -32,7 +37,9 @@ const SingleCustomer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
+  const [isActive, setIsActive] = useState(null);
   const [activationMessage, setActivationMessage] = useState('');
+  const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
  
 
   const fetchDriverProfile = async () => {
@@ -40,7 +47,7 @@ const SingleCustomer = () => {
       const response = await customFetch.get(`/profiles/user?email=${email}`);
 
       setData(response.data);
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.error("Error fetching driver profile:", error);
       // Handle the error as needed
@@ -65,7 +72,7 @@ const SingleCustomer = () => {
     console.log(pageState);
     console.log(orderData);
   }, [email, pageState,currentPage, itemsPerPage]);
-  console.log(data);
+  // console.log(data);
 
   const handleDeactivation = async () => {
     try {
@@ -101,6 +108,71 @@ const SingleCustomer = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+  const handleSelectUser = (u, id) => {
+    dispatch({ type: "CHANGE_USER", payload: u });
+    setActive(id);
+   
+
+    if (!isMediumDevice) {
+      setSelect(true);
+    }
+  };
+
+  const user = { name: data.name, uid: data.email };
+   // Fetching token from useChatContext hook
+   const { dispatch, setSelect, setActive, token } = useChatContext();
+   const {
+    admin: { phoneNoOrEmail: currentUid },
+  } = useAuthContext();
+  // const {currentUid} = useAuthContext()
+    
+   
+   async function handleClick() {
+    // console.log(currentUid)
+  const combinedId =
+    currentUid > data.email
+      ? currentUid + "_" + data.email
+      : data.email + "_" + currentUid;
+
+  const docRef = doc(db, "Chatrooms", combinedId);
+  const res = await getDoc(docRef);
+    console.log(combinedId)
+    console.log(currentUid)
+  try {
+    if (!res.exists()) {
+      console.log("reached");
+      await setDoc(doc(db, "Chatrooms", combinedId), {
+        chatRoomId: combinedId,
+        isRequestSent: false,
+        lastMessage: "",
+        lastMessageSenderId: "",
+        lastMessageTime: "",
+        unreadMessageCount: 0,
+        userIds: [currentUid, data.email],
+        users: [
+          {
+            deletedAt: Timestamp.now(),
+            name: data.name,
+            profileUrl: null,
+            uid: data.email,
+            fcmToken: token,
+          },
+          {
+            deletedAt: Timestamp.now(),
+            name: "Distro Support",
+            profileUrl: null,
+            uid: currentUid,
+            fcmToken: "",
+          },
+        ],
+      });
+    }
+    handleSelectUser(user, combinedId);
+  } catch (error) {
+    console.log(error);
+  }
+}
 return (
   <div style={{ position: "relative" }}>
   <IconButton
@@ -186,7 +258,8 @@ return (
                   <b>Name </b>
                 </Td>
                 <Td fontSize="md" color="black">
-                  {data?.firstname}
+                  {/* {data?.firstname} */}
+                  {data?.name ? data.name : "N/A"}
                 </Td>
               </Flex>
               <Flex alignItems="" borderBottom="1px solid lightgray">
@@ -343,6 +416,7 @@ return (
             Edit
           </Button>
           </Link>
+          <Link  onClick={handleClick} to={"/chat"}  >
           <Button
             colorScheme="white"
             color="#00A69C"
@@ -350,6 +424,7 @@ return (
           >
             Message
           </Button>
+          </Link>
         </Flex>
 
         <Button 

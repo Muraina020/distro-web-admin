@@ -1,38 +1,38 @@
-
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/distro-logo.png";
 import Container from "../ui/Container";
-import { useState } from "react";
+import React, { useState } from 'react';
 import { useAppContext } from "../../context/AppContext";
-import ResultList from "./ResultList";
+import { customFetch } from "../../utils";
 
 const Header = () => {
   const { openSidebar } = useAppContext();
-  const [input, setInput] = useState("")
-  const [results, setResults] = useState([])
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
-  const fetchData = (value) => {
-     fetch("https://jsonplaceholder.typicode.com/users").then((response) => response.json()).then((json) => {
-      // console.log(json);
-      const results = json.filter((user) => {
-        return (
-          value &&
-          user &&
-          user.name &&
-          user.name.toLowerCase().includes(value)
-        );
-      });
-      // console.log(results)
-      setResults(results);
-     })
-  }
+  const handleSearch = async () => {
+    try {
+      const response = await customFetch.get(`/pickuporders/search?shipmentId=${searchTerm}`);
+      const data = response.data;
 
-  const handleSearch = (value) =>{
-    setInput(value)
-    fetchData(value)
-  }
+      setSearchResults(data);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
 
-  return (
+const handleChange = (e) => {
+  setSearchTerm(e.target.value);
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  handleSearch();
+};
+  
+return (
     <header className=" py-6 lg:px-11 px-5 sticky left-0 w-full top-0 bg-background z-20 ">
       <Container>
         <div className="flex items-center justify-between">
@@ -67,13 +67,14 @@ const Header = () => {
             </button>
 
             <Link to={"/dashboard"}>
-              <div className=" lg:w-[7rem] lg:h-[3rem] w-[4rem]  ">
+              <div className=" lg:w-[9.70575rem] lg:h-[3.28713rem] w-[4rem]  ">
                 <img src={logo} alt="distor logo" className="h-full w-full" />
               </div>
             </Link>
           </div>
-          <div className="flex flex-col gap-[8px] max-w-[366px] w-full">
-          <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3" setResults={setResults}>
+
+          <div className="max-w-[366px] w-full lg:flex hidden items-center bg-white rounded-[48px] p-1 pr-3">
+          <form onSubmit={handleSubmit} className="flex items-center">
             <button className="pl-2">
               <svg
                 className="lg:w-[25px] lg:h-[25px] w-[20px] h-[20px]"
@@ -97,16 +98,17 @@ const Header = () => {
               </svg>
             </button>
             <input
-              type="text"
-              placeholder="Type to Search ...."
-              value={input}
-              onChange={(e) =>handleSearch(e.target.value)}
-              className="w-full outline-none p-2 rounded-[48px]"
-            />
-         </div>
-          <div className="max-w-[266px] flex flex-col items-center bg-white rounded-[10px] cursor-pointer p-0 pr-3">
-           <ResultList results={results}/>
-          </div>
+                type="text"
+                placeholder="Search"
+                className="w-full outline-none p-2 rounded-[48px]"
+                value={searchTerm}
+                onChange={handleChange}
+              />
+               </form>
+  
+             {searchResults.length > 0 && (
+        <SearchResult result={searchResults} />
+      )}
           </div>
 
           <ul className="flex gap-x-3">

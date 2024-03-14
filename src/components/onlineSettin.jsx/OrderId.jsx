@@ -26,7 +26,7 @@ const OrderId = () => {
   const mobileWidth = useBreakpointValue({ base: "400px", md: "100%" });
 
   const { orderId } = useParams();
-  console.log(orderId);
+  // console.log(orderId);
 
   const [data, setData] = useState([]);
 
@@ -45,7 +45,7 @@ const OrderId = () => {
 
     fetchDrivers();
   }, [orderId]);
-  console.log(data);
+  // console.log(data);
 
   const navigate = useNavigate();
 
