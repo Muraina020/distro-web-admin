@@ -47,7 +47,7 @@ const SingleCustomer = () => {
       const response = await customFetch.get(`/profiles/user?email=${email}`);
 
       setData(response.data);
-      // console.log(response);
+      console.log(response);
     } catch (error) {
       console.error("Error fetching driver profile:", error);
       // Handle the error as needed
@@ -72,7 +72,7 @@ const SingleCustomer = () => {
     console.log(pageState);
     console.log(orderData);
   }, [email, pageState,currentPage, itemsPerPage]);
-  // console.log(data);
+  console.log(data);
 
   const handleDeactivation = async () => {
     try {
@@ -125,11 +125,9 @@ const SingleCustomer = () => {
    const {
     admin: { phoneNoOrEmail: currentUid },
   } = useAuthContext();
-  // const {currentUid} = useAuthContext()
-    
+   
    
    async function handleClick() {
-    // console.log(currentUid)
   const combinedId =
     currentUid > data.email
       ? currentUid + "_" + data.email
@@ -258,8 +256,7 @@ return (
                   <b>Name </b>
                 </Td>
                 <Td fontSize="md" color="black">
-                  {/* {data?.firstname} */}
-                  {data?.name ? data.name : "N/A"}
+                  {data?.name}
                 </Td>
               </Flex>
               <Flex alignItems="" borderBottom="1px solid lightgray">
@@ -416,7 +413,8 @@ return (
             Edit
           </Button>
           </Link>
-          <Link  onClick={handleClick} to={"/chat"}  >
+          <Link   onClick={handleClick}
+            to={"/chat"} >
           <Button
             colorScheme="white"
             color="#00A69C"
