@@ -20,10 +20,12 @@ const DriverPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDrivers = async () => {
+      setIsLoading(true);
       let endpoint;
       if (activeHeader === "ACTIVE") {
         endpoint = `/drivers/active/all?pageNo=${currentPage - 1}&pageSize=${itemsPerPage}`;
@@ -40,6 +42,8 @@ const DriverPage = () => {
         setTotalPages(Math.ceil(response.data.totalElements / itemsPerPage));
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false); // Set loading state to false after fetching data
       }
     };
 
@@ -60,6 +64,7 @@ const DriverPage = () => {
 
   return (
     <div>
+       
       <TableContainer
         bg="white"
         fontSize="18px"
@@ -125,6 +130,12 @@ const DriverPage = () => {
             </Tr>
           </Thead>
           <Tbody>
+          {isLoading ? (
+              <Tr>
+                <Td colSpan={5} textAlign="center" color='#00A69C' >Loading...</Td>
+              </Tr>
+            ) : (
+              <>
             {activeHeader === "ACTIVE" && (
               <>
                 {data.map((item, index) => (
@@ -222,6 +233,10 @@ const DriverPage = () => {
                 ))}
               </>
             )}
+   
+      
+            </>
+               )}
           </Tbody>
         </Table>
 
@@ -253,6 +268,7 @@ const DriverPage = () => {
             <FaChevronRight onClick={() => handlePageChange(currentPage + 1)} />
           </Flex>
       </TableContainer>
+     
     </div>
   );
 };

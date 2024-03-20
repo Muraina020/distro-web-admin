@@ -38,6 +38,7 @@ const SingleCustomer = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
   const [isActive, setIsActive] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [activationMessage, setActivationMessage] = useState('');
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
  
@@ -64,9 +65,13 @@ const SingleCustomer = () => {
       console.error("Error fetching driver order:", error);
       // Handle the error as needed
     }
+    finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
+    setIsLoading(true)
     fetchDriverProfile();
     fetchDriverOrders();
     console.log(pageState);
@@ -107,6 +112,10 @@ const SingleCustomer = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleRowClick = (id) => {
+    navigate(`/dashboard/order/${id}`);
   };
 
   const handleSelectUser = (u, id) => {
@@ -461,7 +470,7 @@ return (
               >
                 <Avatar size="lg" name="John Doe" src={data?.userAvatar} />
                 <Box mt="2"> {data?.driverId}</Box>
-                <Td>
+                {/* <Td>
                   <div
                     className={`${
                       data?.currentStatus === "active"
@@ -477,7 +486,7 @@ return (
                       ? "offline"
                       : "unverified"}
                   </div>
-                </Td>
+                </Td> */}
               </Flex>
             </Td>
           </Tr>
@@ -518,11 +527,20 @@ return (
             <Td style={{ borderBottom: "1px solid lightgray" }}>AMOUNT</Td>
           </Tr>
 
+          {isLoading ? (
+              <Tr>
+                <Td colSpan={5} textAlign="center" color='#00A69C' >Loading...</Td>
+              </Tr>
+            ) : (
+              <>
+
           {orderData.content.length > 0 ? (
             orderData.content.map((order) => {
               console.log(order.rating);
               return (
-                <Tr key={order.id} cursor="pointer">
+                <Tr key={order.id} cursor="pointer"
+                onClick={() => handleRowClick(order?.id)}
+                >
                   <Link to={`/dashboard/order/${order?.id}`}>
                     <Td
                       style={{
@@ -612,6 +630,8 @@ return (
               <div>No order for this Driver</div>
             </div>
           )}
+          </>
+            )}
         </Tbody>
       </Table>
       <Flex justifyContent="center" marginTop="10" alignItems="center">

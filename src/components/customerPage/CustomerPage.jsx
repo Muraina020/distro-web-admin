@@ -19,9 +19,11 @@ const CustomerPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
  
   useEffect(() => {
     const fetchDrivers = async () => {
+      setIsLoading(true)
       try {
         const response = await customFetch(
           `https://apps-1.lampnets.com/distro/customers/all?pageNo=${currentPage - 1}&pageSize=${itemsPerPage}&sortBy=id&sortDir=asc`
@@ -31,6 +33,8 @@ const CustomerPage = () => {
         setTotalPages(Math.ceil(response.data.totalElements / itemsPerPage));
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false); // Set loading state to false after fetching data
       }
     };
 
@@ -64,6 +68,12 @@ const CustomerPage = () => {
             </Tr>
           </Thead>
           <Tbody>
+          {isLoading ? (
+              <Tr>
+                <Td colSpan={5} textAlign="center" color='#00A69C' >Loading...</Td>
+              </Tr>
+            ) : (
+              <>
             {data.map((item, index) => (
               <Tr key={index} borderBottom="2px solid lightgray" color='#696969' 
               onClick={() => handleRowClick(item?.email)}>
@@ -91,6 +101,8 @@ const CustomerPage = () => {
                 </Td>
               </Tr>
             ))}
+            </>
+            )}
           </Tbody>
         </Table>
 

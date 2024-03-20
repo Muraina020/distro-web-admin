@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ife from "../../assets/img/ife.png";
-import date1 from "../../assets/img/date1.png";
-import date2 from "../../assets/img/date2.png";
-import date3 from "../../assets/img/date3.png";
-import date4 from "../../assets/img/date4.png";
-import date5 from "../../assets/img/date5.png";
-import order1 from "../../assets/img/order1.png";
 import driver1 from "../../assets/img/driver1.png";
 import or from "../../assets/img/or.png";
 import usr from "../../assets/img/usr.png";

@@ -38,6 +38,7 @@ const SingleDriver = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10); 
   const [totalPages, setTotalPages] = useState(0);
   const [isActive, setIsActive] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [activationMessage, setActivationMessage] = useState('');
   const isMediumDevice = useMediaQuery("only screen and (min-width : 768px)");
 
@@ -61,11 +62,13 @@ const SingleDriver = () => {
       // console.log(response);
     } catch (error) {
       console.error("Error fetching driver order:", error);
-      // Handle the error as needed
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    setIsLoading(true)
     fetchDriverProfile();
     fetchDriverOrders();
     // setIsActive(data.currentStatus);
@@ -114,7 +117,9 @@ const SingleDriver = () => {
     setCurrentPage(page);
   };
 
-  
+  const handleRowClick = (id) => {
+    navigate(`/dashboard/order/${id}`);
+  };
 
   const handleSelectUser = (u, id) => {
     dispatch({ type: "CHANGE_USER", payload: u });
@@ -565,11 +570,20 @@ const SingleDriver = () => {
                 <Td style={{ borderBottom: "1px solid lightgray" }}>AMOUNT</Td>
               </Tr>
 
+              {isLoading ? (
+              <Tr>
+                <Td colSpan={5} textAlign="center" color='#00A69C' >Loading...</Td>
+              </Tr>
+            ) : (
+              <>
+
               {orderData.content.length > 0 ? (
                 orderData.content.map((order) => {
                   console.log(order.rating);
                   return (
-                    <Tr key={order.id} cursor="pointer">
+                    <Tr key={order.id} cursor="pointer" 
+                    onClick={() => handleRowClick(order?.id)}
+                    >
                       <Link to={`/dashboard/order/${order?.id}`}>
                         <Td
                           style={{
@@ -659,6 +673,8 @@ const SingleDriver = () => {
                   <div>No order for this Driver</div>
                 </div>
               )}
+              </>
+            )}
             </Tbody>
           </Table>
           {/* <Flex justifyContent="center" marginTop="10" alignItems="center">
