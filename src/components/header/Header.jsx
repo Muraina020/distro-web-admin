@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/distro-logo.png";
 import Container from "../ui/Container";
 import React, { useState } from 'react';
@@ -10,6 +10,7 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
@@ -17,7 +18,8 @@ const Header = () => {
       const data = response.data;
 
       setSearchResults(data);
-      console.log(data);
+      // console.log(data);
+      navigate(`/dashboard/order/${data.id}`); 
     } catch (error) {
       console.error('Error fetching search results:', error);
     }
